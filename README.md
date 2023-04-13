@@ -1,9 +1,13 @@
 
-# 3308-Group-Project
+# 3308-Group-Project Team-04
 
-Class: **3308 Software Dev**
+Class: **3308 Software Dev Spring 2023**
 
-Team Name:
+Professor: **Sreesha Nath**
+
+TA: **Swaminathan Sriram**
+
+Team Name: **Agile Avengers**
 
 Recitation: **014**
 

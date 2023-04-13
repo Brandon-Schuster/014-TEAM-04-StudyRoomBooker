@@ -136,7 +136,7 @@ app.get("/login", (req, res) => {
 // app.use(auth);
 
 app.get('/welcome', (req, res) => {
-  res.json({status: 'success', message: 'Welcome!'});
+  res.json({status: 'success', message: 'xyz!'});
 });
 
 

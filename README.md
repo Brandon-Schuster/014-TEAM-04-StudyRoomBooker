@@ -7,7 +7,7 @@ Professor: **Sreesha Nath**
 
 TA: **Swaminathan Sriram**
 
-Team Name: Agile Avengers
+Team Name: **Agile Avengers**
 
 Recitation: **014**
 

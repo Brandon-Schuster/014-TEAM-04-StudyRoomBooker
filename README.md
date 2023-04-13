@@ -7,7 +7,7 @@ Professor: **Sreesha Nath**
 
 TA: **Swaminathan Sriram**
 
-Team Name: QuickBook
+Team Name: Agile Avengers
 
 Recitation: **014**
 

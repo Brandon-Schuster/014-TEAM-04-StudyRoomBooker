@@ -90,7 +90,6 @@ const all_courses = `
     courses
   ORDER BY courses.course_id ASC;
   `;
-
 app.get("/login", (req, res) => {
   res.render("pages/login");
 });

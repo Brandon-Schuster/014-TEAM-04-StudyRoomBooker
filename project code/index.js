@@ -47,49 +47,7 @@ app.use(
   })
 );
 
-const user = {
-  student_id: undefined,
-  username: undefined,
-  first_name: undefined,
-  last_name: undefined,
-  email: undefined,
-  year: undefined,
-  major: undefined,
-  degree: undefined,
-};
 
-const student_courses = `
-  SELECT DISTINCT
-    courses.course_id,
-    courses.course_name,
-    courses.credit_hours,
-    students.student_id = $1 AS "taken"
-  FROM
-    courses
-    JOIN student_courses ON courses.course_id = student_courses.course_id
-    JOIN students ON student_courses.student_id = students.student_id
-  WHERE students.student_id = $1
-  ORDER BY courses.course_id ASC;`;
-
-const all_courses = `
-  SELECT
-    courses.course_id,
-    courses.course_name,
-    courses.credit_hours,
-    CASE
-    WHEN
-    courses.course_id IN (
-      SELECT student_courses.course_id
-      FROM student_courses
-      WHERE student_courses.student_id = $1
-    ) THEN TRUE
-    ELSE FALSE
-    END
-    AS "taken"
-  FROM
-    courses
-  ORDER BY courses.course_id ASC;
-  `;
 
 app.get('/', (req, res) => {
   res.redirect('/login');

@@ -2,45 +2,11 @@
     <%- include ('../partials/menu') %>
 
         <main>
-            <div class="container"></div>
-            <div class="row">
-                <% results.forEach(function(item) { %>
-                    <div class="col-md-4 mb-4">
-                        <div class="card" >
-                            <img class="card-img-top" src="<%=item.images[0].url%>" alt=" image">
-                            <div class="card-body">
-                                <h3 class="card-title">  
-                                    <%= item.name %>
-                                </h3>
-                                <!-- <h5 class="card-title">Date: <%= item.dates.start.localDate %> </h5> -->
-                                <h5 class="card-title">Date: <%= item.dates.start.localDate %>
-                                </h5>
-                                <h5 class="card-title">Time: <%= item.dates.start.localTime %>
-                                </h5>
-
-
-                                <p class="card-text">
-                                    <%= item.info %>
-                                </p>
-                                <p class="card-text">
-                                    <%= item.description %>
-                                </p>
-                                <p class="card-text">
-                                    <%= item.additionalInfo %>
-                                </p>
-                                <p class="card-text">
-                                    <%= item.pleaseNote %>
-                                </p>
-
-                                <!-- <p class="card-text"></p> -->
-                                <a href="<%=item.url %>" class="btn btn-primary">Purchase</a>
-                            </div>
-                        </div>
-
-                    </div>
-                    <% }); %>
+            <div class="container">
+                <div class="row">
+                    OMG, wow! You got to the home page w/o everything going wrong. Good Jobismsmsms 
+                </div>
             </div>
-
         </main>
 
         <%- include ('../partials/footer') %>

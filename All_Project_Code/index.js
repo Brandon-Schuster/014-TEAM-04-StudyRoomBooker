@@ -1,5 +1,3 @@
-// delete this line
-
 const express = require("express");
 const app = express();
 const pgp = require("pg-promise")();
@@ -52,6 +50,15 @@ app.use(
 
 
 
+
+
+
+
+
+
+// ROUTES GO HERE
+
+// LOGIN ROUTES
 app.get('/', (req, res) => {
   res.redirect('/login');
 });
@@ -89,13 +96,13 @@ app.post("/login", (req, res) => {
 });
 
 // Authentication middleware.
-const auth = (req, res, next) => {
-  if (!req.session.student) {
-    return res.redirect("/login");
-  }
-  next();
-};
-app.use(auth);
+// const auth = (req, res, next) => {
+//   if (!req.session.student) {
+//     return res.redirect("/login");
+//   }
+//   next();
+// };
+// app.use(auth);
 
 app.get("/", (req, res) => {
   res.render("pages/home", {
@@ -127,8 +134,6 @@ app.get("/home", (req, res) => {
     // });
 });
 
-
-
 app.get("/logout", (req, res) => {
   req.session.destroy();
   res.render("pages/logout");
@@ -140,11 +145,15 @@ app.get("/logout", (req, res) => {
 
 
 
-
+// REGISTRATION ROUTES
 
 app.get("/register", (req, res) => {
   res.render('pages/register');
 });
+
+// CREATE A POST ROUTE HERE TO CREATE A NEW ACC
+
+
 
 
 

@@ -90,8 +90,13 @@ const all_courses = `
     courses
   ORDER BY courses.course_id ASC;
   `;
+
+app.get('/', (req, res) => {
+  res.redirect('/login');
+});
+
 app.get("/login", (req, res) => {
-  res.render("pages/login");
+  res.render('pages/login');
 });
 
 // Login submission

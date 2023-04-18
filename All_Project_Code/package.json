@@ -8,8 +8,8 @@
     "pg-promise": "^10.11.1",
     "body-parser": "1.20.0",
     "express-session": "1.17.3",
-    "nodemon": "2.0.20"
-
+    "nodemon": "2.0.20",
+    "path":"0.12.7"
   },
   "devDependencies": {
     "nodemon": "^2.0.7",

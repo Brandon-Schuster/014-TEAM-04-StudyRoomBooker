@@ -4,7 +4,7 @@ const pgp = require("pg-promise")();
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const path = require("path");
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
 
 
 // db config
@@ -139,7 +139,6 @@ app.get("/logout", (req, res) => {
   req.session.destroy();
   res.render("pages/logout");
 });
-
 
 
 

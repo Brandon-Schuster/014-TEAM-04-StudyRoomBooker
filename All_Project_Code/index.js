@@ -4,6 +4,7 @@ const pgp = require("pg-promise")();
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const path = require("path");
+const bcrypt = require("bcrypt")
 
 
 // db config
@@ -152,8 +153,6 @@ app.get("/register", (req, res) => {
 });
 
 // CREATE A POST ROUTE HERE TO CREATE A NEW ACC
-
-
 
 
 

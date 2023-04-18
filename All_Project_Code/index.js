@@ -4,6 +4,9 @@ const pgp = require("pg-promise")();
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const path = require("path");
+const bcrypt = require('bcrypt');
+const axios = require('axios');
+
 
 
 // db config
@@ -47,7 +50,15 @@ app.use(
     extended: true,
   })
 );
-
+const user = {
+  studentid: undefined,
+  first_name: undefined,
+  last_name: undefined,
+  email: undefined,
+  year: undefined,
+  major: undefined,
+  degree: undefined,
+}
 
 
 
@@ -68,32 +79,45 @@ app.get("/login", (req, res) => {
 });
 
 // Login submission
-app.post("/login", (req, res) => {
-  const email = req.body.email;
-  const username = req.body.username;
-  const query = "select * from students where students.email = $1";
-  const values = [email];
+app.post('/login', async (req,res) =>{
+  const studentid = req.body.StudentID;
+ const query = `select * from students where StudentID = ${studentid}; `;
+ db.one(query)
+ .then(async data =>{
+  console.log(data)
+  const match = await bcrypt.compare(req.body.password, data.pwd);
+  
 
-  // get the student_id based on the emailid
-  db.one(query, values)
-    .then((data) => {
+  if(match){
+    user.studentid = req.body.StudentID
+    req.session.user = user;
+    req.session.save();
+    res.redirect('/home')
+    } else{
+  
+      res.render("pages/login", {
+        
+        error: true,
+        message: "Incorrect username or password.",
+      });
+    }
+   })
+   .catch(err =>{
+  // console.log(err)
+  // console.log(res.status)
 
-      // students.StudentId = data.StudentId;
-      // students.first_name = data.first_name;
-      // students.last_name = data.last_name;
-      // students.email = data.email;
-      // students.pwd = data.pwd;
-
-      // req.session.students = students;
-      req.session.save();
-
-      res.redirect("/");
+   // no users exist so go to register
+   console.log(err.code)
+   if(err.code == 42703){
+    res.redirect('/register')
+   } else{
+    res.render("pages/login",{
+      message: err.message
     })
-    .catch((err) => {
-      console.log(err);
-      res.redirect("/login");
-    });
-});
+   }
+
+ })
+})
 
 // Authentication middleware.
 // const auth = (req, res, next) => {

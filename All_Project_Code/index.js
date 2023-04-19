@@ -140,6 +140,7 @@ app.get("/", (req, res) => {
 
 app.get("/home", (req, res) => {
   const taken = req.query.taken;
+  res.render("pages/home")
   // Query to list all the courses taken by a student
 
   // db.any(taken ? student_courses : all_courses, [req.session.user.student_id])
@@ -156,6 +157,20 @@ app.get("/home", (req, res) => {
   //       message: err.message,
   //     })
     // });
+});
+
+app.post("/tableBook", (req, res) =>{
+  const Query = `INSERT INTO student_tables (TableID, StudentID) VALUES (0, 1101);`;
+  db.any(Query)
+  .then((data) => {
+    res.status(201).json({
+      message: 'data added, enjoy your reservation'
+    });
+    res.redirect("/home");
+  })
+  .catch((error) => {
+    console.log(error);
+  })
 });
 
 app.get("/logout", (req, res) => {

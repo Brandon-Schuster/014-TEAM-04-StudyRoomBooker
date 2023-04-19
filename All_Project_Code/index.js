@@ -176,10 +176,22 @@ app.get("/register", (req, res) => {
 });
 
 // CREATE A POST ROUTE HERE TO CREATE A NEW ACC
+app.post('/register', async (req, res) => {
+  //hash the password using bcrypt library
+  const hash = await bcrypt.hash(req.body.password, 10);
 
-
-
-
+  const info = `insert into students (first_name, last_name, email, StudentID, pwd) values ($1, $2, $3, $4, $5);`;
+  
+  db.any(info, [req.body.first_name, req.body.last_name, req.body.email, req.body.StudentID, hash])
+  .then((data) => {
+    console.log(data);
+    res.redirect("/login");
+  })
+  .catch((error) => {
+    console.log(error);
+    res.redirect("/register");
+  })
+});
 
 
 

@@ -51,13 +51,11 @@ app.use(
   })
 );
 const user = {
-  studentid: undefined,
+  StudentID: undefined,
   first_name: undefined,
   last_name: undefined,
   email: undefined,
-  year: undefined,
-  major: undefined,
-  degree: undefined,
+  pwd: undefined,
 }
 
 
@@ -119,24 +117,6 @@ app.post('/login', async (req, res) => {
     })
 })
 
-// Authentication middleware.
-// const auth = (req, res, next) => {
-//   if (!req.session.student) {
-//     return res.redirect("/login");
-//   }
-//   next();
-// };
-// app.use(auth);
-
-app.get("/", (req, res) => {
-  res.render("pages/home", {
-    StudentID: req.session.user.StudentID,
-    first_name: req.session.user.first_name,
-    last_name: req.session.user.last_name,
-    email: req.session.user.email,
-    pwd: req.session.user.pwd,
-  });
-});
 
 app.get("/home", (req, res) => {
   const taken = req.query.taken;
@@ -234,6 +214,24 @@ app.post('/add_user', function (req, res) {
     });
 });
 
+// Authentication middleware.
+const auth = (req, res, next) => {
+  if (!req.session.user) {
+    return res.redirect("/login");
+  }
+  next();
+};
+app.use(auth);
+
+app.get("/", (req, res) => {
+  res.render("pages/home", {
+    StudentID: req.session.user.StudentID,
+    first_name: req.session.user.first_name,
+    last_name: req.session.user.last_name,
+    email: req.session.user.email,
+    pwd: req.session.user.pwd,
+  });
+});
 
 
 

@@ -66,7 +66,10 @@ const user = {
 
 
 // ROUTES GO HERE
-
+app.get('/welcome', (req, res) => {
+  console.log("here");
+  res.json({ status: 'success', message: 'Welcome!' });
+});
 // LOGIN ROUTES
 app.get('/', (req, res) => {
   res.redirect('/login');
@@ -141,10 +144,14 @@ app.post('/register', async (req, res) => {
     .then((data) => {
       console.log(data);
       res.redirect(200, "/login");
+      // res.status(200).json({
+      //   data: data,
+      //   message: 'data added successfully',
+      // });
     })
     .catch((error) => {
       console.log(error);
-      res.redirect(400, "/register");
+      res.redirect(404, "/register");
     })
 });
 
@@ -240,9 +247,7 @@ app.get("/logout", (req, res) => {
 
 
 // LEAVE THIS SHIT...please UwU
-app.get('/welcome', (req, res) => {
-  res.json({ status: 'success', message: 'Welcome!' });
-});
+
 
 module.exports = app.listen(3000);
 console.log("Server is listening on port 3000");

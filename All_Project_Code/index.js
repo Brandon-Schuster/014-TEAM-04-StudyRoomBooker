@@ -230,7 +230,7 @@ app.post('/add_user', function (req, res) {
     // send error message
     .catch(function (err) {
       console.log(err);
-      res.status(400)
+      res.status(404).json({message: 'Invalid input'})
     });
 });
 

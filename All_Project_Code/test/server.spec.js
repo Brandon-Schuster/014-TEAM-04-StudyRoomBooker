@@ -42,4 +42,19 @@ describe('Server!', () => {
       });
   });
 
+
+
+  //We are checking POST /add_user API by passing the user info in in incorrect manner (name cannot be an integer). This test case should pass and return a status 200 along with a "Invalid input" message.
+it('Negative : /add_user. Checking invalid name', done => {
+  chai
+    .request(server)
+    .post('/add_user')
+    .send({ StudentID: '2234', first_name: 'Ligma', last_name:'Cabals', pwd:"yes",email:'steveharvey@realsteveharvevy.legit'})
+    .end((err, res) => {
+      expect(res).to.have.status(404);
+      expect(res.body.message).to.equals('Invalid input');
+      done();
+    });
+});
+
 });

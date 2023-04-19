@@ -212,7 +212,7 @@ app.post('/add_user', function (req, res) {
   const query =
     'insert into students (StudentID, first_name, last_name, pwd, email) values ($1, $2, $3, $4, $5)  returning * ;';
   db.any(query, [
-    req.body.StuduentID,
+    req.body.StudentID,
     req.body.first_name,
     req.body.last_name,
     req.body.pwd,

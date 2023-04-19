@@ -118,43 +118,6 @@ app.post('/login', async (req, res) => {
 })
 
 
-app.get("/home", (req, res) => {
-  const taken = req.query.taken;
-  res.render("pages/home")
-  // Query to list all the courses taken by a student
-
-  // db.any(taken ? student_courses : all_courses, [req.session.user.student_id])
-  //   .then((courses) => {
-  //     res.render("pages/courses", {
-  //       courses,
-  //       action: req.query.taken ? "delete" : "add",
-  //     });
-  //   })
-  //   .catch((err) => {
-  //     res.render("pages/courses", {
-  //       courses: [],
-  //       error: true,
-  //       message: err.message,
-  //     })
-  // });
-});
-
-app.post("/tableBook", (req, res) => {
-  const Query = `INSERT INTO student_tables (TableID, StudentID) VALUES (0, 1101);`;
-  db.any(Query)
-    .then(() => {
-      res.redirect(200, "/home");
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-});
-
-app.get("/logout", (req, res) => {
-  req.session.destroy();
-  res.render("pages/logout");
-});
-
 
 
 
@@ -232,6 +195,47 @@ app.get("/", (req, res) => {
     pwd: req.session.user.pwd,
   });
 });
+
+
+
+app.get("/home", (req, res) => {
+  const taken = req.query.taken;
+  res.render("pages/home")
+  // Query to list all the courses taken by a student
+
+  // db.any(taken ? student_courses : all_courses, [req.session.user.student_id])
+  //   .then((courses) => {
+  //     res.render("pages/courses", {
+  //       courses,
+  //       action: req.query.taken ? "delete" : "add",
+  //     });
+  //   })
+  //   .catch((err) => {
+  //     res.render("pages/courses", {
+  //       courses: [],
+  //       error: true,
+  //       message: err.message,
+  //     })
+  // });
+});
+
+app.post("/tableBook", (req, res) => {
+  const Query = `INSERT INTO student_tables (TableID, StudentID) VALUES (0, 1101);`;
+  db.any(Query)
+    .then(() => {
+      res.redirect(200, "/home");
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+});
+
+app.get("/logout", (req, res) => {
+  req.session.destroy();
+  res.render("pages/logout");
+});
+
+
 
 
 

@@ -34,7 +34,7 @@ describe('Server!', () => {
     chai
       .request(server)
       .post('/add_user')
-      .send({ StuduentID: 0002, first_name: 'Ligma', last_name:'Cabals', pwd:"yes",email:'steveharvey@realsteveharvevy.legit' })
+      .send({ StudentID: 2234, first_name: 'Ligma', last_name:'Cabals', pwd:"yes",email:'steveharvey@realsteveharvevy.legit'})
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body.message).to.equals('data added successfully');

@@ -33,7 +33,7 @@ db.connect()
 
 // set the view engine to ejs
 app.set("view engine", "ejs");
-app.set('views',path.join(__dirname, '/src/views'));
+app.set('views', path.join(__dirname, '/src/views'));
 app.use(bodyParser.json());
 
 // set session
@@ -79,44 +79,44 @@ app.get("/login", (req, res) => {
 });
 
 // Login submission
-app.post('/login', async (req,res) =>{
+app.post('/login', async (req, res) => {
   const studentid = req.body.StudentID;
- const query = `select * from students where StudentID = ${studentid}; `;
- db.one(query)
- .then(async data =>{
-  console.log(data)
-  const match = await bcrypt.compare(req.body.password, data.pwd);
-  
+  const query = `select * from students where StudentID = ${studentid}; `;
+  db.one(query)
+    .then(async data => {
+      console.log(data)
+      const match = await bcrypt.compare(req.body.password, data.pwd);
 
-  if(match){
-    user.studentid = req.body.StudentID
-    req.session.user = user;
-    req.session.save();
-    res.redirect('/home')
-    } else{
-  
-      res.render("pages/login", {
-        
-        error: true,
-        message: "Incorrect username or password.",
-      });
-    }
-   })
-   .catch(err =>{
-  // console.log(err)
-  // console.log(res.status)
 
-   // no users exist so go to register
-   console.log(err.code)
-   if(err.code == 42703){
-    res.redirect('/register')
-   } else{
-    res.render("pages/login",{
-      message: err.message
+      if (match) {
+        user.studentid = req.body.StudentID
+        req.session.user = user;
+        req.session.save();
+        res.redirect('/home')
+      } else {
+
+        res.render("pages/login", {
+
+          error: true,
+          message: "Incorrect username or password.",
+        });
+      }
     })
-   }
+    .catch(err => {
+      // console.log(err)
+      // console.log(res.status)
 
- })
+      // no users exist so go to register
+      console.log(err.code)
+      if (err.code == 42703) {
+        res.redirect('/register')
+      } else {
+        res.render("pages/login", {
+          message: err.message
+        })
+      }
+
+    })
 })
 
 // Authentication middleware.
@@ -156,21 +156,18 @@ app.get("/home", (req, res) => {
   //       error: true,
   //       message: err.message,
   //     })
-    // });
+  // });
 });
 
-app.post("/tableBook", (req, res) =>{
+app.post("/tableBook", (req, res) => {
   const Query = `INSERT INTO student_tables (TableID, StudentID) VALUES (0, 1101);`;
   db.any(Query)
-  .then((data) => {
-    res.status(201).json({
-      message: 'data added, enjoy your reservation'
-    });
-    res.redirect("/home");
-  })
-  .catch((error) => {
-    console.log(error);
-  })
+    .then(() => {
+      res.redirect(200, "/home");
+    })
+    .catch((error) => {
+      console.log(error);
+    })
 });
 
 app.get("/logout", (req, res) => {
@@ -196,23 +193,53 @@ app.post('/register', async (req, res) => {
   const hash = await bcrypt.hash(req.body.password, 10);
 
   const info = `insert into students (first_name, last_name, email, StudentID, pwd) values ($1, $2, $3, $4, $5);`;
-  
+
   db.any(info, [req.body.first_name, req.body.last_name, req.body.email, req.body.StudentID, hash])
-  .then((data) => {
-    console.log(data);
-    res.redirect("/login");
-  })
-  .catch((error) => {
-    console.log(error);
-    res.redirect("/register");
-  })
+    .then((data) => {
+      console.log(data);
+      res.redirect(200, "/login");
+    })
+    .catch((error) => {
+      console.log(error);
+      res.redirect(400, "/register");
+    })
 });
+
+
+
+
+app.post('/add_user', function (req, res) {
+  const query =
+    'insert into students (StudentID, first_name, last_name, pwd, email) values ($1, $2, $3, $4, $5)  returning * ;';
+  db.any(query, [
+    req.body.StuduentID,
+    req.body.first_name,
+    req.body.last_name,
+    req.body.pwd,
+    req.body.email,
+  ])
+    // if query execution succeeds
+    // send success message
+    .then(function (data) {
+      res.status(200).json({
+        data: data,
+        message: 'data added successfully',
+      });
+    })
+    // if query execution fails
+    // send error message
+    .catch(function (err) {
+      console.log(err);
+      res.status(400)
+    });
+});
+
 
 
 
 // LEAVE THIS SHIT...please UwU
 app.get('/welcome', (req, res) => {
-  res.json({status: 'success', message: 'Welcome!'});
+  res.json({ status: 'success', message: 'Welcome!' });
 });
 
 module.exports = app.listen(3000);

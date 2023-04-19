@@ -4,4 +4,4 @@
 | Brandon Schuster| ~13        | ad6b3e4ab3a1145985cd354c29fc9e4443fb66f0|
 | James Gashi  | 5.            | e1b7bb265e9c0a1a9c50b9e4cc5cc6ba0fcc8411|
 | Jeremy       | 2             | 1b3a09a9b44c1edb6f8fa45039180f527be868f4|
-
+| Daniel       | 4             | efc041a40f3c1646503a14584f31c1f4993ee531|

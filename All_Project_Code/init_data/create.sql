@@ -19,3 +19,9 @@ CREATE TABLE student_tables(
     TableID INT NOT NULL REFERENCES csel(TableID),
     StudentID INT NOT NULL REFERENCES students(StudentID)
 );
+DROP TABLE IF EXISTS rooms CASCADE;
+Create TABLE rooms(
+    RoomId INT PRIMARY KEY NOT NULL,
+    RoomCapacity VARCHAR(10) NOT NULL,
+    RoomName VARCHAR(60) NOT NULL
+);

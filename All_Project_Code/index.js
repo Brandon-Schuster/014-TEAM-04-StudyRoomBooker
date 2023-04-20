@@ -203,7 +203,9 @@ app.get("/", (req, res) => {
   });
 });
 
-
+app.get("/profile", (req, res) => {
+  res.render("pages/profile")
+})
 
 app.get("/home", (req, res) => {
   const taken = req.query.taken;

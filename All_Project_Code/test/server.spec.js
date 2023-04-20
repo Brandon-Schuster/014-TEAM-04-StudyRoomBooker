@@ -79,7 +79,7 @@ it('Negative : /register. Checking invalid name', done => {
 chai
   .request(server)
   .post('/register')
-  .send({ StudentID: '2234', first_name: 'Ligma', last_name:'Cabals', password:"yes",email:'steveharvey@realsteveharvevy.legit'})
+  .send({ StudentID: 1101, first_name: 'Guy', last_name:'Fawkes', password:"london",email:'guyfawkes@colorado.edu'})
   .end((err, res) => {
     expect(res).to.have.status(404);
     // expect(res.body.message).to.equals('Invalid input');

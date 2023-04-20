@@ -204,8 +204,14 @@ app.get("/", (req, res) => {
 });
 
 app.get("/profile", (req, res) => {
-  res.render("pages/profile")
-})
+  res.render("pages/profile",{
+    StudentID: req.session.user.StudentID,
+    first_name: req.session.user.first_name,
+    last_name: req.session.user.last_name,
+    email: req.session.user.email,
+    pwd: req.session.user.pwd,
+  });
+  })
 
 app.get("/home", (req, res) => {
   const taken = req.query.taken;

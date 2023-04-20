@@ -1,2 +1,3 @@
-node_modules/
-/project_code/node_modules/
+node_modules
+/All_Project_Code/node_modules/
+*.yaml

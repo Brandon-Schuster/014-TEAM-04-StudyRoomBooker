@@ -24,7 +24,9 @@ services:
 
     # command: 'npm run testandrun'
     #             OR
+
     command: 'npm start'
+
 
 
 # This defines our volume(s), which will persist throughout startups.

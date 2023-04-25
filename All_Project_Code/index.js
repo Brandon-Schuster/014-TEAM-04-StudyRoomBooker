@@ -54,7 +54,7 @@ app.use(
   })
 );
 const user = {
-  StudentID: undefined,
+  studentid: undefined,
   first_name: undefined,
   last_name: undefined,
   email: undefined,
@@ -80,8 +80,8 @@ app.get("/login", (req, res) => {
 
 // Login submission
 app.post('/login', async (req, res) => {
-  const studentid = req.body.StudentID;
-  const query = `select * from students where StudentID = ${studentid}; `;
+  const StudentID = req.body.StudentID;
+  const query = `select * from students where StudentID = ${StudentID}; `;
   db.one(query)
     .then(async data => {
       console.log(data)
@@ -89,7 +89,9 @@ app.post('/login', async (req, res) => {
 
 
       if (match) {
-       user.studentid = data.studentid;
+       user.StudentID = data.studentid;
+       user.first_name = data.first_name;
+       user.last_name = data.last_name;
         req.session.user = user;
         req.session.save();
         res.redirect('/home')
@@ -108,7 +110,7 @@ app.post('/login', async (req, res) => {
 
       // no users exist so go to register
       console.log(err.code)
-      if (if (err.code == 42703 || err.code == 0) {
+      if (err.code == 42703 || err.code == 0) {
         res.redirect('/register')
       } else {
         res.render("pages/login", {
@@ -203,8 +205,16 @@ app.get("/", (req, res) => {
 });
 
 app.get("/profile", (req, res) => {
-  res.render("pages/profile")
+  console.log(req.session.user.first_name)
+  res.render("pages/profile",{
+    StudentID: req.session.user.StudentID,
+    first_name: req.session.user.first_name,
+    last_name: req.session.user.last_name,
+    email: req.session.user.email,
+    pwd: req.session.user.pwd,
+  });
 })
+
 
 app.get("/home", (req, res) => {
   const taken = req.query.taken;
@@ -296,7 +306,7 @@ const authClient = new google.auth.JWT(
 
 
 app.post("/delete_user", (req,res) => {
- const theStudentID = req.session.user.studentid;
+ const theStudentID = req.session.user.StudentID;
  console.log('the student id is',theStudentID);
 const query1 = `delete from students where StudentID = ${theStudentID};`
 const query2 = `delete from student_tables where StudentID = ${theStudentID};`

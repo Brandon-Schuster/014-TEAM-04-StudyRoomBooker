@@ -81,7 +81,7 @@ const authClient = new google.auth.JWT(
       // Get the rows
       const res = await service.spreadsheets.values.get({
           auth: authClient,
-          spreadsheetId: "/1aWPsjrxqeuKGbOQP138QgNuh-ayPhiRgwAOJLQriSls",
+          spreadsheetId: "1aWPsjrxqeuKGbOQP138QgNuh-ayPhiRgwAOJLQriSls",
           range: "A:B",
       });
 

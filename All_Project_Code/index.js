@@ -89,7 +89,7 @@ app.post('/login', async (req, res) => {
 
 
       if (match) {
-        user.studentid = req.body.StudentID
+       user.studentid = data.studentid;
         req.session.user = user;
         req.session.save();
         res.redirect('/home')
@@ -108,7 +108,7 @@ app.post('/login', async (req, res) => {
 
       // no users exist so go to register
       console.log(err.code)
-      if (err.code == 42703) {
+      if (if (err.code == 42703 || err.code == 0) {
         res.redirect('/register')
       } else {
         res.render("pages/login", {
@@ -295,7 +295,24 @@ const authClient = new google.auth.JWT(
 })();
 
 
+app.post("/delete_user", (req,res) => {
+ const theStudentID = req.session.user.studentid;
+ console.log('the student id is',theStudentID);
+const query1 = `delete from students where StudentID = ${theStudentID};`
+const query2 = `delete from student_tables where StudentID = ${theStudentID};`
 
+
+db.task('get-everything', task => {
+return task.batch([task.any(query2),task.any(query1)]);
+})
+.then(() => {
+  req.session.destroy();
+  res.redirect('/logout');
+})
+.catch((error) =>{
+  console.log(error);
+})
+});
 
 
 app.post("/tableBook", (req, res) => {

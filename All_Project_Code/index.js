@@ -6,8 +6,11 @@ const session = require("express-session");
 const path = require("path");
 const bcrypt = require('bcrypt');
 const axios = require('axios');
+const fs = require("fs");
+const { google } = require("googleapis");
 
-
+const service = google.sheets("v4");
+const credentials = require("./credentials.json");
 
 // db config
 const dbConfig = {
@@ -57,10 +60,6 @@ const user = {
   email: undefined,
   pwd: undefined,
 }
-
-
-
-
 
 
 

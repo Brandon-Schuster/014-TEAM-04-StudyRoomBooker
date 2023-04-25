@@ -90,7 +90,10 @@ app.post('/login', async (req, res) => {
 
 
       if (match) {
-        user.studentid = req.body.StudentID
+        user.first_name = data.first_name;
+        user.email = data.email;
+        user.last_name = data.last_name;
+        user.studentid = req.body.StudentID;
         req.session.user = user;
         req.session.save();
         res.redirect('/home')
@@ -204,7 +207,14 @@ app.get("/", (req, res) => {
 });
 
 app.get("/profile", (req, res) => {
-  res.render("pages/profile")
+  console.log(req.session.user.first_name)
+  res.render("pages/profile",{
+    StudentID: req.session.user.StudentID,
+    first_name: req.session.user.first_name,
+    last_name: req.session.user.last_name,
+    email: req.session.user.email,
+    pwd: req.session.user.pwd,
+  });
 })
 
 app.get("/home", (req, res) => {

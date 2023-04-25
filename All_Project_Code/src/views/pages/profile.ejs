@@ -4,7 +4,18 @@
   <div class="container">
     <!-- THE REST OF YOUR HTML CODE GOES HERE -->
     <h1><centre>Welcome User : <%= first_name %></centre></h1>
-    <form action = "/delete_user" method="DELETE">
+    <h1><centre> Your student id is <%= StudentID%></centre></h1>
+    <form action = "/delete_user" method="POST">
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary mb-3">Delete Account</button>
+      </div>
+
+    </form>
+
+    <form action = "/updatepassword" method="GET">
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary mb-3">Update password</button>
+      </div>
 
     </form>
   </div>

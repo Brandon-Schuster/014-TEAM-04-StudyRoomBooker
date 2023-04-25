@@ -51,7 +51,7 @@ app.use(
   })
 );
 const user = {
-  StudentID: undefined,
+  studentID: undefined,
   first_name: undefined,
   last_name: undefined,
   email: undefined,
@@ -93,7 +93,7 @@ app.post('/login', async (req, res) => {
         user.first_name = data.first_name;
         user.email = data.email;
         user.last_name = data.last_name;
-        user.studentid = req.body.StudentID;
+        user.studentid = data.studentid;
         req.session.user = user;
         req.session.save();
         res.redirect('/home')
@@ -112,7 +112,7 @@ app.post('/login', async (req, res) => {
 
       // no users exist so go to register
       console.log(err.code)
-      if (err.code == 42703) {
+      if (err.code == 42703 || err.code == 0) {
         res.redirect('/register')
       } else {
         res.render("pages/login", {
@@ -237,7 +237,24 @@ app.get("/home", (req, res) => {
   //     })
   // });
 });
+app.post("/delete_user", (req,res) => {
+ const theStudentID = req.session.user.studentid;
+ console.log('the student id is',theStudentID);
+const query1 = `delete from students where StudentID = ${theStudentID};`
+const query2 = `delete from student_tables where StudentID = ${theStudentID};`
 
+
+db.task('get-everything', task => {
+return task.batch([task.any(query2),task.any(query1)]);
+})
+.then(() => {
+  req.session.destroy();
+  res.redirect('/logout');
+})
+.catch((error) =>{
+  console.log(error);
+})
+});
 app.post("/tableBook", (req, res) => {
   const Query = `INSERT INTO student_tables (TableID, StudentID) VALUES (0, 1101);`;
   db.any(Query)

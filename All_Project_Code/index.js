@@ -240,7 +240,7 @@ app.get("/home", (req, res) => {
 
 app.post("/delete_user", (req,res) => {
   const theStudentID = req.session.user.studentid;
-  console.log('the student id is',theStudentID);
+//  console.log('the student id is',theStudentID);
  const query1 = `delete from students where StudentID = ${theStudentID};`
  const query2 = `delete from student_tables where StudentID = ${theStudentID};`
  
@@ -257,26 +257,28 @@ app.post("/delete_user", (req,res) => {
  })
  });
  app.post("/updatepassword", (req, res) => {
-   const student_id = req.session.user.StudentID;
+   const student_id = req.session.user.studentid;
   
    const query1 = `select * from students where StudentID = ${student_id};`
    db.one(query1)
  .then(async (data) =>{
-     console.log(data)
-     console.log(req.body.oldpassword)
+    // console.log(data)
+     //console.log(req.body.oldpassword)
      const oldpassword = data.pwd;
      const oldpasswordfromuser = req.body.oldpassword;
-     console.log('the old password is from the database is  ', oldpassword, 'and the oldpassword from the user is ', oldpasswordfromuser)
+    // console.log('the old password is from the database is  ', oldpassword, 'and the oldpassword from the user is ', oldpasswordfromuser)
+     const newpasswordhashed = await bcrypt.hash(req.body.newpassword, 10);
      const match = await bcrypt.compare(oldpasswordfromuser, oldpassword);
  
-     console.log(match)
+    // console.log(match)
    
      if(match) {
   // if the password match update the password
-  const newpassword = req.body.newpassword;
-  const query = `update students set pwd = '${newpassword}' where StudentID = ${student_id};`
+  
+  
+  const query = `update students set pwd = '${newpasswordhashed}' where StudentID = ${student_id} returning *;`
        db.one(query)
-       .then(() => {
+       .then((data) => {
          res.render("pages/profile", {
            StudentID: req.session.user.StudentID,
            first_name: req.session.user.first_name,

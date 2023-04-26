@@ -266,17 +266,9 @@ app.get("/tableBook", (req, res) => {
           });
     
           const responses = [];
-    
-          // Set rows to equal the rows
           const rows = res.data.values;
-    
-          // IF we have data
           if (rows.length) {
-    
-              // Remove the first row (headers)
               rows.shift()
-    
-              // For each row
               for (const row of rows) {
                   responses.push({ timeStamp: row[0], answer: row[1] });
               }
@@ -285,17 +277,13 @@ app.get("/tableBook", (req, res) => {
               console.log("No data found.");  
           }
     
-          // Saved the answers
           fs.writeFileSync("answers.json", JSON.stringify(responses), function (err, file) {
               if (err) throw err;
               console.log("Saved!");
           });   
       } catch (error) {
-    
-          // Log the error
+
           console.log(error);
-    
-          // Exit the process with error
           process.exit(1);
     
       }

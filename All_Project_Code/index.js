@@ -321,7 +321,7 @@ app.get("/tableBook", (req, res) => {
       message: error.message,
     });
   });
-
+});
 
 // Configure auth client
 const authClient = new google.auth.JWT(

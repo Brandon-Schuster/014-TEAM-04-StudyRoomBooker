@@ -17,7 +17,7 @@ Group Members:
 
 -   **Daniel Bonnecaze** - [danielbonnecaze](https://github.com/dbcolobuff)
     
--   **Noah Garrett** - [noahggarrett-1](https://github.com/noahggarrett-1), [person1234-ux] (https://github.com/person1234-ux/person1234-ux)
+-   **Noah Garrett** - [noahggarrett-1](https://github.com/noahggarrett-1), [person1234-ux](https://github.com/person1234-ux/person1234-ux)
     
 -   **James Gashi** - [james-gashi](https://github.com/james-gashi)
     

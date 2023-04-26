@@ -1,4 +1,12 @@
 <main>
+  <% if (locals.message) { %>
+    <div
+      class="alert alert-<%- locals.error ? 'danger' : 'success' %>"
+      role="alert"
+    >
+      <%= message %>
+    </div>
+    <% } %>
   <div class="container">
     <!-- THE REST OF YOUR HTML CODE GOES HERE -->
     <h1><centre>Welcome User : <%= first_name %></centre></h1>
@@ -9,11 +17,20 @@
       </div>
 
     </form>
+    <form action ="/updatepassword" method = "POST">
+      <label for="oldpassword"> old password</label>
+      <input type = "text" name ="oldpassword" placeholder="old password"/>
+      
+     <div>
+      <label for="new password">new password</label>
+          <input type="text" name="newpassword" placeholder="new password"/>
+        </div> 
+          <input type = "submit" value="update password" class="btn btn-info">
+   
+  </form>
 
-    <form action = "/updatepassword" method="GET">
-      <div class="col-auto">
-        <button type="submit" class="btn btn-primary mb-3">Update password</button>
-      </div>
+    
+      
 
     </form>
   </div>

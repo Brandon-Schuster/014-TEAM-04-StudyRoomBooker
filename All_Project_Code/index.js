@@ -11,6 +11,7 @@ const { google } = require("googleapis");
 
 const service = google.sheets("v4");
 const credentials = require("./credentials.json");
+const { error } = require("console");
 
 // db config
 const dbConfig = {
@@ -84,7 +85,7 @@ app.post('/login', async (req, res) => {
   const query = `select * from students where StudentID = ${studentid}; `;
   db.one(query)
     .then(async data => {
-      console.log(data)
+      //console.log(data)
       const match = await bcrypt.compare(req.body.password, data.pwd);
 
 
@@ -144,7 +145,7 @@ app.post('/register', async (req, res) => {
 
   db.any(info, [req.body.first_name, req.body.last_name, req.body.email, req.body.StudentID, hash])
     .then((data) => {
-      console.log(data);
+      //console.log(data);
       res.redirect(200, "/login");
       // res.status(200).json({
       //   data: data,
@@ -160,7 +161,7 @@ app.post('/register', async (req, res) => {
 
 
 
-app.post('/add_user', function (req, res) {
+app.post('/add_user', async function (req, res) {
   const query =
     'insert into students (StudentID, first_name, last_name, pwd, email) values ($1, $2, $3, $4, $5)  returning * ;';
   db.any(query, [
@@ -201,7 +202,7 @@ app.get("/", (req, res) => {
     first_name: req.session.user.first_name,
     last_name: req.session.user.last_name,
     email: req.session.user.email,
-    pwd: req.session.user.pwd,
+  
   });
 });
 
@@ -212,7 +213,7 @@ app.get("/profile", (req, res) => {
     first_name: req.session.user.first_name,
     last_name: req.session.user.last_name,
     email: req.session.user.email,
-    pwd: req.session.user.pwd,
+    
   });
 })
 
@@ -260,7 +261,55 @@ app.post("/delete_user", (req,res) => {
     console.log(error);
   })
 });
+app.post("/updatepassword", (req, res) => {
+  const student_id = req.session.user.StudentID;
+ 
+  const query1 = `select * from students where StudentID = ${student_id};`
+  db.one(query1)
+.then(async (data) =>{
+    console.log(data)
+    console.log(req.body.oldpassword)
+    const oldpassword = data.pwd;
+    const oldpasswordfromuser = req.body.oldpassword;
+    console.log('the old password is from the database is  ', oldpassword, 'and the oldpassword from the user is ', oldpasswordfromuser)
+    const match = await bcrypt.compare(oldpasswordfromuser, oldpassword);
 
+    console.log(match)
+  
+    if(match) {
+ // if the password match update the password
+ const newpassword = req.body.newpassword;
+ const query = `update students set pwd = '${newpassword}' where StudentID = ${student_id};`
+      db.one(query)
+      .then(() => {
+        res.render("pages/profile", {
+          StudentID: req.session.user.StudentID,
+          first_name: req.session.user.first_name,
+          last_name: req.session.user.last_name,
+          email: req.session.user.email,
+          error: false,
+          message: "your password has been successfully updated",
+        });
+        
+
+      }).catch((error) =>{
+        console.log(error)
+      })
+    } else{
+      res.render("pages/profile", {
+        StudentID: req.session.user.StudentID,
+        first_name: req.session.user.first_name,
+        last_name: req.session.user.last_name,
+        email: req.session.user.email,
+        error: true,
+        message: "original password is incorrect password not updated",
+      });
+      
+    }
+  }).catch((error)=> {
+    console.log(error);
+  })
+})
 
 
 app.get("/tableBook", (req, res) => {

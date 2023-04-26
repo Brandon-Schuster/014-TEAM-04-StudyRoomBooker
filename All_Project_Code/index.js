@@ -198,7 +198,7 @@ app.use(auth);
 
 app.get("/", (req, res) => {
   res.render("pages/home", {
-    StudentID: req.session.user.StudentID,
+    StudentID: req.session.user.studentid,
     first_name: req.session.user.first_name,
     last_name: req.session.user.last_name,
     email: req.session.user.email,
@@ -209,7 +209,7 @@ app.get("/", (req, res) => {
 app.get("/profile", (req, res) => {
   console.log(req.session.user.first_name)
   res.render("pages/profile",{
-    StudentID: req.session.user.StudentID,
+    StudentID: req.session.user.studentid,
     first_name: req.session.user.first_name,
     last_name: req.session.user.last_name,
     email: req.session.user.email,
@@ -237,80 +237,74 @@ app.get("/home", (req, res) => {
   //     })
   // });
 });
-app.post("/delete_user", (req,res) => {
- const theStudentID = req.session.user.studentid;
- console.log('the student id is',theStudentID);
-const query1 = `delete from students where StudentID = ${theStudentID};`
-const query2 = `delete from student_tables where StudentID = ${theStudentID};`
 
 app.post("/delete_user", (req,res) => {
-  const theStudentID = req.session.user.StudentID;
+  const theStudentID = req.session.user.studentid;
   console.log('the student id is',theStudentID);
-  const query1 = `delete from students where StudentID = ${theStudentID};`
-  const query2 = `delete from student_tables where StudentID = ${theStudentID};`
-  
-  
-  db.task('get-everything', task => {
-  return task.batch([task.any(query2),task.any(query1)]);
-  })
-  .then(() => {
-    req.session.destroy();
-    res.redirect('/logout');
-  })
-  .catch((error) =>{
-    console.log(error);
-  })
-});
-app.post("/updatepassword", (req, res) => {
-  const student_id = req.session.user.StudentID;
+ const query1 = `delete from students where StudentID = ${theStudentID};`
+ const query2 = `delete from student_tables where StudentID = ${theStudentID};`
  
-  const query1 = `select * from students where StudentID = ${student_id};`
-  db.one(query1)
-.then(async (data) =>{
-    console.log(data)
-    console.log(req.body.oldpassword)
-    const oldpassword = data.pwd;
-    const oldpasswordfromuser = req.body.oldpassword;
-    console.log('the old password is from the database is  ', oldpassword, 'and the oldpassword from the user is ', oldpasswordfromuser)
-    const match = await bcrypt.compare(oldpasswordfromuser, oldpassword);
-
-    console.log(match)
+ 
+ db.task('get-everything', task => {
+ return task.batch([task.any(query2),task.any(query1)]);
+ })
+ .then(() => {
+   req.session.destroy();
+   res.redirect('/logout');
+ })
+ .catch((error) =>{
+   console.log(error);
+ })
+ });
+ app.post("/updatepassword", (req, res) => {
+   const student_id = req.session.user.StudentID;
   
-    if(match) {
- // if the password match update the password
- const newpassword = req.body.newpassword;
- const query = `update students set pwd = '${newpassword}' where StudentID = ${student_id};`
-      db.one(query)
-      .then(() => {
-        res.render("pages/profile", {
-          StudentID: req.session.user.StudentID,
-          first_name: req.session.user.first_name,
-          last_name: req.session.user.last_name,
-          email: req.session.user.email,
-          error: false,
-          message: "your password has been successfully updated",
-        });
-        
-
-      }).catch((error) =>{
-        console.log(error)
-      })
-    } else{
-      res.render("pages/profile", {
-        StudentID: req.session.user.StudentID,
-        first_name: req.session.user.first_name,
-        last_name: req.session.user.last_name,
-        email: req.session.user.email,
-        error: true,
-        message: "original password is incorrect password not updated",
-      });
-      
-    }
-  }).catch((error)=> {
-    console.log(error);
-  })
-})
-
+   const query1 = `select * from students where StudentID = ${student_id};`
+   db.one(query1)
+ .then(async (data) =>{
+     console.log(data)
+     console.log(req.body.oldpassword)
+     const oldpassword = data.pwd;
+     const oldpasswordfromuser = req.body.oldpassword;
+     console.log('the old password is from the database is  ', oldpassword, 'and the oldpassword from the user is ', oldpasswordfromuser)
+     const match = await bcrypt.compare(oldpasswordfromuser, oldpassword);
+ 
+     console.log(match)
+   
+     if(match) {
+  // if the password match update the password
+  const newpassword = req.body.newpassword;
+  const query = `update students set pwd = '${newpassword}' where StudentID = ${student_id};`
+       db.one(query)
+       .then(() => {
+         res.render("pages/profile", {
+           StudentID: req.session.user.StudentID,
+           first_name: req.session.user.first_name,
+           last_name: req.session.user.last_name,
+           email: req.session.user.email,
+           error: false,
+           message: "your password has been successfully updated",
+         });
+         
+ 
+       }).catch((error) =>{
+         console.log(error)
+       })
+     } else{
+       res.render("pages/profile", {
+         StudentID: req.session.user.StudentID,
+         first_name: req.session.user.first_name,
+         last_name: req.session.user.last_name,
+         email: req.session.user.email,
+         error: true,
+         message: "original password is incorrect password not updated",
+       });
+       
+     }
+   }).catch((error)=> {
+     console.log(error);
+   })
+ })
 
 app.get("/tableBook", (req, res) => {
   // res.render("pages/tableBook");

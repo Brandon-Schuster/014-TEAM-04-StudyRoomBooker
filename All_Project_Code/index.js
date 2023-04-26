@@ -242,28 +242,102 @@ app.post("/delete_user", (req,res) => {
 const query1 = `delete from students where StudentID = ${theStudentID};`
 const query2 = `delete from student_tables where StudentID = ${theStudentID};`
 
+app.post("/delete_user", (req,res) => {
+  const theStudentID = req.session.user.StudentID;
+  console.log('the student id is',theStudentID);
+  const query1 = `delete from students where StudentID = ${theStudentID};`
+  const query2 = `delete from student_tables where StudentID = ${theStudentID};`
+  
+  
+  db.task('get-everything', task => {
+  return task.batch([task.any(query2),task.any(query1)]);
+  })
+  .then(() => {
+    req.session.destroy();
+    res.redirect('/logout');
+  })
+  .catch((error) =>{
+    console.log(error);
+  })
+});
 
-db.task('get-everything', task => {
-return task.batch([task.any(query2),task.any(query1)]);
-})
-.then(() => {
-  req.session.destroy();
-  res.redirect('/logout');
-})
-.catch((error) =>{
-  console.log(error);
-})
+
+
+app.get("/tableBook", (req, res) => {
+  // res.render("pages/tableBook");
+  axios({
+    url: `https://docs.google.com/forms/d/e/1FAIpQLSeFQu96i8thKDPh6chmpaRUTuFvAZkUBRhwTlhWmPOA0pC4iw/viewform`,
+    method: 'GET',
+    dataType: 'json',
+    headers: {
+      'Accept-Encoding': 'application/json',
+    },
+    params: {
+      apikey: process.env.API_KEY,
+      size: 1,
+    },
+  })
+  
+  .then(results => {
+    console.log(results.data); // the results will be displayed on the terminal if the docker containers are running // Send some parameters
+    res.render("pages/tableBook");
+    const authClient = new google.auth.JWT(
+      credentials.client_email,
+      null,
+      credentials.private_key.replace(/\\n/g, "\n"),
+      ["https://www.googleapis.com/auth/spreadsheets"]
+    );
+    
+    (async function () {
+      try {
+          const token = await authClient.authorize();
+          authClient.setCredentials(token);
+    
+          const res = await service.spreadsheets.values.get({
+              auth: authClient,
+              spreadsheetId: "1TwXIVkJpL0ezrFLh40nzxzB4KlyRVMEwiVzqUHYZ-K4",
+              range: "A:B",
+          });
+    
+          const responses = [];
+          const rows = res.data.values;
+          if (rows.length) {
+              rows.shift()
+              for (const row of rows) {
+                  responses.push({ timeStamp: row[0], answer: row[1] });
+              }
+    
+          } else {
+              console.log("No data found.");  
+          }
+    
+          fs.writeFileSync("answers.json", JSON.stringify(responses), function (err, file) {
+              if (err) throw err;
+              console.log("Saved!");
+          });   
+      } catch (error) {
+
+          console.log(error);
+          process.exit(1);
+    
+      }
+    
+    })();
+  })
+  .catch(error => {
+    // Handle errors
+    res.render("pages/tableBook", {
+      results: [],
+      error: true,
+      message: error.message,
+    });
+  });
 });
-app.post("/tableBook", (req, res) => {
-  const Query = `INSERT INTO student_tables (TableID, StudentID) VALUES (0, 1101);`;
-  db.any(Query)
-    .then(() => {
-      res.redirect(200, "/home");
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-});
+
+
+// app.post("/tableBook", (req, res) => {
+  
+// });
 
 app.get("/logout", (req, res) => {
   req.session.destroy();

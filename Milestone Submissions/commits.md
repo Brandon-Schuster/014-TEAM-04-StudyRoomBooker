@@ -12,6 +12,6 @@
 |--------------|---------------|-----------------------------------------|
 | Noah Garrett |               | |
 | Brandon Schuster|4           | 649022ab4e3f23458a41bd053e54168193301775|
-| James Gashi  |               | |
+| James Gashi  | 1             | 9cf838f99a5e06f252ae886000f889bc595b8d71|
 | Jeremy       |               | |
 | Daniel       |               | |

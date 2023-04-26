@@ -54,7 +54,7 @@ app.use(
   })
 );
 const user = {
-  studentid: undefined,
+  StudentID: undefined,
   first_name: undefined,
   last_name: undefined,
   email: undefined,
@@ -80,8 +80,8 @@ app.get("/login", (req, res) => {
 
 // Login submission
 app.post('/login', async (req, res) => {
-  const StudentID = req.body.StudentID;
-  const query = `select * from students where StudentID = ${StudentID}; `;
+  const studentid = req.body.StudentID;
+  const query = `select * from students where StudentID = ${studentid}; `;
   db.one(query)
     .then(async data => {
       console.log(data)
@@ -89,9 +89,7 @@ app.post('/login', async (req, res) => {
 
 
       if (match) {
-       user.StudentID = data.studentid;
-       user.first_name = data.first_name;
-       user.last_name = data.last_name;
+        user.studentid = req.body.StudentID
         req.session.user = user;
         req.session.save();
         res.redirect('/home')
@@ -110,7 +108,7 @@ app.post('/login', async (req, res) => {
 
       // no users exist so go to register
       console.log(err.code)
-      if (err.code == 42703 || err.code == 0) {
+      if (err.code == 42703) {
         res.redirect('/register')
       } else {
         res.render("pages/login", {
@@ -205,16 +203,8 @@ app.get("/", (req, res) => {
 });
 
 app.get("/profile", (req, res) => {
-  console.log(req.session.user.first_name)
-  res.render("pages/profile",{
-    StudentID: req.session.user.StudentID,
-    first_name: req.session.user.first_name,
-    last_name: req.session.user.last_name,
-    email: req.session.user.email,
-    pwd: req.session.user.pwd,
-  });
+  res.render("pages/profile")
 })
-
 
 app.get("/home", (req, res) => {
   const taken = req.query.taken;
@@ -250,7 +240,6 @@ app.get("/tableBook", (req, res) => {
     },
     params: {
       apikey: process.env.API_KEY,
-      // keyword: 'Phoenix', //you can choose any artist/event here
       size: 1,
     },
   })
@@ -273,7 +262,7 @@ app.get("/tableBook", (req, res) => {
           const res = await service.spreadsheets.values.get({
               auth: authClient,
               spreadsheetId: "1TwXIVkJpL0ezrFLh40nzxzB4KlyRVMEwiVzqUHYZ-K4",
-              range: "A:D",
+              range: "A:B",
           });
     
           const responses = [];
@@ -321,101 +310,6 @@ app.get("/tableBook", (req, res) => {
       message: error.message,
     });
   });
-});
-
-// Configure auth client
-const authClient = new google.auth.JWT(
-  credentials.client_email,
-  null,
-  credentials.private_key.replace(/\\n/g, "\n"),
-  ["https://www.googleapis.com/auth/spreadsheets"]
-);
-
-(async function () {
-  try {
-
-      // Authorize the client
-      const token = await authClient.authorize();
-
-      // Set the client credentials
-      authClient.setCredentials(token);
-
-      // Get the rows
-      const res = await service.spreadsheets.values.get({
-          auth: authClient,
-          spreadsheetId: "1uhhREyJGIb3uZbcNsgGL0FSOaeOBu8p4CMlvByGJ95U",
-          range: "A:B",
-      });
-
-      // Answers array
-      const answers = [];
-
-      // Set rows to equal the rows
-      const rows = res.data.values;
-
-      // IF we have data
-      if (rows.length) {
-
-          // Remove the first row (headers)
-          rows.shift()
-
-          // For each row
-          for (const row of rows) {
-              answers.push({ timeStamp: row[0], answer: row[1] });
-          }
-
-      } else {
-          console.log("No data found.");  
-      }
-
-      // Saved the answers
-      fs.writeFileSync("answers.json", JSON.stringify(answers), function (err, file) {
-          if (err) throw err;
-          console.log("Saved!");
-      });
-
-  } catch (error) {
-
-      // Log the error
-      console.log(error);
-
-      // Exit the process with error
-      process.exit(1);
-
-  }
-
-})();
-
-
-app.post("/delete_user", (req,res) => {
- const theStudentID = req.session.user.StudentID;
- console.log('the student id is',theStudentID);
-const query1 = `delete from students where StudentID = ${theStudentID};`
-const query2 = `delete from student_tables where StudentID = ${theStudentID};`
-
-
-db.task('get-everything', task => {
-return task.batch([task.any(query2),task.any(query1)]);
-})
-.then(() => {
-  req.session.destroy();
-  res.redirect('/logout');
-})
-.catch((error) =>{
-  console.log(error);
-})
-});
-
-
-app.post("/tableBook", (req, res) => {
-  const Query = `INSERT INTO student_tables (TableID, StudentID) VALUES (0, 1101);`;
-  db.any(Query)
-    .then(() => {
-      res.redirect(200, "/home");
-    })
-    .catch((error) => {
-      console.log(error);
-    })
 });
 
 

@@ -239,7 +239,89 @@ app.get("/home", (req, res) => {
 
 
 
-
+app.get("/tableBook", (req, res) => {
+  // res.render("pages/tableBook");
+  axios({
+    url: `https://docs.google.com/forms/d/e/1FAIpQLSeFQu96i8thKDPh6chmpaRUTuFvAZkUBRhwTlhWmPOA0pC4iw/viewform`,
+    method: 'GET',
+    dataType: 'json',
+    headers: {
+      'Accept-Encoding': 'application/json',
+    },
+    params: {
+      apikey: process.env.API_KEY,
+      // keyword: 'Phoenix', //you can choose any artist/event here
+      size: 1,
+    },
+  })
+  
+  .then(results => {
+    console.log(results.data); // the results will be displayed on the terminal if the docker containers are running // Send some parameters
+    res.render("pages/tableBook");
+    const authClient = new google.auth.JWT(
+      credentials.client_email,
+      null,
+      credentials.private_key.replace(/\\n/g, "\n"),
+      ["https://www.googleapis.com/auth/spreadsheets"]
+    );
+    
+    (async function () {
+      try {
+          const token = await authClient.authorize();
+          authClient.setCredentials(token);
+    
+          const res = await service.spreadsheets.values.get({
+              auth: authClient,
+              spreadsheetId: "1TwXIVkJpL0ezrFLh40nzxzB4KlyRVMEwiVzqUHYZ-K4",
+              range: "A:D",
+          });
+    
+          const responses = [];
+    
+          // Set rows to equal the rows
+          const rows = res.data.values;
+    
+          // IF we have data
+          if (rows.length) {
+    
+              // Remove the first row (headers)
+              rows.shift()
+    
+              // For each row
+              for (const row of rows) {
+                  responses.push({ timeStamp: row[0], answer: row[1] });
+              }
+    
+          } else {
+              console.log("No data found.");  
+          }
+    
+          // Saved the answers
+          fs.writeFileSync("answers.json", JSON.stringify(responses), function (err, file) {
+              if (err) throw err;
+              console.log("Saved!");
+          });   
+      } catch (error) {
+    
+          // Log the error
+          console.log(error);
+    
+          // Exit the process with error
+          process.exit(1);
+    
+      }
+    
+    })();
+  })
+  .catch(error => {
+    // Handle errors
+    res.render("pages/tableBook", {
+      results: [],
+      error: true,
+      message: error.message,
+    });
+  });
+});
 
 // Configure auth client
 const authClient = new google.auth.JWT(
@@ -335,6 +417,11 @@ app.post("/tableBook", (req, res) => {
       console.log(error);
     })
 });
+
+
+// app.post("/tableBook", (req, res) => {
+  
+// });
 
 app.get("/logout", (req, res) => {
   req.session.destroy();

@@ -62,7 +62,7 @@ const user = {
   pwd: undefined,
 }
 
-
+app.use(express.static(path.join(__dirname, '/src/resources')));
 
 
 // ROUTES GO HERE
@@ -145,20 +145,19 @@ app.post('/register', async (req, res) => {
 
   db.any(info, [req.body.first_name, req.body.last_name, req.body.email, req.body.StudentID, hash])
     .then((data) => {
-      //console.log(data);
-      res.redirect(200, "/login");
-      // res.status(200).json({
-      //   data: data,
-      //   message: 'data added successfully',
-      // });
+      user.first_name = req.body.first_name;
+      user.email = req.body.email;
+      user.last_name = req.body.last_name;
+      user.studentid = req.body.StudentID;
+      req.session.user = user;
+      req.session.save();
+      res.redirect('/home')
     })
     .catch((error) => {
       console.log(error);
       res.redirect(404, "/register");
     })
 });
-
-
 
 
 app.post('/add_user', async function (req, res) {
@@ -259,7 +258,7 @@ app.post("/delete_user", (req,res) => {
  app.post("/updatepassword", (req, res) => {
    const student_id = req.session.user.studentid;
   
-   const query1 = `select * from students where StudentID = ${student_id};`
+   const query1 = `select * from students where StudentID = ${student_id}; `; 
    db.one(query1)
  .then(async (data) =>{
     // console.log(data)

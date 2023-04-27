@@ -1,5 +1,4 @@
 <%- include ('../partials/header') %>
-    <%- include ('../partials/menu') %>
 
         <main>
 
@@ -11,29 +10,38 @@
                   <%= message %>
                 </div>
                 <% } %>
-            <div class="container">
-                <!-- THE REST OF YOUR HTML CODE GOES HERE -->
-                <form action="/login" method="POST">
-                    <h1>Login</h1>
 
-                    <div class="form-group">
-                        <label for="StudentID">student_id</label>
-                        <input class="form-control" type="text" id="StudentID" name="StudentID" placeholder="student_id" />
-                    </div>
+                <body>
+                    <section>
+                        <div class="form-box">
+                            <div class="form-value">
+                                <form action="/login" method="POST">
+                                    <h2>Login</h2>
+                                    <div class="inputbox">
+                                        <ion-icon name="id-card-outline"></ion-icon>
+                                        <input id="StudentID" name="StudentID" type="text" required>
+                                        <label for="Student ID">Student ID</label>
+                                    </div>
+                                    <div class="inputbox">
+                                        <ion-icon name="lock-closed-outline"></ion-icon>
+                                        <input id="password" name="password" type="password" required>
+                                        <label for="password"> Password</label>
+                                    </div>
+                                    <button type="submit">Log in</button>
+                                    <div class="register">
+                                        <p>Don't have an account? <a href="/register">Register</a></p>
+                                    </div>
+                                </form>
+                            </div>
 
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input class="form-control" type="text" id="password" name="password" />
-                    </div>
+                        </div>
+                    </section>
+                    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+                    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-                    <button type="submit" class="btn btn-success">Login</button>
-                </form>
-
-                <body>Don't have an account?
-                    <a href='/register'>Register</a>
                 </body>
 
-            </div>
+
         </main>
 
         <%- include ('../partials/footer') %>

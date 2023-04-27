@@ -62,7 +62,7 @@ const user = {
   pwd: undefined,
 }
 
-
+app.use(express.static(path.join(__dirname, '/src/resources')));
 
 
 // ROUTES GO HERE
@@ -259,7 +259,7 @@ app.post("/delete_user", (req,res) => {
  app.post("/updatepassword", (req, res) => {
    const student_id = req.session.user.studentid;
   
-   const query1 = `select * from students where StudentID = ${student_id};`
+   const query1 = `select * from students where StudentID = ${student_id}; `; 
    db.one(query1)
  .then(async (data) =>{
     // console.log(data)

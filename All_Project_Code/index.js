@@ -38,6 +38,7 @@ db.connect()
 // set the view engine to ejs
 app.set("view engine", "ejs");
 app.set('views', path.join(__dirname, '/src/views'));
+app.use(express.static('/resources'));
 app.use(bodyParser.json());
 
 // set session

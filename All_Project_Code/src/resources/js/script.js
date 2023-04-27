@@ -1,4 +1,3 @@
-// JS plugins for HTML page go here
 function pwdMatch(){
     var pwd = document.getElementById("password");
     var c_pwd = document.getElementById("confirm_password");

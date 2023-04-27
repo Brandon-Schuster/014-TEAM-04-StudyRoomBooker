@@ -1,16 +1,3 @@
-body {
-    height: 100%;
-    background-color: #f2f2f2;
-  }
-  
-  .event:hover {
-    cursor: pointer;
-  }
-  
-  .hidden {
-    visibility: hidden;
-    height: 0;
-  }
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP');
 *{
     margin: 0;
@@ -134,4 +121,16 @@ button{
     font-size: 1em;
     font-weight: 600;
 }
-
+body {
+    height: 100%;
+    background-color: #f2f2f2;
+  }
+  
+  .event:hover {
+    cursor: pointer;
+  }
+  
+  .hidden {
+    visibility: hidden;
+    height: 0;
+  }

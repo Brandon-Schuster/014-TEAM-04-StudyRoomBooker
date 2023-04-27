@@ -100,19 +100,16 @@ const CALENDAR_EVENTS = [
   name: 'student',
   day: 'wednesday',
   time: '11:00',
-  modality: 'in-person',
   location: 'ccesl',
-  url: '',
-  attendees: '',
+  roomcapacity: '5',
+ 
 },
 {
   name: 'student',
   day: 'tuesday',
   time: '11:00',
-  modality: 'in-person',
   location: 'ccesl',
-  url: '',
-  attendees: '',
+  roomcapacity: '5',
 },
 ];
 
@@ -185,20 +182,12 @@ function updateLocationOptions(value) {
 // @TODO: get the "Location" and "Remote URL" HTML elements from the modal.
 // Use document.querySelector() or document.getElementById().
 const location = document.getElementById("location")//get the "Location" field
-const remoteUrl = document.getElementById("remote_url")// get the "Remote URL" field
+}
 
 // Depending on the "value" change the visibility of these fields on the modal.
 // Use conditional statements.
 
-if(value === "remote"){ //specify the condition. replace the <> with a strings
-  location.setAttribute('hidden',false)
-  remoteUrl.setAttribute('hidden',true)
-}
-else{
-location.setAttribute('hidden',true)
-remoteUrl.setAttribute('hidden',false)
-}
-}
+
 
 function openEventModal({id, day}) {
 // Since we will be reusing the same modal for both creating and updating events,
@@ -223,12 +212,10 @@ if (event === undefined) {
   // Initializing an empty event
   event = {
     name: '',
-    day: day,
+    day: '',
     time: '',
-    modality: '',
     location: '',
-    url: '',
-    attendees: '',
+    roomcapacity: '',
   };
 
   // Allocate a new event id. Note that nothing is inserted into the CALENDAR_EVENTS yet.
@@ -249,10 +236,9 @@ if (event === undefined) {
 document.querySelector("#event_name").value = event.name;
 document.querySelector("#weekday").value = event.day;
 document.querySelector("#time").value = event.time;
-document.querySelector("#event-modality").value = event.modality;
 document.querySelector("#location").value = event.location;
-document.querySelector("#remote_url").value = event.url;
-document.querySelector("#attendees").value = event.attendees;
+document.querySelector("#rooomcapacity").value = event.roomcapacity
+
 
 
 // Hint: If it is a new event, the fields in the modal will be empty.
@@ -277,10 +263,8 @@ CALENDAR_EVENTS[id] = {
  name: document.querySelector('#event_name').value,
  day: document.querySelector('#weekday').value,
  time: document.querySelector('#time').value,
- modality: document.querySelector('#event-modality').value,
  location: document.querySelector('#location').value,
- url: document.querySelector('#remote_url').value,
- attendees :document.querySelector('#attendees').value
+roomcapacity: document.querySelector("#rooomcapacity").value
 
   // @TODO: Update the json object with values from the remaining fields of the modal
 };

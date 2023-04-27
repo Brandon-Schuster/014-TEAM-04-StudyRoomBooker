@@ -145,10 +145,10 @@ app.post('/register', async (req, res) => {
 
   db.any(info, [req.body.first_name, req.body.last_name, req.body.email, req.body.StudentID, hash])
     .then((data) => {
-      user.first_name = data.first_name;
-      user.email = data.email;
-      user.last_name = data.last_name;
-      user.studentid = data.studentid;
+      user.first_name = req.body.first_name;
+      user.email = req.body.email;
+      user.last_name = req.body.last_name;
+      user.studentid = req.body.StudentID;
       req.session.user = user;
       req.session.save();
       res.redirect('/home')

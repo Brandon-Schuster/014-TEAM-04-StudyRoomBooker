@@ -1,5 +1,4 @@
 <%- include ('../partials/header') %>
-    <%- include ('../partials/menu') %>
 
         <main>
             <!-- <script>
@@ -12,47 +11,49 @@
                 }
             }
             </script> -->
-            <div class="container">
-                <!-- THE REST OF YOUR HTML CODE GOES HERE -->
-                <form action="/register" method="POST"> 
-                    <h1>Register</h1>
-                    
-                    <div class="form-group">
-                        <label for="first_name">First Name</label>
-                        <input class="form-control" type="text" id="first_name" name="first_name" required/>
+            <body>
+                <section>
+                    <div class="form-box" id="register">
+                        <div class="form-value">
+                            <form action="/register" method="POST"> 
+                                <h2>Register</h2>
+                                <div class="inputbox">
+                                    <input type="text" id="first_name" name="first_name" required/>
+                                    <label for="first_name">First Name</label>
+                                </div>
+                                <div class="inputbox">
+                                    <input type="text" id="last_name" name="last_name" required/>
+                                    <label for="last_name">Last Name</label>
+                                </div>
+                                <div class="inputbox">
+                                    <input type="text" id="email" name="email" pattern="^(.+)@(.+)$" required/>
+                                    <label for="email">Email</label>
+                                </div>
+                                <div class="inputbox">
+                                    <ion-icon name="id-card-outline"></ion-icon>
+                                    <input type="text" id="StudentID" name="StudentID" required/>
+                                    <label for="StudentID">Student ID</label>
+                                </div>
+                                <div class="inputbox">
+                                    <ion-icon name="lock-closed-outline"></ion-icon>
+                                    <input type="text" id="password" name="password" required/>
+                                    <label for="password">Password</label>
+                                </div>
+                                <button type="submit">Create an account</button>
+                                <div class="login">
+                                    <p>Already have an account? <a href="/login">Login</a></p>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-
-                    <div class="form-group">
-                        <label for="last_name">Last Name</label>
-                        <input class="form-control" type="text" id="last_name" name="last_name" required/>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input class="form-control" type="text" id="email" name="email" pattern="^(.+)@(.+)$" required/>
-                    </div>
-                    <div class="form-group">
-                        <label for="StudentID">student_id</label>
-                        <input class="form-control" type="text" id="StudentID" name="StudentID" required/>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input class="form-control" type="text" id="password" name="password" required/>
-                    </div>
-
-                    <!-- <div class="form-group">
-                        <label for="confirm_password">Confirm Password</label>
-                        <input class="form-control" type="text" id="confirm_password" name="confirm_password" required/>
-                    </div> -->
-                    
-                    <button type="submit" class="btn btn-success">Register</button>
-                </form>
-
-                <body>Already have an account?
-                    <a href='/login'>Login</a>
-                </body>
-            </div>
+                </section>
+                <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+                <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+            </body>
         </main>
 
         <%- include ('../partials/footer') %>
+
+
+
+

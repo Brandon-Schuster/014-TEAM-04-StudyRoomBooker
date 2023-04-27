@@ -1,8 +1,35 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP');
+@import url('https://fonts.googleapis.com/css2?family=Bellota+Text:wght@700&display=swap');
 *{
     margin: 0;
     padding: 0;
     font-family: 'Noto Sans JP', sans-serif;
+}
+
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    background: transparent;
+}
+
+.menu{
+    display: flex;
+    justify-content: space-between;
+    z-index: 99;
+}
+
+#front{
+    padding: 15px;
+}
+
+.logo{
+    font-family: 'Bellota Text', cursive;
+    font-size: 2em;
+    color: white;
+    user-select: none;
 }
 
 section{
@@ -11,7 +38,7 @@ section{
     align-items: center;
     min-height: 100vh;
     width: 100%;
-    background: linear-gradient(45deg, blue, red);; 
+    background: linear-gradient(45deg, orange, pink);; 
 }
 
 .form-box{
@@ -135,4 +162,8 @@ body {
     visibility: hidden;
     height: 0;
   }
+
+#homepage{
+    background: linear-gradient(135deg, orange, pink);
+}
 

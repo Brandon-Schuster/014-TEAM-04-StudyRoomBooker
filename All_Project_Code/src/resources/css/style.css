@@ -122,3 +122,17 @@ button{
     font-weight: 600;
 }
 
+body {
+    height: 100%;
+    background-color: #f2f2f2;
+  }
+  
+  .event:hover {
+    cursor: pointer;
+  }
+  
+  .hidden {
+    visibility: hidden;
+    height: 0;
+  }
+

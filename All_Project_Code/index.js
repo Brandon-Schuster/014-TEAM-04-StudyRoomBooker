@@ -145,20 +145,19 @@ app.post('/register', async (req, res) => {
 
   db.any(info, [req.body.first_name, req.body.last_name, req.body.email, req.body.StudentID, hash])
     .then((data) => {
-      //console.log(data);
-      res.redirect(200, "/login");
-      // res.status(200).json({
-      //   data: data,
-      //   message: 'data added successfully',
-      // });
+      user.first_name = data.first_name;
+      user.email = data.email;
+      user.last_name = data.last_name;
+      user.studentid = data.studentid;
+      req.session.user = user;
+      req.session.save();
+      res.redirect('/home')
     })
     .catch((error) => {
       console.log(error);
       res.redirect(404, "/register");
     })
 });
-
-
 
 
 app.post('/add_user', async function (req, res) {

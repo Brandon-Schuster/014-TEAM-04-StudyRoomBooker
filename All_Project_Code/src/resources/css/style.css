@@ -167,3 +167,22 @@ body {
     background: linear-gradient(135deg, orange, pink);
 }
 
+.logo #front{
+    text-decoration: none;
+}
+
+.navigation a{
+    position: relative;
+    font-size: 1.1em;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 40px
+}
+
+.container{
+    height: 100%;
+    width: 100%;
+    transform: translate(0, 70px);
+}
+

@@ -1,3 +1,5 @@
+
+
 const CALENDAR_DAYS = [
   'Sunday',
   'Monday',
@@ -9,6 +11,7 @@ const CALENDAR_DAYS = [
 ];
 let EVENT_MODAL;
 function initializeContent() {
+ 
   
  EVENT_MODAL =  new bootstrap.Modal('#event-modal');
   //@TODO: use id = "event-modal"
@@ -48,9 +51,11 @@ CALENDAR_DAYS.forEach(day => {
     'bi bi-calendar-plus btn position-absolute translate-middle start-100  rounded p-0 btn-link';
 
   // adding an event listener to the click event of the icon to open the modal
+
+
   // the below line of code would be the equivalent of:
   // <i onclick="openEventModal({day: 'monday'})"> in HTML.
-  addEventIcon.setAttribute('onclick', `openEventModal({day: '${card.id}'})`);
+  //addEventIcon.setAttribute('onclick', callapi());
 
   // add the icon to the title div
   title.appendChild(addEventIcon);
@@ -133,6 +138,7 @@ function updateDOM() {
     // Add the Event Name
     const title = eventElement.querySelector('div.event-title');
     title.innerHTML = event.name; // event here is an input parameter to the function
+   
  
     // Add a tooltip with more information on hover
     // @TODO: you will add code here when you are working on for Part B.
@@ -155,13 +161,24 @@ function updateDOM() {
  //updateTooltips(); // Declare the function in the script.js. You will define this function in Part B.
  }
 
- 
+ const callapi = () => {$.get("/tableBook",
+ {
+  //'day': day
+ }
+ )
+}
+
 
 function openEventModal({id, day}) {
   // Since we will be reusing the same modal for both creating and updating events,
   // we're creating variables to reference the title of the modal and the submit button
   // in javascript so we can update the text suitably
   console.log('hi')
+  //console.log()
+  callapi();
+  
+  
+  
  
 
   // If event is undefined, i.e it does not exist in the CALENDAR_EVENTS, then we create a new event.
@@ -188,6 +205,7 @@ function openEventModal({id, day}) {
   // when the form is submitted by clicking on the "Creat/Update Event" button
 
 }
+//setTimeout(openEventModal,3000);
 
 // Updates the event for a given id with values taken from the modal.
 

@@ -10,7 +10,7 @@ CREATE TABLE students (
 
 DROP TABLE IF EXISTS csel CASCADE;
 CREATE TABLE csel (
-    TableID INT PRIMARY KEY NOT NULL,
+    TableID INT NOT NULL,
     bookingTime VARCHAR(60) NOT NULL
 );
 

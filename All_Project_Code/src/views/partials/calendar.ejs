@@ -22,47 +22,106 @@
     href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
     />
     <script type="text/javascript" src="js/script.js"></script>
-   <!--  <link rel="stylesheet" type="/text/css" href="css/style.css" --> 
+    <link rel="stylesheet" type="/text/css" href="css/style.css" />
   </head>
-
-  <body onload="initializeContent()">
-    <!-- Calendar elements -->
-      <section>
-        <div class="container">
-            <div id="calendar" class="row" style="height: 90vh;">
-              <div class="modal" id="event-modal" tabindex="-1">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Modal title</h5>
-                    </div>
-                    <form>
-                    <div class="modal-body">
-                            <div class="mb-3">
-                              <label for="validationDefault01" class="form-label">Event Name</label>
-                              <input type="text" class="form-control" id="event_name" aria-describedby="eventName" required>
-                            </div>
-                            <div class="mb-3">
-                              <label for="validationDefault02" class="form-label">Weekday</label>
-                              <select id="weekday" class="form-select" required>
-                                <option value="Sunday">Sunday</option>
-                                <option value="Monday">Monday</option>
-                                <option value="Tuesday">Tuesday</option>
-                                <option value="Wednesday">Wednesday</option>
-                                <option value="Thursday">Thursday</option>
-                                <option value="Friday">Friday</option>
-                                <option value="Saturday">Saturday</option>
-                              </select>
-                            </div>
-                           
-                      </div>
-                      </form>
-                    </div>
-                  </div>
+    <!-- Replace myFunction() with initializeContent() -->
+<body onload="initializeContent()">
+    <div class="container">
+  
+        <!-- You may choose another container class of your liking -->
+        <!-- All elements of the webpage will be added within this div -->
+        <div id="calendar" class="row" style="height: 100vh"> 
+        </div>
+        <div class="modal" id="event-modal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form>
+                <div class="mb-3">
+                  <label for="time" class="form-label">Name</label>
+                  <input type="text" class="form-control" id="event_name" aria-describedby="event name">
+         
                 </div>
+                <select class="form-select" aria-label="Select weekday" id = "weekday">
+                  <option selected>select weekday</option>
+                  <option value="sunday">Sunday</option>
+                  <option value="monday">Monday</option>
+                  <option value="tuesday">Tuesday</option>
+                  <option value="wednesday">Wednesday</option>
+                  <option value="thursday">Thursday</option>
+                  <option value="friday">Friday</option>
+                  <option value="saturday">Saturday</option>
+                  
+                </select>
+
+                <div class="mb-3">
+                  <label for="time" class="form-label">Time</label>
+                  <input type="time" class="form-control timePicker" id="time">
+                </div>
+
+                <div class="mb-3">
+                  <label for="attendance" class="form-label">attendance</label>
+                  <input type="text" class="form-control" id="attendees" aria-describedby="attendance">
+                </div>
+                <div>
+                  <label class="form-label" for ="remoteurl" id = remote_url>remote</label>
+                  <input type ="url" id = "remote_url" class="form-control" placeholder="https://">
+                </div>
+                <div>
+                  <label class="form-label" for = "location"> location</label>
+                  <input type = "text" id = "location" class="form-control">
+                </div>
+
+               
+              
+                
+<div>
+  <select
+  class="form-control"
+  id="event-modality"
+  required
+  onchange="updateLocationOptions(this.value)"
+>
+  <option value="in-person" default>In Person</option>
+
+  <option value="remote">Remote</option>
+</select>
+
+
+  
+  <button id="submit_button" class="btn btn-primary" type="submit">
+    Create Event
+  </button>
+
+
+               
+                
+
+                
+
+                
+                
+               
+        
+               </form>
+                 
+                  
+              </div>
+              
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
               </div>
             </div>
+          </div>
         </div>
-      </section>
+
+      </div>
+    
+
+</body>
   </body>
 </html>

@@ -326,7 +326,7 @@ app.get("/tableBook", (req, res) => {
   
   .then(results => {
     console.log(results.data); // the results will be displayed on the terminal if the docker containers are running // Send some parameters
-    res.render("pages/tableBook");
+ //   res.render("pages/tableBook");
   })
   .catch(error => {
     // Handle errors

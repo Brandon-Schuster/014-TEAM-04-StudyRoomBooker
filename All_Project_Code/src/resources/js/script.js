@@ -161,7 +161,7 @@ function updateDOM() {
  //updateTooltips(); // Declare the function in the script.js. You will define this function in Part B.
  }
 
- const callapi = () => {$.get("/tableBook",
+ const callapi = () => {$.get("http://localhost:3000/tableBook?",
  {
   //'day': day
  }
@@ -174,8 +174,11 @@ function openEventModal({id, day}) {
   // we're creating variables to reference the title of the modal and the submit button
   // in javascript so we can update the text suitably
   console.log('hi')
+  callapi()
+
   //console.log()
-  callapi();
+  location.replace("http://localhost:3000/tableBook?")
+
   
   
   

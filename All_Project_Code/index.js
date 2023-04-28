@@ -325,48 +325,6 @@ app.get("/tableBook", (req, res) => {
   .then(results => {
     console.log(results.data); // the results will be displayed on the terminal if the docker containers are running // Send some parameters
     res.render("pages/tableBook");
-    const authClient = new google.auth.JWT(
-      credentials.client_email,
-      null,
-      credentials.private_key.replace(/\\n/g, "\n"),
-      ["https://www.googleapis.com/auth/spreadsheets"]
-    );
-    
-    (async function () {
-      try {
-          const token = await authClient.authorize();
-          authClient.setCredentials(token);
-    
-          const res = await service.spreadsheets.values.get({
-              auth: authClient,
-              spreadsheetId: "1TwXIVkJpL0ezrFLh40nzxzB4KlyRVMEwiVzqUHYZ-K4",
-              range: "A:B",
-          });
-    
-          const responses = [];
-          const rows = res.data.values;
-          if (rows.length) {
-              rows.shift()
-              for (const row of rows) {
-                  responses.push({ timeStamp: row[0], answer: row[1] });
-              }
-    
-          } else {
-              console.log("No data found.");  
-          }
-    
-          fs.writeFileSync("answers.json", JSON.stringify(responses), function (err, file) {
-              if (err) throw err;
-              console.log("Saved!");
-          });   
-      } catch (error) {
-
-          console.log(error);
-          process.exit(1);
-    
-      }
-    
-    })();
   })
   .catch(error => {
     // Handle errors
@@ -379,9 +337,50 @@ app.get("/tableBook", (req, res) => {
 });
 
 
-// app.post("/tableBook", (req, res) => {
+app.post("/tableBook", (req, res) => {
+  res.redirect("/home");
+  const authClient = new google.auth.JWT(
+    credentials.client_email,
+    null,
+    credentials.private_key.replace(/\\n/g, "\n"),
+    ["https://www.googleapis.com/auth/spreadsheets"]
+  );
   
-// });
+  (async function () {
+    try {
+        const token = await authClient.authorize();
+        authClient.setCredentials(token);
+  
+        const res = await service.spreadsheets.values.get({
+            auth: authClient,
+            spreadsheetId: "1TwXIVkJpL0ezrFLh40nzxzB4KlyRVMEwiVzqUHYZ-K4",
+            range: "A:E",
+        });
+  
+        const responses = [];
+        const rows = res.data.values;
+        if (rows.length) {
+            rows.shift()
+            for (const row of rows) {
+                responses.push({ timeStamp: row[0], name: row[1], party_size: row[2], time: row[4], notes: row[3]});
+            }
+  
+        } else {
+            console.log("No data found.");  
+        }
+  
+        fs.writeFileSync("answers.json", JSON.stringify(responses), function (err, file) {
+            if (err) throw err;
+            console.log("Saved!");
+        });   
+    } catch (error) {
+
+        console.log(error);
+        process.exit(1);
+  
+    }
+  })(); 
+});
 
 app.get("/logout", (req, res) => {
   req.session.destroy();

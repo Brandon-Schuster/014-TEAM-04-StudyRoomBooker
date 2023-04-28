@@ -1,39 +1,42 @@
 <%- include ('../partials/header') %>
     <%- include ('../partials/menu') %>
         <%- include ('../partials/calendar') %>
-    <body style="background-color:rgb(50, 50, 50);">
-        <main>
-            <div class="container">
-                <div class="row">
-                    <h1>Welcome! Feel free to book any open table.</h1>
-                    <table>
-                        <tr>
-                            <th>Tables 1-5</th>
-                            <th>Tables 5-10</th>
-                        </tr>
-                        <tr>
-                            <td>Table 1 <form action="/tableBook" method="get"><input type="submit" value="Reserve"></form></td>
-                            <td>Table 2 <form action="/tableBook" method="get"><input type="submit" value="Reserve"></form></td>
-                        </tr>
-                        <tr>
-                            <td>Table 3 <form action="/tableBook" method="get"><input type="submit" value="Reserve"></form></td>
-                            <td>Table 4 <form action="/tableBook" method="get"><input type="submit" value="Reserve"></form></td>
-                        </tr>
-                        <tr>
-                            <td>Table 5 <form action="/tableBook" method="get"><input type="submit" value="Reserve"></form></td>
-                            <td>Table 6 <form action="/tableBook" method="get"><input type="submit" value="Reserve"></form></td>
-                        </tr>
-                        <tr>
-                            <td>Table 7 <form action="/tableBook" method="post"><input type="submit" value="Reserve"></form></td>
-                            <td>Table 8 <form action="/tableBook" method="post"><input type="submit" value="Reserve"></form></td>
-                        </tr>
-                        <tr>
-                            <td>Table 9 <form action="/tableBook" method="post"><input type="submit" value="Reserve"></form></td>
-                            <td>Table 10 <form action="/tableBook" method="post"><input type="submit" value="Reserve"></form></td>
-                        </tr>
-                    </table>
+    
+    <section id="homepage">
+        <body>
+            <main>
+                <div class="container">
+                    <div class="row">
+                        <h1>Welcome! Feel free to book any open table.</h1>
+                        <table>
+                            <tr>
+                                <th>Tables 1-5</th>
+                                <th>Tables 5-10</th>
+                            </tr>
+                            <tr>
+                                <td>Table 1 <form action="/tableBook" method="get"><input type="submit" value="Reserve"></form></td>
+                                <td>Table 2 <form action="/tableBook" method="get"><input type="submit" value="Reserve"></form></td>
+                            </tr>
+                            <tr>
+                                <td>Table 3 <form action="/tableBook" method="get"><input type="submit" value="Reserve"></form></td>
+                                <td>Table 4 <form action="/tableBook" method="get"><input type="submit" value="Reserve"></form></td>
+                            </tr>
+                            <tr>
+                                <td>Table 5 <form action="/tableBook" method="get"><input type="submit" value="Reserve"></form></td>
+                                <td>Table 6 <form action="/tableBook" method="get"><input type="submit" value="Reserve"></form></td>
+                            </tr>
+                            <tr>
+                                <td>Table 7 <form action="/tableBook" method="post"><input type="submit" value="Reserve"></form></td>
+                                <td>Table 8 <form action="/tableBook" method="post"><input type="submit" value="Reserve"></form></td>
+                            </tr>
+                            <tr>
+                                <td>Table 9 <form action="/tableBook" method="post"><input type="submit" value="Reserve"></form></td>
+                                <td>Table 10 <form action="/tableBook" method="post"><input type="submit" value="Reserve"></form></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-            </div>
-        </main>
-    </body>
+            </main>
+        </body>
+    </section>
         <%- include ('../partials/footer') %>

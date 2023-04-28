@@ -1,8 +1,8 @@
 <%- include ('../partials/header') %>
     <%- include ('../partials/menu') %>
-    <body style="background-color:rgb(50, 50, 50);">
 
 <main>
+
   <% if (locals.message) { %>
     <div
       class="alert alert-<%- locals.error ? 'danger' : 'success' %>"
@@ -11,32 +11,43 @@
       <%= message %>
     </div>
     <% } %>
-  <div class="container">
-    <!-- THE REST OF YOUR HTML CODE GOES HERE -->
-    <h1><centre>Welcome User : <%= first_name %></centre></h1>
-    <h1><centre> Your student id is <%= StudentID%></centre></h1>
-    <form action = "/delete_user" method="POST">
-      <div class="col-auto">
-        <button type="submit" class="btn btn-primary mb-3">Delete Account</button>
-      </div>
 
-    </form>
-    <form action ="/updatepassword" method = "POST">
-      <label for="oldpassword"> old password</label>
-      <input type = "text" name ="oldpassword" placeholder="old password"/>
-      
-     <div>
-      <label for="new password">new password</label>
-          <input type="text" name="newpassword" placeholder="new password"/>
-        </div> 
-          <input type = "submit" value="update password" class="btn btn-info">
-   
-  </form>
+    <body>
+      <section>
 
-    
-      
+        <div class="form-box">
+          <div class="form-value">
+            <h2><centre>Welcome User : <%= first_name %></centre></h1>
+            <h2><centre> Your student id is <%= StudentID%></centre></h1>
 
-    </form>
-  </div>
+            <form action ="/updatepassword" method = "POST">
+
+              <div class="inputbox">
+                <input type = "text" name ="oldpassword"/>
+                <label for="oldpassword">Old Password</label>
+              </div>
+              
+              <div class="inputbox">
+                <input type="text" name="newpassword"/>
+                <label for="newpassword">New Password</label>
+              </div>
+
+                  <button type ="submit">Update my password</button>
+            </form>
+
+            <div class="delete">
+              <form action = "/delete_user" method="POST">
+                <div class="col-auto">
+                  <button type="submit">Delete my account</button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+        
+          
+      </section>
+    </body>
+
 </main>
-</body>

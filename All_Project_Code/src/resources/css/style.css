@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP');
-@import url('https://fonts.googleapis.com/css2?family=Bellota+Text:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bellota+Text:ital,wght@0,400;0,700;1,700&display=swap');
 *{
     margin: 0;
     padding: 0;
@@ -186,3 +186,35 @@ body {
     transform: translate(0, 70px);
 }
 
+
+table{
+    color: white;
+    justify-content: center;
+    position: relative;
+    height: 450px;
+    width: 100%;
+    border-radius: 40px;
+    table-layout: auto;
+    text-align: center;
+}
+
+th, td{
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+th{
+    font-family: 'Bellota Text', cursive;
+    font-weight: 800;
+    font-size: 1.4em;
+}
+
+#swift{
+    font-family: 'Bellota Text', cursive;
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+form button{
+    border-radius: 400px;
+}

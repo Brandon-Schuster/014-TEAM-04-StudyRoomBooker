@@ -15,19 +15,19 @@
     <body>
       <section>
 
-        <div class="form-box">
+        <div class="form-box" id="profile">
           <div class="form-value">
-            <h2><centre>Welcome User : <%= first_name %></centre></h1>
-            <h2><centre> Your student id is <%= StudentID%></centre></h1>
+            <h2><span>Welcome, </span><span id="swift"><%= first_name %></span></h2>
+            <h2><span>Your Student ID is: </span><span id="swift"><%= StudentID%></span></h2>
 
             <form action ="/updatepassword" method = "POST">
 
-              <div class="inputbox">
+              <div class="inputbox" id="oldnew">
                 <input type = "text" name ="oldpassword"/>
                 <label for="oldpassword">Old Password</label>
               </div>
               
-              <div class="inputbox">
+              <div class="inputbox" id="oldnew">
                 <ion-icon name="lock-closed-outline"></ion-icon>
                 <input type="text" name="newpassword"/>
                 <label for="newpassword">New Password</label>

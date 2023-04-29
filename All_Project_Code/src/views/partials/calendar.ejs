@@ -26,98 +26,89 @@
   </head>
     <!-- Replace myFunction() with initializeContent() -->
 <body onload="initializeContent()">
-    <div class="container">
-  
-        <!-- You may choose another container class of your liking -->
-        <!-- All elements of the webpage will be added within this div -->
-        <div id="calendar" class="row" style="height: 100vh"> 
-        </div>
-        <div class="modal" id="event-modal">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <form>
-                <div class="mb-3">
-                  <label for="time" class="form-label">Name</label>
-                  <input type="text" class="form-control" id="event_name" aria-describedby="event name">
-         
+    <section>
+      <div class="container">
+          <!-- You may choose another container class of your liking -->
+          <!-- All elements of the webpage will be added within this div -->
+          <div id="calendar" class="row" style="height: 100vh">
+          </div>
+          <div class="modal" id="event-modal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Modal title</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <select class="form-select" aria-label="Select weekday" id = "weekday">
-                  <option selected>select weekday</option>
-                  <option value="sunday">Sunday</option>
-                  <option value="monday">Monday</option>
-                  <option value="tuesday">Tuesday</option>
-                  <option value="wednesday">Wednesday</option>
-                  <option value="thursday">Thursday</option>
-                  <option value="friday">Friday</option>
-                  <option value="saturday">Saturday</option>
+                <form>
+                  <div class="mb-3">
+                    <label for="time" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="event_name" aria-describedby="event name">
+      
+                  </div>
+                  <select class="form-select" aria-label="Select weekday" id = "weekday">
+                    <option selected>select weekday</option>
+                    <option value="sunday">Sunday</option>
+                    <option value="monday">Monday</option>
+                    <option value="tuesday">Tuesday</option>
+                    <option value="wednesday">Wednesday</option>
+                    <option value="thursday">Thursday</option>
+                    <option value="friday">Friday</option>
+                    <option value="saturday">Saturday</option>
+      
+                  </select>
+                  <div class="mb-3">
+                    <label for="time" class="form-label">Time</label>
+                    <input type="time" class="form-control timePicker" id="time">
+                  </div>
+                  <div class="mb-3">
+                    <label for="attendance" class="form-label">attendance</label>
+                    <input type="text" class="form-control" id="attendees" aria-describedby="attendance">
+                  </div>
+                  <div>
+                    <label class="form-label" for = "location"> location</label>
+                    <input type = "text" id = "location" class="form-control">
+                  </div>
+      
+      
                   
-                </select>
-
-                <div class="mb-3">
-                  <label for="time" class="form-label">Time</label>
-                  <input type="time" class="form-control timePicker" id="time">
-                </div>
-
-                <div class="mb-3">
-                  <label for="attendance" class="form-label">attendance</label>
-                  <input type="text" class="form-control" id="attendees" aria-describedby="attendance">
-                </div>
-                <div>
-                  <label class="form-label" for = "location"> location</label>
-                  <input type = "text" id = "location" class="form-control">
-                </div>
-
-               
-              
-                
-<div>
-  <select
-  class="form-control"
-  id="event-modality"
-  required
-  onchange="updateLocationOptions(this.value)"
->
-  <option value="in-person" default>In Person</option>
-
-  <option value="remote">Remote</option>
-</select>
-
-
-  
-  <button id="submit_button" class="btn btn-primary" type="submit">
-    Create Event
-  </button>
-
-
-               
-                
-
-                
-
-                
-                
-               
+      <div>
+        <select
+        class="form-control"
+        id="event-modality"
+        required
+        onchange="updateLocationOptions(this.value)"
+      >
+        <option value="in-person" default>In Person</option>
+      
+        <option value="remote">Remote</option>
+      </select>
+      
+      
         
-               </form>
-                 
-                  
-              </div>
-              
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+        <button id="submit_button" class="btn btn-primary" type="submit">
+      Create Event
+        </button>
+      
+      
+      
+      
+      
+      
+      
+                 </form>
+      
+      
+                </div>
+      
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-
-      </div>
-    
-
+    </section>
+  
 </body>
-  </body>
 </html>

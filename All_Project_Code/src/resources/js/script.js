@@ -120,6 +120,7 @@ function updateDOM() {
       // @TODO: Set the id attribute of the eventElement to be the same as the input id.
       // Replace <> with the correct HTML attribute
       eventElement.Id= `event-${id}`;
+    //  eventElement.day= `event-${day}`;
  
       // Create the element for the Event Name
       const title = document.createElement('div');
@@ -173,11 +174,13 @@ function openEventModal({id, day}) {
   // Since we will be reusing the same modal for both creating and updating events,
   // we're creating variables to reference the title of the modal and the submit button
   // in javascript so we can update the text suitably
-  console.log('hi')
-  callapi()
+
+  //callapi()
 
   //console.log()
-  location.replace("http://localhost:3000/tableBook?")
+  let u = "tableBook"
+  location.replace(u)
+  
 
   
   

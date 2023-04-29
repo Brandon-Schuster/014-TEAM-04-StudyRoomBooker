@@ -133,6 +133,7 @@ app.post('/login', async (req, res) => {
 // REGISTRATION ROUTES
 
 app.get("/register", (req, res) => {
+  console.log('register called')
   res.render('pages/register');
 });
 
@@ -308,7 +309,8 @@ app.post("/delete_user", (req,res) => {
  })
 
 app.get("/tableBook", (req, res) => {
-  // res.render("pages/tableBook");
+  console.log('table book called')
+   res.render("pages/tableBook");
   axios({
     url: `https://docs.google.com/forms/d/e/1FAIpQLSeFQu96i8thKDPh6chmpaRUTuFvAZkUBRhwTlhWmPOA0pC4iw/viewform`,
     method: 'GET',
@@ -324,7 +326,7 @@ app.get("/tableBook", (req, res) => {
   
   .then(results => {
     console.log(results.data); // the results will be displayed on the terminal if the docker containers are running // Send some parameters
-    res.render("pages/tableBook");
+ //   res.render("pages/tableBook");
   })
   .catch(error => {
     // Handle errors
@@ -338,6 +340,7 @@ app.get("/tableBook", (req, res) => {
 
 
 app.post("/tableBook", (req, res) => {
+
   res.redirect("/home");
   const authClient = new google.auth.JWT(
     credentials.client_email,

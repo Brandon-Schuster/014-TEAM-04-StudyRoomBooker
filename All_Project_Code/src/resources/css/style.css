@@ -19,6 +19,7 @@ header{
     display: flex;
     justify-content: space-between;
     z-index: 99;
+    position: relative;
 }
 
 #front{
@@ -38,7 +39,6 @@ section{
     align-items: center;
     min-height: 100vh;
     width: 100%;
-    background: linear-gradient(45deg, orange, pink);; 
 }
 
 .form-box{
@@ -152,6 +152,7 @@ button{
 body {
     height: 100%;
     background-color: #f2f2f2;
+    background: linear-gradient(135deg, orange, pink);
   }
   
   .event:hover {
@@ -164,7 +165,6 @@ body {
   }
 
 #homepage{
-    background: linear-gradient(135deg, orange, pink);
 }
 
 .logo #front{
@@ -183,7 +183,7 @@ body {
 .container{
     height: 100%;
     width: 100%;
-    transform: translate(0, 70px);
+    transform: translate(0, -10px)
 }
 
 
@@ -217,4 +217,42 @@ th{
 
 form button{
     border-radius: 400px;
+}
+
+.goggle-form{
+    position: relative;
+    width: 700px;
+    height: 700px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translate(0, -70px);
+}
+
+.myform{
+    height: 800px;
+}
+
+.confirm{
+    height: 40px;
+    width: 40px;
+}
+
+.formtitle{
+    position: relative;
+}
+
+#profile{
+    transform: translate(0, -100px);
+}
+
+.delete{
+    padding-top: 20px;
+}
+
+#oldnew{
+    width: 350px;
 }

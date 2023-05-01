@@ -32,3 +32,10 @@ CREATE TABLE student_tables (
     TableID INT NOT NULL REFERENCES csel(TableID),
     StudentID INT NOT NULL REFERENCES students(StudentID)
 );
+
+DROP TABLE IF EXISTS bookings CASCADE;
+CREATE TABLE bookings (
+    RoomId INT PRIMARY KEY NOT NULL,
+    BookingStatus BOOLEAN NOT NULL 
+    -- booking status true = booked --
+);

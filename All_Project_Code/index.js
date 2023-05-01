@@ -309,32 +309,43 @@ app.post("/delete_user", (req,res) => {
  })
 
 app.get("/tableBook", (req, res) => {
-  console.log('table book called')
-   res.render("pages/tableBook");
-  axios({
-    url: `https://docs.google.com/forms/d/e/1FAIpQLSeFQu96i8thKDPh6chmpaRUTuFvAZkUBRhwTlhWmPOA0pC4iw/viewform`,
-    method: 'GET',
-    dataType: 'json',
-    headers: {
-      'Accept-Encoding': 'application/json',
-    },
-    params: {
-      apikey: process.env.API_KEY,
-      size: 1,
-    },
-  })
-  
-  .then(results => {
-    console.log(results.data); // the results will be displayed on the terminal if the docker containers are running // Send some parameters
- //   res.render("pages/tableBook");
+  const room_id = req.body.RoomId;
+  const result = `select * from bookings where RoomId = ${room_id};`;
+  db.any(result, [room_id])
+  .then(function(data) {
+    console.log(data);
+    if(data.BookingStatus == true){
+      axios({
+        url: `https://docs.google.com/forms/d/e/1FAIpQLSeFQu96i8thKDPh6chmpaRUTuFvAZkUBRhwTlhWmPOA0pC4iw/viewform`,
+        method: 'GET',
+        dataType: 'json',
+        headers: {
+          'Accept-Encoding': 'application/json',
+        },
+        params: {
+          apikey: process.env.API_KEY,
+          size: 1,
+        },
+      })
+      .then(results => {
+        console.log(results.data); // the results will be displayed on the terminal if the docker containers are running // Send some parameters
+        res.render("pages/tableBook");
+      })
+      .catch(error => {
+        // Handle errors
+        res.render("pages/tableBook", {
+          results: [],
+          error: true,
+          message: error.message,
+        });
+      });
+    }
+    else{
+      res.redirect('/cancelBooking');
+    }
   })
   .catch(error => {
-    // Handle errors
-    res.render("pages/tableBook", {
-      results: [],
-      error: true,
-      message: error.message,
-    });
+    res.render("pages/home");
   });
 });
 

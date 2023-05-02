@@ -17,15 +17,17 @@ Create TABLE rooms (
 
 DROP TABLE IF EXISTS bookings CASCADE;
 CREATE TABLE bookings (
+    BookingId SERIAL PRIMARY KEY NOT NULL,
     RoomId INT NOT NULL REFERENCES rooms(RoomId),
     StudentID INT NOT NULL REFERENCES students(StudentID),
     BookingStatus BOOLEAN NOT NULL,
     BookingTime VARCHAR(60) NOT NULL
+    
     -- booking status true = booked --
 );
 
-DROP TABLE IF EXISTS student_rooms CASCADE;
-CREATE TABLE student_rooms (
-    StudentID INT NOT NULL REFERENCES students(StudentID),
-    RoomId INT NOT NULL REFERENCES rooms(RoomId)
-)
+-- DROP TABLE IF EXISTS student_rooms CASCADE;
+-- CREATE TABLE student_rooms (
+--     StudentID INT NOT NULL REFERENCES students(StudentID),
+--     RoomId INT NOT NULL REFERENCES rooms(RoomId)
+-- )

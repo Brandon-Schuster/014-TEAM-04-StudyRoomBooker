@@ -23,38 +23,44 @@
                                             <th>Tables 1 - 5</th>
                                             <th>Tables 5 - 10</th>
                                         </tr>
-                                        <% for (let i = 1; i <= 10; i += 2) { %>
+                                        <% if (reserve) {  
+                                         reserve.forEach(function(r) { %>
                                             <tr>
                                                 <td>
-                                                    <div class="reserve-info">Table <%= i %></div>
+                                                    <div class="reserve-info" id >Table <%= r.roomname %></div>
                                                     
-                                                    <form action="/tableBook" method="GET" id="<%=i%>%><%=hour%>">
-                                                        <input type = "hidden"id ="tableid" name="tableid"  value="<%=i%>%><%=hour%>"/>
-                                                        <input type= "hidden" name="roomname" value="table<%=i%>"/>
+                                                    <form action="/tableBook" method="GET" id="temp">
+                                                        <input type = "hidden"id ="tableid" name="tableid"  value="<%=r.roomid%>"/>
+                                                        <input type= "hidden" name="roomname" value="table<%=r.name%>"/>
                                                 
                                                         <button type="submit">Reserve</button>
                                                     
                                                     </form>
                                                 </td>
                                                 <td>
-                                                    <div class="reserve-info">Table <%= i + 1 %></div>
+                                                    <div class="reserve-info">Table <%= r.roomname %></div>
                                                     
-                                                    <form action="/tableBook" method="GET" id = id="<%=i+1%><%=hour%>">
-                                                        <input type = "hidden" id = "tableid" name = "tableid" value="<%=i+1%>%><%=hour%>"/>
-                                                        <input type= "hidden" name ="roomname" value="table<%=i%>"/>
-                                                    
-                                                        <button type="submit">Reserve</button>
+                                                    <form action="/tableBook" method="GET" id ="temp">
+                                                        <input type = "hidden" id = "tableid" name = "tableid" value="<%=r.roomid%>"/>
+                                                        <input type= "hidden" name ="roomname" value="table<%=r.name%>"/>
+                                                        <% if(r.bookingstatus){ %>
+                                                            <button type="submit">Cancel</button>
+                                                        <% } else{ %>
+                                                            <button type="submit">Reserve</button>
+                                                        <% } %>
                                                     </form>
                                                     
                                                 </td>
                                             </tr>
+                                            <%  }); %> 
+                                        <% } %>
                                         <% } %>
                                         
                                     </table>
                                     <br>
                                     <br>
 
-                                <% } %>
+                              
                             </div>
                         </div>
                     </div>

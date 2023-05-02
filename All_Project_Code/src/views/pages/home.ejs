@@ -9,21 +9,23 @@
                         <h2><span id="swift">Swift!</span> <span>Table Booking</span></h2>
                         
                         <div class="form-box" id="tablebook">
-                            <% for (let hour = 8; hour <= 18; hour++) { %>
-                                <h3><%= hour %>:00 <%= hour < 12 ? 'AM' : 'PM' %></h3>
-                                <table>
-                                    <tr class="tablehead">
-                                        <th>Tables 1 - 5</th>
-                                        <th>Tables 5 - 10</th>
-                                    </tr>
-                                    <% for (let i = 1; i <= 10; i += 2) { %>
-                                        <tr>
-                                            <td>Table <%= i %> <form action="/tableBook" method="get"><button type="submit">Reserve</button></form></td>
-                                            <td>Table <%= i + 1 %> <form action="/tableBook" method="get"><button type="submit">Reserve</button></form></td>
+                            <div class="scrollable-container">
+                                <% for (let hour = 8; hour <= 18; hour++) { %>
+                                    <h3><%= hour %>:00 <%= hour < 12 ? 'AM' : 'PM' %></h3>
+                                    <table>
+                                        <tr class="tablehead">
+                                            <th>Tables 1 - 5</th>
+                                            <th>Tables 5 - 10</th>
                                         </tr>
-                                    <% } %>
-                                </table>
-                            <% } %>
+                                        <% for (let i = 1; i <= 10; i += 2) { %>
+                                            <tr>
+                                                <td>Table <%= i %> <form action="/tableBook" method="get"><button type="submit">Reserve</button></form></td>
+                                                <td>Table <%= i + 1 %> <form action="/tableBook" method="get"><button type="submit">Reserve</button></form></td>
+                                            </tr>
+                                        <% } %>
+                                    </table>
+                                <% } %>
+                            </div>
                         </div>
 
                     </div>

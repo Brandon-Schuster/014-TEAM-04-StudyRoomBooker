@@ -256,3 +256,8 @@ form button{
 #oldnew{
     width: 350px;
 }
+.scrollable-container {
+    max-height: 600px; /* Adjust the height according to your preference */
+    overflow-y: auto;
+    padding-right: 20px;
+}

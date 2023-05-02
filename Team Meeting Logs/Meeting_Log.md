@@ -1,6 +1,4 @@
-Weekly Project Meeting Log
-
-Meeting 1 - 04.11.2023
+## Meeting 1 - 04.11.2023
 
 Notes:
 
@@ -36,7 +34,7 @@ Most important takeaways from this meeting:
 - We need to see some sort of project functionality before the next meeting
 - Release notes
 
-Meeting 2 - 04.19.2023
+## Meeting 2 - 04.19.2023
 
 Notes:
 
@@ -49,7 +47,7 @@ Notes:
 - Increase pace we have 2 weeks left
 - Update meeting notes continue updating table
 
-Meeting 3 - 04.26.2023
+## Meeting 3 - 04.26.2023
 
 Notes:
 
@@ -69,6 +67,6 @@ Plan for Week:
 - Sign up for presentation slot
 - Put this doc on the repo
 
-Week 4 - 05.02.2023
+## Meeting 4 - 05.02.2023
 
-Notes:
+Copy info from email

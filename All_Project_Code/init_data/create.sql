@@ -17,6 +17,7 @@ Create TABLE rooms (
 
 DROP TABLE IF EXISTS bookings CASCADE;
 CREATE TABLE bookings (
+    BookingId SERIAL PRIMARY KEY NOT NULL,
     RoomId INT NOT NULL REFERENCES rooms(RoomId),
     StudentID INT NOT NULL REFERENCES students(StudentID),
     BookingStatus BOOLEAN NOT NULL,

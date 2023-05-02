@@ -27,13 +27,25 @@
                                             <tr>
                                                 <td>
                                                     <div class="reserve-info">Table <%= i %></div>
-                                                    <input type = "hidden" name = "tableid" class = "nav-link" value="table<%=i%>%><%=hour%>"/>
-                                                    <form action="/tableBook" method="get" id="table<%=i%>%><%=hour%>"><button type="submit">Reserve</button></form>
+                                                    
+                                                    <form action="/tableBook" method="GET" id="<%=i%>%><%=hour%>">
+                                                        <input type = "hidden"id ="tableid" name="tableid"  value="<%=i%>%><%=hour%>"/>
+                                                        <input type= "hidden" name="roomname" value="table<%=i%>"/>
+                                                
+                                                        <button type="submit">Reserve</button>
+                                                    
+                                                    </form>
                                                 </td>
                                                 <td>
                                                     <div class="reserve-info">Table <%= i + 1 %></div>
-                                                    <form action="/tableBook" method="get" id = id="tableid<%=i+1%><%=hour%>"><button type="submit">Reserve</button></form>
-                                                    <input type = "hidden" name = "tableid" class = "nav-link" value="table<%=i%>%><%=hour%>"/>
+                                                    
+                                                    <form action="/tableBook" method="GET" id = id="<%=i+1%><%=hour%>">
+                                                        <input type = "hidden" id = "tableid" name = "tableid" value="<%=i+1%>%><%=hour%>"/>
+                                                        <input type= "hidden" name ="roomname" value="table<%=i%>"/>
+                                                    
+                                                        <button type="submit">Reserve</button>
+                                                    </form>
+                                                    
                                                 </td>
                                             </tr>
                                         <% } %>

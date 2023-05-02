@@ -97,7 +97,7 @@ app.post('/login', async (req, res) => {
         req.session.user = user;
         req.session.save();
         res.render("pages/home",{
-    formid: req.body.formid,
+    //formid: req.body.formid,
   })
       } else {
 
@@ -164,8 +164,7 @@ app.post('/register', async (req, res) => {
 
 
 app.post('/add_user', async function (req, res) {
-  const query =
-    'insert into students (StudentID, first_name, last_name, pwd, email) values ($1, $2, $3, $4, $5)  returning * ;';
+  const query = 'insert into students (StudentID, first_name, last_name, pwd, email) values ($1, $2, $3, $4, $5)  returning * ;';
   db.any(query, [
     req.body.StudentID,
     req.body.first_name,
@@ -204,7 +203,7 @@ app.get("/", (req, res) => {
     first_name: req.session.user.first_name,
     last_name: req.session.user.last_name,
     email: req.session.user.email,
-    formid: req.body.formid,
+   // formid: req.body.formid,
   
   });
 });
@@ -223,7 +222,7 @@ app.get("/profile", (req, res) => {
 app.get("/home", (req, res) => {
   const taken = req.query.taken;
   res.render("pages/home",{
-    formid: res.body.formid,
+    //formid: res.body.formid,
   })
   // Query to list all the courses taken by a student
 
@@ -313,7 +312,23 @@ app.post("/delete_user", (req,res) => {
    })
  })
 
-app.get("/tableBook", (req, res) => {
+app.get("/tableBook", async(req, res) => {
+  console.log('gettablebookingcalled')
+const tableid = req.query.tableid;
+const RoomName = req.query.roomname;
+//const logme = req.
+
+//console.log(logme)
+
+
+//tableid
+
+  const querytoaddrooms = `insert into rooms (RoomId, RoomCapacity, RoomName) values (${tableid},5,'${RoomName}') returning *;`;
+ db.one(querytoaddrooms)
+  //db.any(querytoaddrooms)
+  .catch(error =>{
+    console.log(error)
+  })
   // const room_id = req.body.RoomId;
   // const result = `select * from bookings where RoomId = ${room_id};`;
   // db.any(result, [room_id])
@@ -333,7 +348,7 @@ app.get("/tableBook", (req, res) => {
         },
       })
       .then(results => {
-        console.log(results.data); // the results will be displayed on the terminal if the docker containers are running // Send some parameters
+        //console.log(results.data); // the results will be displayed on the terminal if the docker containers are running // Send some parameters
         res.render("pages/tableBook");
       })
       .catch(error => {
@@ -352,9 +367,10 @@ app.get("/tableBook", (req, res) => {
 
 
 app.post("/tableBook", (req, res) => {
-
+  
+ 
   res.render("pages/home",{
-    formid: req.body.formid,
+ //   formid: req.body.formid,
   })
   const authClient = new google.auth.JWT(
     credentials.client_email,

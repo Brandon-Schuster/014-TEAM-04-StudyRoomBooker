@@ -23,26 +23,31 @@
                                             <th>Tables 1 - 5</th>
                                             <th>Tables 5 - 10</th>
                                         </tr>
+                                       <% let index = 0; %>
                                         <% if (reserve) {  
                                          reserve.forEach(function(r) { %>
                                             <tr>
                                                 <td>
                                                     <div class="reserve-info" id >Table <%= r.roomname %></div>
                                                     
-                                                    <form action="/tableBook" method="GET" id="temp">
+                                                    <form action="/tableBook" method="GET">
+                                                        <input type = "hidden" name ="bookingid" value ="booking<%=index%>"/>
                                                         <input type = "hidden"id ="tableid" name="tableid"  value="<%=r.roomid%>"/>
                                                         <input type= "hidden" name="roomname" value="table<%=r.name%>"/>
                                                 
                                                         <button type="submit">Reserve</button>
-                                                    
+                                                        <%  index++ %>
                                                     </form>
                                                 </td>
                                                 <td>
                                                     <div class="reserve-info">Table <%= r.roomname %></div>
                                                     
-                                                    <form action="/tableBook" method="GET" id ="temp">
+                                                    <form action="/tableBook" method="GET">
+                                                        <input type = "hidden" name ="bookingid" value = "booking<%=index%>"/>
                                                         <input type = "hidden" id = "tableid" name = "tableid" value="<%=r.roomid%>"/>
                                                         <input type= "hidden" name ="roomname" value="table<%=r.name%>"/>
+                                                      <%  index++ %>
+                                                
                                                         <% if(r.bookingstatus){ %>
                                                             <button type="submit">Cancel</button>
                                                         <% } else{ %>

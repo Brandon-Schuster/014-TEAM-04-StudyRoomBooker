@@ -19,7 +19,7 @@
 05.1.2023 - Meeting 4:
 | Name        | # of commits   | commit_id                               |
 |--------------|---------------|-----------------------------------------|
-| Noah Garrett |               | |
+| Noah Garrett |          20   |2bdfcb8cde4b898a6b7729bfa73ff585336f01   |
 | Brandon Schuster|     10     | 4214011d444d6bf5ca4efe57c604091e6c401d92|
 | James Gashi  |               | |
 | Jeremy       |               | |

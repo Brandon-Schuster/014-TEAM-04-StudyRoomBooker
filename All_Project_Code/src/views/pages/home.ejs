@@ -27,11 +27,25 @@
                                             <tr>
                                                 <td>
                                                     <div class="reserve-info" id >Table <%= i %></div>
-                                                    <form action="/tableBook" method="get"><button type="submit">Reserve</button></form>
+                                                    
+                                                    <form action="/tableBook" method="GET" id="<%=i%>%><%=hour%>">
+                                                        <input type = "hidden"id ="tableid" name="tableid"  value="<%=i%>%><%=hour%>"/>
+                                                        <input type= "hidden" name="roomname" value="table<%=i%>"/>
+                                                
+                                                        <button type="submit">Reserve</button>
+                                                    
+                                                    </form>
                                                 </td>
                                                 <td>
                                                     <div class="reserve-info">Table <%= i + 1 %></div>
-                                                    <form action="/tableBook" method="get"><button type="submit">Reserve</button></form>
+                                                    
+                                                    <form action="/tableBook" method="GET" id = id="<%=i+1%><%=hour%>">
+                                                        <input type = "hidden" id = "tableid" name = "tableid" value="<%=i+1%>%><%=hour%>"/>
+                                                        <input type= "hidden" name ="roomname" value="table<%=i%>"/>
+                                                    
+                                                        <button type="submit">Reserve</button>
+                                                    </form>
+                                                    
                                                 </td>
                                             </tr>
                                         <% } %>

@@ -20,7 +20,7 @@
 | Name        | # of commits   | commit_id                               |
 |--------------|---------------|-----------------------------------------|
 | Noah Garrett |               | |
-| Brandon Schuster|            | 4214011d444d6bf5ca4efe57c604091e6c401d92|
+| Brandon Schuster|     10     | 4214011d444d6bf5ca4efe57c604091e6c401d92|
 | James Gashi  |               | |
 | Jeremy       |               | |
 | Daniel       |               | |

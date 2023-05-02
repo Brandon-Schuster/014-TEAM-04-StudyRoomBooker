@@ -16,8 +16,22 @@
                                         <th>Tables 5 - 10</th>
                                 </tr>
                                 <tr>
-                                    <td>Table 1 <form action="/tableBook" method="get"><button type="submit">Reserve</button></form></td>
+                                    
+                                <% if (formid === 'form1') { %>
+                                    <td class="form-box" id="tablebook"></td>>Table 1 <form action="/tableBook" method="get"><button type="submit" disabled></button>Reserve</button></form></td> 
+                                    <input type="hidden" name="formid" value="form1" > 
+                                    <%} else { %>
+                                        <td>Table 1 <form action="/tableBook" method="get"><button type="submit">Reserve</button></form></td>
+                                        <input type="hidden" name="formid" value="form1">
+                                    <% } %>
+
+
+                                    
+                                   
+                                    
                                     <td>Table 2 <form action="/tableBook" method="get"><button type="submit">Reserve</button></form></td>
+
+
                                 </tr>
                                 <tr>
                                     <td>Table 3 <form action="/tableBook" method="get"><button type="submit">Reserve</button></form></td>

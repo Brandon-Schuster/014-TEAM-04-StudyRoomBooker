@@ -202,6 +202,8 @@ app.get("/", (req, res) => {
     first_name: req.session.user.first_name,
     last_name: req.session.user.last_name,
     email: req.session.user.email,
+      formid: req.body.formid,
+    
   
   });
 });
@@ -219,7 +221,9 @@ app.get("/profile", (req, res) => {
 
 app.get("/home", (req, res) => {
   const taken = req.query.taken;
-  res.render("pages/home")
+  res.render("pages/home",{
+    formid: req.body.formid,
+  });
   // Query to list all the courses taken by a student
 
   // db.any(taken ? student_courses : all_courses, [req.session.user.student_id])
@@ -345,14 +349,18 @@ app.get("/tableBook", (req, res) => {
     }
   })
   .catch(error => {
-    res.render("pages/home");
+    res.render("pages/home",{
+      formid: req.body.formid,
+    });
   });
 });
 
 
 app.post("/tableBook", (req, res) => {
 
-  res.redirect("/home");
+  res.render("pages/home",{
+    formid: req.body.formid,
+  });
   const authClient = new google.auth.JWT(
     credentials.client_email,
     null,

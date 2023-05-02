@@ -261,3 +261,11 @@ form button{
     overflow-y: auto;
     padding-right: 20px;
 }
+
+.time-heading {
+    color: white;
+}
+
+.center-table {
+    margin: 0 auto;
+}

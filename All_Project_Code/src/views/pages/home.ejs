@@ -11,8 +11,9 @@
                         <div class="form-box" id="tablebook">
                             <div class="scrollable-container">
                                 <% for (let hour = 8; hour <= 18; hour++) { %>
-                                    <h3><%= hour %>:00 <%= hour < 12 ? 'AM' : 'PM' %></h3>
-                                    <table>
+                                    <% let displayHour = hour % 12 || 12; %>
+                                    <h3 class="time-heading"><%= displayHour %>:00 <%= hour < 12 ? 'AM' : 'PM' %></h3>
+                                    <table class="center-table">
                                         <tr class="tablehead">
                                             <th>Tables 1 - 5</th>
                                             <th>Tables 5 - 10</th>

@@ -269,3 +269,21 @@ form button{
 .center-table {
     margin: 0 auto;
 }
+
+.reserve-info {
+    display: inline-block;
+}
+
+/* Sticky menu */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Add margin to the main content */
+main {
+    margin-top: 60px; /* Adjust this value according to the height of your menu */
+}

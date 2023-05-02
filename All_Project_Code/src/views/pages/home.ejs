@@ -5,9 +5,7 @@
         <body>
             <main>
                 <div class="container">
-                    <div class="row">
-                        <h2><span id="swift">Swift!</span> <span>Table Booking</span></h2>
-                        
+                    <div class="row">                        
                         <div class="form-box" id="tablebook">
                             <div class="scrollable-container">
                                 <% for (let hour = 8; hour <= 18; hour++) { %>
@@ -20,8 +18,14 @@
                                         </tr>
                                         <% for (let i = 1; i <= 10; i += 2) { %>
                                             <tr>
-                                                <td>Table <%= i %> <form action="/tableBook" method="get"><button type="submit">Reserve</button></form></td>
-                                                <td>Table <%= i + 1 %> <form action="/tableBook" method="get"><button type="submit">Reserve</button></form></td>
+                                                <td>
+                                                    <div class="reserve-info">Table <%= i %></div>
+                                                    <form action="/tableBook" method="get"><button type="submit">Reserve</button></form>
+                                                </td>
+                                                <td>
+                                                    <div class="reserve-info">Table <%= i + 1 %></div>
+                                                    <form action="/tableBook" method="get"><button type="submit">Reserve</button></form>
+                                                </td>
                                             </tr>
                                         <% } %>
                                     </table>

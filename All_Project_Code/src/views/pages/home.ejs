@@ -27,11 +27,13 @@
                                             <tr>
                                                 <td>
                                                     <div class="reserve-info">Table <%= i %></div>
-                                                    <form action="/tableBook" method="get"><button type="submit">Reserve</button></form>
+                                                    <input type = "hidden" name = "tableid" class = "nav-link" value="table<%=i%>%><%=hour%>"/>
+                                                    <form action="/tableBook" method="get" id="table<%=i%>%><%=hour%>"><button type="submit">Reserve</button></form>
                                                 </td>
                                                 <td>
                                                     <div class="reserve-info">Table <%= i + 1 %></div>
-                                                    <form action="/tableBook" method="get"><button type="submit">Reserve</button></form>
+                                                    <form action="/tableBook" method="get" id = id="tableid<%=i+1%><%=hour%>"><button type="submit">Reserve</button></form>
+                                                    <input type = "hidden" name = "tableid" class = "nav-link" value="table<%=i%>%><%=hour%>"/>
                                                 </td>
                                             </tr>
                                         <% } %>

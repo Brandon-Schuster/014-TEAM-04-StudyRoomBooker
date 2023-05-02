@@ -6,3 +6,11 @@
 | James Gashi |                |
 | Daniel |                |
 | Jeremy |                |
+
+| Name        | Tasks |
+|--------------|----------------|
+| Noah Garrett |  |
+| Brandon Schuster |                |
+| James Gashi |                |
+| Daniel |                |
+| Jeremy |                |

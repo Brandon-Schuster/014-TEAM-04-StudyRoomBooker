@@ -5,7 +5,12 @@
         <body>
             <main>
                 <div class="container">
-                    <div class="row">                        
+                    <div class="row">
+                        <div class="date-navigation">
+                            <button class="arrow-btn" id="prev-day">&larr;</button>
+                            <span class="current-date"><%= new Date().toLocaleDateString() %></span>
+                            <button class="arrow-btn" id="next-day">&rarr;</button>
+                        </div>
                         <div class="form-box" id="tablebook">
                             <div class="scrollable-container">
                                 <% for (let hour = 8; hour <= 18; hour++) { %>
@@ -32,11 +37,8 @@
                                 <% } %>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
-
             </main>
         </body>
     </section>

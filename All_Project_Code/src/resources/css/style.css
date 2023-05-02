@@ -296,3 +296,42 @@ main {
     z-index: 1000;
 }
 
+.date-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.arrow-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: white;
+}
+
+.current-date {
+    margin: 0 1rem;
+}
+
+.time-heading {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0.5rem; /* Add a small indent between reservation hours */
+}
+
+/* Center the reservation box */
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Make the reservation box bigger */
+.form-box {
+    width: 200%; 
+    padding: 1rem; /* Add padding */
+}

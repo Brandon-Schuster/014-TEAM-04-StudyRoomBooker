@@ -13,9 +13,11 @@
                         </div>
                         <div class="form-box" id="tablebook">
                             <div class="scrollable-container">
+
                                 <% for (let hour = 8; hour <= 18; hour++) { %>
                                     <% let displayHour = hour % 12 || 12; %>
-                                    <h3 class="time-heading"><%= displayHour %>:00 <%= hour < 12 ? 'AM' : 'PM' %></h3>
+                                    <% let displayNextHour = (hour + 1) % 12 || 12; %>
+                                    <h3 class="time-heading"><%= displayHour %><%= hour < 12 ? 'AM' : 'PM' %> - <%= displayNextHour %><%= (hour + 1) < 12 ? 'AM' : 'PM' %></h3>
                                     <table class="center-table">
                                         <tr class="tablehead">
                                             <th>Tables 1 - 5</th>
@@ -33,7 +35,11 @@
                                                 </td>
                                             </tr>
                                         <% } %>
+                                        
                                     </table>
+                                    <br>
+                                    <br>
+
                                 <% } %>
                             </div>
                         </div>
@@ -43,3 +49,35 @@
         </body>
     </section>
         <%- include ('../partials/footer') %>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const currentDate = new Date();
+            let displayedDate = new Date(currentDate);
+    
+            const prevDayButton = document.getElementById("prev-day");
+            const nextDayButton = document.getElementById("next-day");
+            const currentDateElement = document.querySelector(".current-date");
+    
+            function updateDisplayedDate() {
+            currentDateElement.textContent = displayedDate.toLocaleDateString();
+            }
+    
+            prevDayButton.addEventListener("click", function () {
+            displayedDate.setDate(displayedDate.getDate() - 1);
+            updateDisplayedDate();
+            });
+    
+            nextDayButton.addEventListener("click", function () {
+            displayedDate.setDate(displayedDate.getDate() + 1);
+            updateDisplayedDate();
+            });
+        });
+        </script>
+        
+    <style>
+        .time-heading {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    </style>

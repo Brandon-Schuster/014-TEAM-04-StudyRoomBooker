@@ -257,7 +257,7 @@ form button{
     width: 350px;
 }
 .scrollable-container {
-    max-height: 600px; /* Adjust the height according to your preference */
+    max-height: 440px; /* Adjust the height according to your preference */
     overflow-y: auto;
     padding-right: 20px;
 }
@@ -287,3 +287,12 @@ header {
 main {
     margin-top: 60px; /* Adjust this value according to the height of your menu */
 }
+/* Sticky menu */
+.menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+

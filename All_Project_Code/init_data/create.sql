@@ -8,12 +8,6 @@ CREATE TABLE students (
     email VARCHAR(60) NOT NULL
 );
 
-DROP TABLE IF EXISTS csel CASCADE;
-CREATE TABLE csel (
-    TableID INT PRIMARY KEY NOT NULL,
-    bookingTime VARCHAR(60) NOT NULL
-);
-
 DROP TABLE IF EXISTS rooms CASCADE;
 Create TABLE rooms (
     RoomId INT PRIMARY KEY NOT NULL,
@@ -21,21 +15,17 @@ Create TABLE rooms (
     RoomName VARCHAR(60) NOT NULL
 );
 
-DROP TABLE IF EXISTS csel_rooms CASCADE;
-CREATE TABLE csel_rooms (
-    TableID INT NOT NULL REFERENCES csel(TableID),
-    RoomId INT NOT NULL REFERENCES rooms(RoomId)
-);
-
-DROP TABLE IF EXISTS student_tables CASCADE;
-CREATE TABLE student_tables (
-    TableID INT NOT NULL REFERENCES csel(TableID),
-    StudentID INT NOT NULL REFERENCES students(StudentID)
-);
-
 DROP TABLE IF EXISTS bookings CASCADE;
 CREATE TABLE bookings (
-    RoomId INT PRIMARY KEY NOT NULL,
-    BookingStatus BOOLEAN NOT NULL 
+    RoomId INT NOT NULL REFERENCES rooms(RoomId),
+    StudentID INT NOT NULL REFERENCES students(StudentID),
+    BookingStatus BOOLEAN NOT NULL,
+    BookingTime VARCHAR(60) NOT NULL
     -- booking status true = booked --
 );
+
+DROP TABLE IF EXISTS student_rooms CASCADE;
+CREATE TABLE student_rooms (
+    StudentID INT NOT NULL REFERENCES students(StudentID),
+    RoomId INT NOT NULL REFERENCES rooms(RoomId)
+)

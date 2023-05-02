@@ -1,62 +1,83 @@
 <%- include ('../partials/header') %>
     <%- include ('../partials/menu') %>
-        <%- include ('../partials/calendar') %>
     
     <section id="homepage">
         <body>
             <main>
                 <div class="container">
                     <div class="row">
-                        <h2><span id="swift">Swift!</span> <span>Table Booking</span></h2>
-                        
-                        <div class="form-box" id="tablebook">
-                            <table>
-                                <tr class="tablehead">
-                                        <th>Tables 1 - 5</th>
-                                        <th>Tables 5 - 10</th>
-                                </tr>
-                                <tr>
-                                    
-                                <% if (formid === 'form1') { %>
-                                    <td class="form-box" id="tablebook"></td>>Table 1 <form action="/tableBook" method="get"><button type="submit" disabled></button>Reserve</button></form></td> 
-                                    <input type="hidden" name="formid" value="form1" > 
-                                    <%} else { %>
-                                        <td>Table 1 <form action="/tableBook" method="get"><button type="submit">Reserve</button></form></td>
-                                        <input type="hidden" name="formid" value="form1">
-                                    <% } %>
-
-
-                                    
-                                   
-                                    
-                                    <td>Table 2 <form action="/tableBook" method="get"><button type="submit">Reserve</button></form></td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>Table 3 <form action="/tableBook" method="get"><button type="submit">Reserve</button></form></td>
-                                    <td>Table 4 <form action="/tableBook" method="get"><button type="submit">Reserve</button></form></td>
-                                </tr>
-                                <tr>
-                                    <td>Table 5 <form action="/tableBook" method="get"><button type="submit">Reserve</button></form></td>
-                                    <td>Table 6 <form action="/tableBook" method="get"><button type="submit">Reserve</button></form></td>
-                                </tr>
-                                <tr>
-                                    <td>Table 7 <form action="/tableBook" method="post"><button type="submit">Reserve</button></form></td>
-                                    <td>Table 8 <form action="/tableBook" method="post"><button type="submit">Reserve</button></form></td>
-                                </tr>
-                                <tr>
-                                    <td>Table 9 <form action="/tableBook" method="post"><button type="submit">Reserve</button></form></td>
-                                    <td>Table 10 <form action="/tableBook" method="post"><button type="submit">Reserve</button></form></td>
-                                </tr>
-                            </table>
+                        <div class="date-navigation">
+                            <button class="arrow-btn" id="prev-day">&larr;</button>
+                            <span class="current-date"><%= new Date().toLocaleDateString() %></span>
+                            <button class="arrow-btn" id="next-day">&rarr;</button>
                         </div>
+                        <div class="form-box" id="tablebook">
+                            <div class="scrollable-container">
 
+                                <% for (let hour = 8; hour <= 18; hour++) { %>
+                                    <% let displayHour = hour % 12 || 12; %>
+                                    <% let displayNextHour = (hour + 1) % 12 || 12; %>
+                                    <h3 class="time-heading"><%= displayHour %><%= hour < 12 ? 'AM' : 'PM' %> - <%= displayNextHour %><%= (hour + 1) < 12 ? 'AM' : 'PM' %></h3>
+                                    <table class="center-table">
+                                        <tr class="tablehead">
+                                            <th>Tables 1 - 5</th>
+                                            <th>Tables 5 - 10</th>
+                                        </tr>
+                                        <% for (let i = 1; i <= 10; i += 2) { %>
+                                            <tr>
+                                                <td>
+                                                    <div class="reserve-info" id >Table <%= i %></div>
+                                                    <form action="/tableBook" method="get"><button type="submit">Reserve</button></form>
+                                                </td>
+                                                <td>
+                                                    <div class="reserve-info">Table <%= i + 1 %></div>
+                                                    <form action="/tableBook" method="get"><button type="submit">Reserve</button></form>
+                                                </td>
+                                            </tr>
+                                        <% } %>
+                                        
+                                    </table>
+                                    <br>
+                                    <br>
+
+                                <% } %>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
-
             </main>
         </body>
     </section>
         <%- include ('../partials/footer') %>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const currentDate = new Date();
+            let displayedDate = new Date(currentDate);
+    
+            const prevDayButton = document.getElementById("prev-day");
+            const nextDayButton = document.getElementById("next-day");
+            const currentDateElement = document.querySelector(".current-date");
+    
+            function updateDisplayedDate() {
+            currentDateElement.textContent = displayedDate.toLocaleDateString();
+            }
+    
+            prevDayButton.addEventListener("click", function () {
+            displayedDate.setDate(displayedDate.getDate() - 1);
+            updateDisplayedDate();
+            });
+    
+            nextDayButton.addEventListener("click", function () {
+            displayedDate.setDate(displayedDate.getDate() + 1);
+            updateDisplayedDate();
+            });
+        });
+        </script>
+        
+    <style>
+        .time-heading {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    </style>

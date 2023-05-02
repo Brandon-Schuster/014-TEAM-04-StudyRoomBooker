@@ -313,12 +313,12 @@ app.post("/delete_user", (req,res) => {
  })
 
 app.get("/tableBook", (req, res) => {
-  const room_id = req.body.RoomId;
-  const result = `select * from bookings where RoomId = ${room_id};`;
-  db.any(result, [room_id])
-  .then(function(data) {
-    console.log(data);
-    if(data.BookingStatus == true){
+  // const room_id = req.body.RoomId;
+  // const result = `select * from bookings where RoomId = ${room_id};`;
+  // db.any(result, [room_id])
+  // .then(function(data) {
+  //   console.log(data);
+  //   if(data.BookingStatus == true){
       axios({
         url: `https://docs.google.com/forms/d/e/1FAIpQLSeFQu96i8thKDPh6chmpaRUTuFvAZkUBRhwTlhWmPOA0pC4iw/viewform`,
         method: 'GET',
@@ -343,17 +343,12 @@ app.get("/tableBook", (req, res) => {
           message: error.message,
         });
       });
-    }
-    else{
-      res.redirect('/cancelBooking');
-    }
+    // }
+    // else{
+    //   res.redirect('/cancelBooking');
+    // }
   })
-  .catch(error => {
-    res.render("pages/home",{
-      formid: req.body.formid,
-    });
-  });
-});
+
 
 
 app.post("/tableBook", (req, res) => {

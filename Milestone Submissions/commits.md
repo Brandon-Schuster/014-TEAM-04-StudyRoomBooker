@@ -15,3 +15,12 @@
 | James Gashi  | 1             | 9cf838f99a5e06f252ae886000f889bc595b8d71|
 | Jeremy       | 3             | f5b3c7e78cb97066f59fcb8fe24972317aa87594|
 | Daniel       |  >7           | 71e9f260567a26be7fc6b61f3b26032d42a59501|
+
+05.1.2023 - Meeting 4:
+| Name        | # of commits   | commit_id                               |
+|--------------|---------------|-----------------------------------------|
+| Noah Garrett |               | |
+| Brandon Schuster|            | 4214011d444d6bf5ca4efe57c604091e6c401d92|
+| James Gashi  |               | |
+| Jeremy       |               | |
+| Daniel       |               | |

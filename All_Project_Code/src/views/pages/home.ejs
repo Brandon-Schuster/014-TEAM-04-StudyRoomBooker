@@ -20,15 +20,15 @@
                                     <h3 class="time-heading"><%= displayHour %><%= hour < 12 ? 'AM' : 'PM' %> - <%= displayNextHour %><%= (hour + 1) < 12 ? 'AM' : 'PM' %></h3>
                                     <table class="center-table">
                                         <tr class="tablehead">
-                                            <th>Tables 1 - 5</th>
-                                            <th>Tables 5 - 10</th>
+                                            <th>Rooms B - E</th>
+                                            <th>Rooms F - J</th>
                                         </tr>
                                        <% let index = 0; %>
                                         <% if (reserve) {  
                                          reserve.forEach(function(r) { %>
                                             <tr>
                                                 <td>
-                                                    <div class="reserve-info" id >Table <%= r.roomname %></div>
+                                                    <div class="reserve-info" id ><br> <%= r.roomname %></div>
                                                     
                                                     <form action="/tableBook" method="GET">
                                                         <input type = "hidden" name ="bookingid" value ="booking<%=index%>"/>
@@ -40,7 +40,7 @@
                                                     </form>
                                                 </td>
                                                 <td>
-                                                    <div class="reserve-info">Table <%= r.roomname %></div>
+                                                    <div class="reserve-info"><br> <%= r.roomname %></div>
                                                     
                                                     <form action="/tableBook" method="GET">
                                                         <input type = "hidden" name ="bookingid" value = "booking<%=index%>"/>
@@ -56,7 +56,9 @@
                                                     </form>
                                                     
                                                 </td>
+                                                
                                             </tr>
+                                            <br>
                                             <%  }); %> 
                                         <% } %>
                                         <% } %>

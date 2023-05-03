@@ -456,10 +456,7 @@ app.get("/tableBook", async(req, res) => {
         console.log("No data found.");
       }
   
-      fs.writeFileSync("answers.json", JSON.stringify(responses), function (err, file) {
-        if (err) throw err;
-        console.log("Saved!");
-      });
+      
     } catch (error) {
       console.log(error);
       process.exit(1);

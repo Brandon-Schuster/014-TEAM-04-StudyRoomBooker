@@ -22,6 +22,15 @@ const dbConfig = {
   password: process.env.POSTGRES_PASSWORD,
 };
 
+const connection = pgp({
+  host: "db",
+  port: 5432,
+  user: process.env.POSTGRES_USER,
+  password: process.env.POSTGRES_PASSWORD,
+  database: process.env.POSTGRES_DB,
+});
+
+
 const db = pgp(dbConfig);
 
 // db test
@@ -398,58 +407,65 @@ app.get("/tableBook", async(req, res) => {
 
 
 
-app.post("/tableBook", (req, res) => {
-
-  res.redirect("/home");
-  const authClient = new google.auth.JWT(
-    credentials.client_email,
-    null,
-    credentials.private_key.replace(/\\n/g, "\n"),
-    ["https://www.googleapis.com/auth/spreadsheets"]
-  );
+  app.post("/tableBook", async (req, res) => {
+    res.redirect("/home");
+    const authClient = new google.auth.JWT(
+      credentials.client_email,
+      null,
+      credentials.private_key.replace(/\\n/g, "\n"),
+      ["https://www.googleapis.com/auth/spreadsheets"]
+    );
   
-  (async function () {
     try {
-        const token = await authClient.authorize();
-        authClient.setCredentials(token);
+      const token = await authClient.authorize();
+      authClient.setCredentials(token);
   
-        const res = await service.spreadsheets.values.get({
-            auth: authClient,
-            spreadsheetId: "1TwXIVkJpL0ezrFLh40nzxzB4KlyRVMEwiVzqUHYZ-K4",
-            range: "A:E",
-        });
+      const response = await service.spreadsheets.values.get({
+        auth: authClient,
+        spreadsheetId: "1TwXIVkJpL0ezrFLh40nzxzB4KlyRVMEwiVzqUHYZ-K4",
+        range: "A:E",
+      });
   
-        const responses = [];
-        const rows = res.data.values;
-        if (rows.length) {
-            rows.shift()
-            for (const row of rows) {
-                responses.push({ timeStamp: row[0], name: row[1], party_size: row[2], time: row[4], notes: row[3]});
-            }
-  
-        } else {
-            console.log("No data found.");  
+      const responses = [];
+      const rows = response.data.values;
+      if (rows.length) {
+        rows.shift();
+        for (const row of rows) {
+          const timeStamp = row[0];
+          const name = row[1];
+          const party_size = row[2];
+          const notes = row[3];
+          const time = row[4] || '00:00:00'; // Replace null value with '00:00:00'
+        
+          responses.push({ timeStamp, name, party_size, time, notes });
+        
+          // Insert the data into the database.
+          const insertQuery = `
+            INSERT INTO api_data (timeStamp, name, party_size, time, notes)
+            VALUES ($1, $2, $3, $4, $5);
+          `;
+        
+          // Use an array to hold the values corresponding to the placeholders in the query.
+          const values = [timeStamp, name, party_size, time, notes];
+        
+          // Execute the query and pass the values array.
+          await connection.none(insertQuery, values);
         }
+        
+      } else {
+        console.log("No data found.");
+      }
   
-        fs.writeFileSync("answers.json", JSON.stringify(responses), function (err, file) {
-            if (err) throw err;
-            console.log("Saved!");  
-        });   
+      fs.writeFileSync("answers.json", JSON.stringify(responses), function (err, file) {
+        if (err) throw err;
+        console.log("Saved!");
+      });
     } catch (error) {
-
-        console.log(error);
-        process.exit(1);
-  
+      console.log(error);
+      process.exit(1);
     }
-  })(); 
-});
-
-app.get("/logout", (req, res) => {
-  req.session.destroy();
-  res.render("pages/logout");
-});
-
-
+  });
+  
 
 
 

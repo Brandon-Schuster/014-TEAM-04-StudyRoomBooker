@@ -1,26 +1,21 @@
-<body style="background-color:rgb(50, 50, 50);">
-
 <%- include ('../partials/header') %>
-    <%- include ('../partials/menu') %>
+<%- include ('../partials/menu') %>
 
-        <main>
-                    <body>
-                        <section class="myform">
-                                <form-box class="goggle-form">
-                                    <form action="/tableBook" method="GET">
-                                        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeFQu96i8thKDPh6chmpaRUTuFvAZkUBRhwTlhWmPOA0pC4iw/viewform?embedded=true" width="640" height="687" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-                                    </form>
-                                    <form action="/tableBook" method="POST">
-                                        <button class="confirm" type="submit"><ion-icon name="checkmark-outline"></ion-icon></button>
-                                    </form>
-
-                                </form-box>
-
-                        </section>
-                        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-                        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-                    </body>
-        </main>
-
-        <%- include ('../partials/footer') %>
+<main>
+    <body>
+        <section class="myform">
+            <form-box class="goggle-form">
+                <form action="/tableBook" method="GET">
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeFQu96i8thKDPh6chmpaRUTuFvAZkUBRhwTlhWmPOA0pC4iw/viewform?embedded=true" width="640" height="687" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+                </form>
+                <form action="/tableBook" method="POST">
+                    <button class="confirm" type="submit"><ion-icon name="checkmark-outline"></ion-icon></button>
+                </form>
+            </form-box>
+        </section>
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     </body>
+</main>
+
+<%- include ('../partials/footer') %>

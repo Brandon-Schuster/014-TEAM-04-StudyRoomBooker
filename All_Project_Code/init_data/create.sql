@@ -26,8 +26,13 @@ CREATE TABLE bookings (
     -- booking status true = booked --
 );
 
--- DROP TABLE IF EXISTS student_rooms CASCADE;
--- CREATE TABLE student_rooms (
---     StudentID INT NOT NULL REFERENCES students(StudentID),
---     RoomId INT NOT NULL REFERENCES rooms(RoomId)
--- )
+DROP TABLE IF EXISTS api_data CASCADE;
+CREATE TABLE api_data (
+    id SERIAL PRIMARY KEY NOT NULL,
+    timeStamp TIMESTAMP,
+    name VARCHAR(60),
+    party_size INT,
+    time VARCHAR(60),
+    notes VARCHAR(255),
+    boolean status
+);

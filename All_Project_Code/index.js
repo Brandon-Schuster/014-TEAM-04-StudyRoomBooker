@@ -105,7 +105,7 @@ app.post('/login', async (req, res) => {
         user.studentid = data.studentid;
         req.session.user = user;
         req.session.save();
-        const query = `select * from bookings, rooms`;
+        // const query = `select * from bookings, rooms`;
         
         db.any(query)
         .then(function (results){

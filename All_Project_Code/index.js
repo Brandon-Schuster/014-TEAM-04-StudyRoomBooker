@@ -100,19 +100,20 @@ app.post('/login', async (req, res) => {
         req.session.save();
         // const query = `select * from bookings, rooms`;
         
-        db.any(query)
-        .then(function (results){
-          console.log('!!!!! RESERVE:', results)
-          res.render("pages/home", {
-            StudentID: req.session.user.studentid,
-            first_name: req.session.user.first_name,
-            last_name: req.session.user.last_name,
-            email: req.session.user.email,
-            reserve: results
-           // formid: req.body.formid,
-          
-          });
-        })
+        const query1 = `select * from tableid_to_booked;`;
+        db.any(query1)
+         .then(function (results){
+           console.log('!!!!! RESERVE:', results)
+           res.render("pages/home", {
+             StudentID: req.session.user.studentid,
+             first_name: req.session.user.first_name,
+             last_name: req.session.user.last_name,
+             email: req.session.user.email,
+             bookedinfo: results
+            // formid: req.body.formid,
+           
+           });
+         })
 
       } else {
 
@@ -214,20 +215,20 @@ app.use(auth);
 
 app.get("/", (req, res) => {
   
-  const query = `select * from bookings, rooms;`
-  db.one(query)
-  .then(function (results){
-    console.log('!!!!! RESERVE:', results)
-    res.render("pages/home", {
-      StudentID: req.session.user.studentid,
-      first_name: req.session.user.first_name,
-      last_name: req.session.user.last_name,
-      email: req.session.user.email,
-      reserve: results
-     // formid: req.body.formid,
-    
-    });
-  })
+  const query1 = `select * from tableid_to_booked;`;
+  db.any(query1)
+   .then(function (results){
+     console.log('!!!!! RESERVE:', results)
+     res.render("pages/home", {
+       StudentID: req.session.user.studentid,
+       first_name: req.session.user.first_name,
+       last_name: req.session.user.last_name,
+       email: req.session.user.email,
+       bookedinfo: results
+      // formid: req.body.formid,
+     
+     });
+   })
 });
 
 app.get("/profile", (req, res) => {
@@ -244,7 +245,7 @@ app.get("/profile", (req, res) => {
 
 app.get("/home", (req, res) => {
   //const query = `select * from rooms;`
-  const query1 = `select * from bookings,rooms;`;
+  const query1 = `select * from tableid_to_booked;`;
  db.any(query1)
   .then(function (results){
     console.log('!!!!! RESERVE:', results)
@@ -253,7 +254,7 @@ app.get("/home", (req, res) => {
       first_name: req.session.user.first_name,
       last_name: req.session.user.last_name,
       email: req.session.user.email,
-      reserve: results
+      bookedinfo: results
      // formid: req.body.formid,
     
     });

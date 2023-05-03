@@ -433,6 +433,27 @@ app.get("/tableBook", async(req, res) => {
         return null;
     }
   }
+
+  function numbertoTime(chosenTime) {
+    switch (chosenTime) {
+      case 1:
+        return "8AM-9AM";
+      case 2:
+        return "9AM-10AM";
+      case 3:
+        return "11AM-12PM";
+      case 4:
+        return "12PM-1PM";
+      case 5:
+        return "1PM-2PM";
+      case 6:
+        return "3PM-4PM";
+      case 7:
+        return "5PM-6PM";
+      default:
+        return null;
+    }
+  }
   
 
   app.post("/tableBook", async (req, res) => {

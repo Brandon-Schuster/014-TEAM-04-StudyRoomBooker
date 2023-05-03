@@ -22,8 +22,6 @@ const dbConfig = {
   password: process.env.POSTGRES_PASSWORD,
 };
 
-
-
 const db = pgp(dbConfig);
 
 // db test
@@ -98,22 +96,7 @@ app.post('/login', async (req, res) => {
         user.studentid = data.studentid;
         req.session.user = user;
         req.session.save();
-        // const query = `select * from bookings, rooms`;
-        
-        db.any(query)
-        .then(function (results){
-          console.log('!!!!! RESERVE:', results)
-          res.render("pages/home", {
-            StudentID: req.session.user.studentid,
-            first_name: req.session.user.first_name,
-            last_name: req.session.user.last_name,
-            email: req.session.user.email,
-            reserve: results
-           // formid: req.body.formid,
-          
-          });
-        })
-
+        res.redirect('/home')
       } else {
 
         res.render("pages/login", {
@@ -179,7 +162,8 @@ app.post('/register', async (req, res) => {
 
 
 app.post('/add_user', async function (req, res) {
-  const query = 'insert into students (StudentID, first_name, last_name, pwd, email) values ($1, $2, $3, $4, $5)  returning * ;';
+  const query =
+    'insert into students (StudentID, first_name, last_name, pwd, email) values ($1, $2, $3, $4, $5)  returning * ;';
   db.any(query, [
     req.body.StudentID,
     req.body.first_name,
@@ -213,21 +197,13 @@ const auth = (req, res, next) => {
 app.use(auth);
 
 app.get("/", (req, res) => {
+  res.render("pages/home", {
+    StudentID: req.session.user.studentid,
+    first_name: req.session.user.first_name,
+    last_name: req.session.user.last_name,
+    email: req.session.user.email,
   
-  const query = `select * from bookings, rooms;`
-  db.one(query)
-  .then(function (results){
-    console.log('!!!!! RESERVE:', results)
-    res.render("pages/home", {
-      StudentID: req.session.user.studentid,
-      first_name: req.session.user.first_name,
-      last_name: req.session.user.last_name,
-      email: req.session.user.email,
-      reserve: results
-     // formid: req.body.formid,
-    
-    });
-  })
+  });
 });
 
 app.get("/profile", (req, res) => {
@@ -242,21 +218,8 @@ app.get("/profile", (req, res) => {
 })
 
 app.get("/home", (req, res) => {
-  //const query = `select * from rooms;`
-  const query1 = `select * from bookings,rooms;`;
- db.any(query1)
-  .then(function (results){
-    console.log('!!!!! RESERVE:', results)
-    res.render("pages/home", {
-      StudentID: req.session.user.studentid,
-      first_name: req.session.user.first_name,
-      last_name: req.session.user.last_name,
-      email: req.session.user.email,
-      reserve: results
-     // formid: req.body.formid,
-    
-    });
-  })
+  const taken = req.query.taken;
+  res.render("pages/home")
   // Query to list all the courses taken by a student
 
   // db.any(taken ? student_courses : all_courses, [req.session.user.student_id])
@@ -279,11 +242,11 @@ app.post("/delete_user", (req,res) => {
   const theStudentID = req.session.user.studentid;
 //  console.log('the student id is',theStudentID);
  const query1 = `delete from students where StudentID = ${theStudentID};`
-// const query2 = `delete from student_tables where StudentID = ${theStudentID};`
+ const query2 = `delete from student_tables where StudentID = ${theStudentID};`
  
  
  db.task('get-everything', task => {
- return task.batch([task.any(query1)]);
+ return task.batch([task.any(query2),task.any(query1)]);
  })
  .then(() => {
    req.session.destroy();
@@ -345,119 +308,89 @@ app.post("/delete_user", (req,res) => {
    })
  })
 
-app.get("/tableBook", async(req, res) => {
-  console.log('gettablebookingcalled')
-// const tableid = req.query.tableid;
-// const RoomName = req.query.roomname;
-//const logme = req.
-
-//console.log(logme)
-
-
-//tableid
-
-  //const querytoaddrooms = `insert into rooms (RoomId, RoomCapacity, RoomName) values (${tableid},5,'${RoomName}') returning *;`;
-//  db.one(querytoaddrooms)
-//   //db.any(querytoaddrooms)
-//   .catch(error =>{
-//     console.log(error)
-//   })
-  // const room_id = req.body.RoomId;
-  // const result = `select * from bookings where RoomId = ${room_id};`;
-  // db.any(result, [room_id])
-  // .then(function(data) {
-  //   console.log(data);
-  //   if(data.BookingStatus == true){
-      axios({
-        url: `https://docs.google.com/forms/d/e/1FAIpQLSeFQu96i8thKDPh6chmpaRUTuFvAZkUBRhwTlhWmPOA0pC4iw/viewform`,
-        method: 'GET',
-        dataType: 'json',
-        headers: {
-          'Accept-Encoding': 'application/json',
-        },
-        params: {
-          apikey: process.env.API_KEY,
-          size: 1,
-        },
-      })
-      .then(results => {
-        //console.log(results.data); // the results will be displayed on the terminal if the docker containers are running // Send some parameters
-        res.render("pages/tableBook");
-      })
-      .catch(error => {
-        // Handle errors
-        res.render("pages/tableBook", {
-          results: [],
-          error: true,
-          message: error.message,
-        });
-      });
-    // }
-    // else{
-    //   res.redirect('/cancelBooking');
-    // }
+app.get("/tableBook", (req, res) => {
+  console.log('table book called')
+   res.render("pages/tableBook");
+  axios({
+    url: `https://docs.google.com/forms/d/e/1FAIpQLSeFQu96i8thKDPh6chmpaRUTuFvAZkUBRhwTlhWmPOA0pC4iw/viewform`,
+    method: 'GET',
+    dataType: 'json',
+    headers: {
+      'Accept-Encoding': 'application/json',
+    },
+    params: {
+      apikey: process.env.API_KEY,
+      size: 1,
+    },
   })
-
-
-
-  app.post("/tableBook", async (req, res) => {
-    res.redirect("/home");
-    const authClient = new google.auth.JWT(
-      credentials.client_email,
-      null,
-      credentials.private_key.replace(/\\n/g, "\n"),
-      ["https://www.googleapis.com/auth/spreadsheets"]
-    );
   
-    try {
-      const token = await authClient.authorize();
-      authClient.setCredentials(token);
-  
-      const response = await service.spreadsheets.values.get({
-        auth: authClient,
-        spreadsheetId: "1TwXIVkJpL0ezrFLh40nzxzB4KlyRVMEwiVzqUHYZ-K4",
-        range: "A:F",
-      });
-  
-      const responses = [];
-      const rows = response.data.values;
-      if (rows.length) {
-        rows.shift();
-        for (const row of rows) {
-          const timeStamp = row[0];
-          const chosenDate = row[5];
-          const chosenRoom = row[4];
-          const chosenTime = row[3];
-          const username = row[1];
-          const notes = row[2];
-
-          
-          responses.push({timeStamp, chosenDate, chosenRoom, chosenTime, username, notes});
-          console.log(timeStamp,chosenDate,chosenRoom,chosenTime,username,notes);
-          // Insert the data into the database.
-          const insertQuery = `
-            INSERT INTO bookings (timeStamp, chosenDate, chosenRoom, chosenTime, username, notes)
-            VALUES ($1, $2, $3, $4, $5, $6);
-          `;
-         
-          // Use an array to hold the values corresponding to the placeholders in the query.
-          const values = [timeStamp, chosenDate, chosenRoom, chosenTime,username, notes];
-        
-          // Execute the query and pass the values array.
-          await db.none(insertQuery, values);
-        }
-        
-      } else {
-        console.log("No data found.");
-      }
-  
-      
-    } catch (error) {
-      console.log(error);
-      process.exit(1);
-    }
+  .then(results => {
+    console.log(results.data); // the results will be displayed on the terminal if the docker containers are running // Send some parameters
+ //   res.render("pages/tableBook");
+  })
+  .catch(error => {
+    // Handle errors
+    res.render("pages/tableBook", {
+      results: [],
+      error: true,
+      message: error.message,
+    });
   });
+});
+
+
+app.post("/tableBook", (req, res) => {
+
+  res.redirect("/home");
+  const authClient = new google.auth.JWT(
+    credentials.client_email,
+    null,
+    credentials.private_key.replace(/\\n/g, "\n"),
+    ["https://www.googleapis.com/auth/spreadsheets"]
+  );
   
+  (async function () {
+    try {
+        const token = await authClient.authorize();
+        authClient.setCredentials(token);
+  
+        const res = await service.spreadsheets.values.get({
+            auth: authClient,
+            spreadsheetId: "1TwXIVkJpL0ezrFLh40nzxzB4KlyRVMEwiVzqUHYZ-K4",
+            range: "A:E",
+        });
+  
+        const responses = [];
+        const rows = res.data.values;
+        if (rows.length) {
+            rows.shift()
+            for (const row of rows) {
+                responses.push({ timeStamp: row[0], name: row[1], party_size: row[2], time: row[4], notes: row[3]});
+            }
+  
+        } else {
+            console.log("No data found.");  
+        }
+  
+        fs.writeFileSync("answers.json", JSON.stringify(responses), function (err, file) {
+            if (err) throw err;
+            console.log("Saved!");
+        });   
+    } catch (error) {
+
+        console.log(error);
+        process.exit(1);
+  
+    }
+  })(); 
+});
+
+app.get("/logout", (req, res) => {
+  req.session.destroy();
+  res.render("pages/logout");
+});
+
+
 
 
 

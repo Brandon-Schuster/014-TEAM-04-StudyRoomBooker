@@ -34,5 +34,5 @@ CREATE TABLE api_data (
     party_size INT,
     time VARCHAR(60),
     notes VARCHAR(255),
-    boolean status
+    status boolean
 );

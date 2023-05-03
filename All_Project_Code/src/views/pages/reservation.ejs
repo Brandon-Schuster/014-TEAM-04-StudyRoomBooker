@@ -3,22 +3,23 @@
 <main>
     <body>
         <section>
+            <h1>Current Reservations</h1>
             <table>
                 <thead>
                   <tr>
                     <th>ID</th>
-                    <th>Name</th>
+                    <th>Time</th>
                     <th>Room</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <% for (let i = 0; i < data.length; i++) { %>
-                    <tr>
-                      <td><%= data[i].chosenDate %></td>
-                      <td><%= data[i].chosenRoom %></td>
-                      <td><%= data[i].chosenTime %></td>
-                    </tr>
-                  <% } %>
+                    <% data.forEach((row) => { %>
+                        <tr>
+                          <td><%= row.username %></td>
+                          <td><%= row.chosenTime %></td>
+                          <td><%= row.chosenRoom %></td>
+                        </tr>
+                      <% }); %>
                 </tbody>
               </table>
         </section>

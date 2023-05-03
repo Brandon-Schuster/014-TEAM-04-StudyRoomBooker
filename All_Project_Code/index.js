@@ -244,15 +244,14 @@ app.get("/profile", (req, res) => {
  
 
 app.get("/reservation", (req, res) =>{
-  res.render("pages/reservation");
   let nStudentID = req.session.user.studentid;
  let Query = `SELECT * FROM bookings WHERE username = ${nStudentID};`;
  db.any(Query)
- .then(data =>{
-   res.render('pages/reservation', { data: results });
- })
+ .then((results) => {
+  res.render('pages/reservation', { data: results });
+})
  .catch((error) =>{
-   console.log("there is no account")
+   console.log("error")
  });
 
 })

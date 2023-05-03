@@ -508,6 +508,11 @@ app.get("/tableBook", async(req, res) => {
 
 // LEAVE THIS SHIT...please UwU
 
+app.get("/logout", (req, res) => {
+  req.session.destroy();
+  res.render("pages/logout");
+});
+
 
 module.exports = app.listen(3000);
 console.log("Server is listening on port 3000");

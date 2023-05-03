@@ -1,0 +1,30 @@
+<%- include ('../partials/header') %>
+    <%- include ('../partials/menu') %>
+<main>
+    <body>
+        <section>
+            <h1>Current Reservations</h1>
+            <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Time</th>
+                    <th>Room</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <% data.forEach((row) => { %>
+                        <tr>
+                          <td><%= row.username %></td>
+                          <td><%= row.chosenTime %></td>
+                          <td><%= row.chosenRoom %></td>
+                        </tr>
+                      <% }); %>
+                </tbody>
+              </table>
+        </section>
+    </body>
+</main>
+
+
+    <%- include ('../partials/footer') %>

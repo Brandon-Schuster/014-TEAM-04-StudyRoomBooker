@@ -13,6 +13,8 @@ const service = google.sheets("v4");
 const credentials = require("./credentials.json");
 const { error } = require("console");
 
+app.use(express.static('resources'))
+
 // db config
 const dbConfig = {
   host: "db",

@@ -398,7 +398,27 @@ app.get("/tableBook", async(req, res) => {
     // }
   })
 
-
+  function timeToNumber(chosenTime) {
+    switch (chosenTime) {
+      case "8AM-9AM":
+        return 1;
+      case "9AM-10AM":
+        return 2;
+      case "11AM-12PM":
+        return 3;
+      case "12PM-1PM":
+        return 4;
+      case "1PM-2PM":
+        return 5;
+      case "3PM-4PM":
+        return 6;
+      case "5PM-6PM":
+        return 7;
+      default:
+        return null;
+    }
+  }
+  
 
   app.post("/tableBook", async (req, res) => {
     res.redirect("/home");
@@ -426,14 +446,38 @@ app.get("/tableBook", async(req, res) => {
         for (const row of rows) {
           const timeStamp = row[0];
           const chosenDate = row[5];
-          const chosenRoom = row[4];
-          const chosenTime = row[3];
+          let chosenRoom = row[4];
+          let chosenTime = row[3];
           const username = row[1];
           const notes = row[2];
-
-          
+      
           responses.push({timeStamp, chosenDate, chosenRoom, chosenTime, username, notes});
-          console.log(timeStamp,chosenDate,chosenRoom,chosenTime,username,notes);
+      
+          if (chosenRoom && chosenRoom.length >= 4) {
+            console.log(chosenRoom[3]);
+      
+            if (chosenRoom[3] == 'B') {
+              chosenRoom = 1;
+            } else if (chosenRoom[3] == 'C') {
+              chosenRoom = 2;
+            } else if (chosenRoom[3] == 'D') {
+              chosenRoom = 3;
+            } else if (chosenRoom[3] == 'E') {
+              chosenRoom = 4;
+            } else if (chosenRoom[3] == 'F') {
+              chosenRoom = 5;
+            } else if (chosenRoom[3] == 'G') {
+              chosenRoom = 6;
+            } else if (chosenRoom[3] == 'H') { 
+              chosenRoom = 7;
+            } else if (chosenRoom[3] == 'J') {
+              chosenRoom = 8;
+            }
+          }
+      
+          chosenTime = timeToNumber(chosenTime);
+
+          console.log(timeStamp, chosenDate, chosenRoom, chosenTime, username, notes);
           // Insert the data into the database.
           const insertQuery = `
             INSERT INTO bookings (timeStamp, chosenDate, chosenRoom, chosenTime, username, notes)
@@ -441,7 +485,7 @@ app.get("/tableBook", async(req, res) => {
           `;
          
           // Use an array to hold the values corresponding to the placeholders in the query.
-          const values = [timeStamp, chosenDate, chosenRoom, chosenTime,username, notes];
+          const values = [timeStamp, chosenDate, chosenRoom, chosenTime, username, notes];
         
           // Execute the query and pass the values array.
           await db.none(insertQuery, values);
@@ -450,7 +494,7 @@ app.get("/tableBook", async(req, res) => {
       } else {
         console.log("No data found.");
       }
-  
+              
       
     } catch (error) {
       console.log(error);

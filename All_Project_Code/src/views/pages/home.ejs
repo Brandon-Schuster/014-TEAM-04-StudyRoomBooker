@@ -1,81 +1,70 @@
 <%- include ('../partials/header') %>
-    <%- include ('../partials/menu') %>
-    
-    <section id="homepage">
-        <body>
-            <main>
-                <div class="container">
-                    <div class="row">
-                        <div class="date-navigation">
-                            <button class="arrow-btn" id="prev-day">&larr;</button>
-                            <span class="current-date"><%= new Date().toLocaleDateString() %></span>
-                            <button class="arrow-btn" id="next-day">&rarr;</button>
-                        </div>
-                        <div class="form-box" id="tablebook">
-                            <div class="scrollable-container">
+<%- include ('../partials/menu') %>
 
-                                <% for (let hour = 8; hour <= 18; hour++) { %>
-                                    <% let displayHour = hour % 12 || 12; %>
-                                    <% let displayNextHour = (hour + 1) % 12 || 12; %>
-                                    <h3 class="time-heading"><%= displayHour %><%= hour < 12 ? 'AM' : 'PM' %> - <%= displayNextHour %><%= (hour + 1) < 12 ? 'AM' : 'PM' %></h3>
-                                    <table class="center-table">
-                                        <tr class="tablehead">
-                                            <th>Rooms B - E</th>
-                                            <th>Rooms F - J</th>
+<section id="homepage">
+    <body>
+        <main>
+            <div class="container">
+                <div class="row">
+                    <div class="date-navigation">
+                        <button class="arrow-btn" id="prev-day">&larr;</button>
+                        <span class="current-date"><%= new Date().toLocaleDateString() %></span>
+                        <button class="arrow-btn" id="next-day">&rarr;</button>
+                    </div>
+                    <div class="form-box" id="tablebook">
+                        <div class="scrollable-container">
+
+                            <% for (let hour = 8; hour <= 18; hour++) { %>
+                                <% let displayHour = hour % 12 || 12; %>
+                                <% let displayNextHour = (hour + 1) % 12 || 12; %>
+                                <% let index = 0; %> <!-- Add this line to define the index variable -->
+                                <h3 class="time-heading"><%= displayHour %><%= hour < 12 ? 'AM' : 'PM' %> - <%= displayNextHour %><%= (hour + 1) < 12 ? 'AM' : 'PM' %></h3>
+                                <table class="center-table">
+                                    <tr class="tablehead">
+                                        <th>Rooms B - E</th>
+                                        <th>Rooms F - J</th>
+                                    </tr>
+                                    <% for (let buttonIndex = 1; buttonIndex <= 4; buttonIndex++) { %>
+                                        <tr>
+                                            <td>
+                                                <div class="reserve-info"><br>Room <%= buttonIndex %></div>
+
+                                                <form action="/tableBook" method="GET">
+                                                    <input type="hidden" name="bookingid" value="booking<%= index %>" />
+                                                    <input type="hidden" id="tableid" name="tableid" value="<%= index %>" />
+                                                    <input type="hidden" name="roomname" value="Room <%= buttonIndex %>" />
+
+                                                    <button type="submit">Reserve</button>
+                                                    <% index++ %>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <div class="reserve-info"><br>Room <%= buttonIndex + 4 %></div>
+
+                                                <form action="/tableBook" method="GET">
+                                                    <input type="hidden" name="bookingid" value="booking<%= index %>" />
+                                                    <input type="hidden" id="tableid" name="tableid" value="<%= index %>" />
+                                                    <input type="hidden" name="roomname" value="Room <%= buttonIndex + 4 %>" />
+                                                    <% index++ %>
+
+                                                    <button type="submit">Reserve</button>
+                                                </form>
+                                            </td>
                                         </tr>
-                                       <% let index = 0; %>
-                                        <% if (reserve) {  
-                                         reserve.forEach(function(r) { %>
-                                            <tr>
-                                                <td>
-                                                    <div class="reserve-info" id ><br> <%= r.roomname %></div>
-                                                    
-                                                    <form action="/tableBook" method="GET">
-                                                        <input type = "hidden" name ="bookingid" value ="booking<%=index%>"/>
-                                                        <input type = "hidden"id ="tableid" name="tableid"  value="<%=r.roomid%>"/>
-                                                        <input type= "hidden" name="roomname" value="table<%=r.name%>"/>
-                                                
-                                                        <button type="submit">Reserve</button>
-                                                        <%  index++ %>
-                                                    </form>
-                                                </td>
-                                                <td>
-                                                    <div class="reserve-info"><br> <%= r.roomname %></div>
-                                                    
-                                                    <form action="/tableBook" method="GET">
-                                                        <input type = "hidden" name ="bookingid" value = "booking<%=index%>"/>
-                                                        <input type = "hidden" id = "tableid" name = "tableid" value="<%=r.roomid%>"/>
-                                                        <input type= "hidden" name ="roomname" value="table<%=r.name%>"/>
-                                                      <%  index++ %>
-                                                
-                                                        <% if(r.bookingstatus){ %>
-                                                            <button type="submit">Cancel</button>
-                                                        <% } else{ %>
-                                                            <button type="submit">Reserve</button>
-                                                        <% } %>
-                                                    </form>
-                                                    
-                                                </td>
-                                                
-                                            </tr>
-                                            <br>
-                                            <%  }); %> 
-                                        <% } %>
-                                        <% } %>
-                                        
-                                    </table>
-                                    <br>
-                                    <br>
+                                    <% } %> <!-- End of buttonIndex loop -->
+                                </table>
+                                <br>
+                                <br>
+                            <% } %> <!-- End of hour loop -->
 
-                              
-                            </div>
                         </div>
                     </div>
                 </div>
-            </main>
-        </body>
-    </section>
-        <%- include ('../partials/footer') %>
+            </div>
+        </main>
+    </body>
+</section>
+<%- include ('../partials/footer') %>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {

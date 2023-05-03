@@ -16,7 +16,7 @@ Create TABLE rooms (
 );
 
 
-DROP TABLE IF EXISTS api_data CASCADE;
+DROP TABLE IF EXISTS bookings CASCADE;
 CREATE TABLE api_data (
     id SERIAL PRIMARY KEY NOT NULL,
     timeStamp TIMESTAMP,

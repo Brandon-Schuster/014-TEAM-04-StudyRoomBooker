@@ -22,13 +22,6 @@ const dbConfig = {
   password: process.env.POSTGRES_PASSWORD,
 };
 
-const connection = pgp({
-  host: "db",
-  port: 5432,
-  user: process.env.POSTGRES_USER,
-  password: process.env.POSTGRES_PASSWORD,
-  database: process.env.POSTGRES_DB,
-});
 
 
 const db = pgp(dbConfig);
@@ -441,7 +434,7 @@ app.get("/tableBook", async(req, res) => {
         
           // Insert the data into the database.
           const insertQuery = `
-            INSERT INTO api_data (timeStamp, name, party_size, time, notes)
+            INSERT INTO bookings (timeStamp, name, party_size, time, notes)
             VALUES ($1, $2, $3, $4, $5);
           `;
         
@@ -449,7 +442,7 @@ app.get("/tableBook", async(req, res) => {
           const values = [timeStamp, name, party_size, time, notes];
         
           // Execute the query and pass the values array.
-          await connection.none(insertQuery, values);
+          await dbConfig.none(insertQuery, values);
         }
         
       } else {

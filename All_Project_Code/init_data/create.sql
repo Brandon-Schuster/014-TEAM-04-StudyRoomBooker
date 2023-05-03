@@ -17,12 +17,12 @@ Create TABLE rooms (
 
 
 DROP TABLE IF EXISTS bookings CASCADE;
-CREATE TABLE api_data (
+CREATE TABLE bookings (
     id SERIAL PRIMARY KEY NOT NULL,
     timeStamp TIMESTAMP,
-    name VARCHAR(60),
-    party_size INT,
-    time VARCHAR(60),
-    notes VARCHAR(255),
-    status boolean
+    chosenDate date NOT NULL,
+    room smallint NOT NULL,
+    chosenTime smallint NOT NULL, 
+    username INT NOT NULL,
+    notes VARCHAR(200)
 );

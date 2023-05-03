@@ -279,11 +279,11 @@ app.post("/delete_user", (req,res) => {
   const theStudentID = req.session.user.studentid;
 //  console.log('the student id is',theStudentID);
  const query1 = `delete from students where StudentID = ${theStudentID};`
- const query2 = `delete from student_tables where StudentID = ${theStudentID};`
+// const query2 = `delete from student_tables where StudentID = ${theStudentID};`
  
  
  db.task('get-everything', task => {
- return task.batch([task.any(query2),task.any(query1)]);
+ return task.batch([task.any(query1)]);
  })
  .then(() => {
    req.session.destroy();

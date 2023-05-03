@@ -21,7 +21,7 @@ CREATE TABLE bookings (
     id SERIAL PRIMARY KEY NOT NULL,
     timeStamp TIMESTAMP,
     chosenDate date NOT NULL,
-    room smallint NOT NULL,
+    chosenRoom smallint NOT NULL,
     chosenTime smallint NOT NULL, 
     username INT NOT NULL,
     notes VARCHAR(200)

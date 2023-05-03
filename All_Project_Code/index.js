@@ -13,6 +13,8 @@ const service = google.sheets("v4");
 const credentials = require("./credentials.json");
 const { error } = require("console");
 
+app.use(express.static('resources'))
+
 // db config
 const dbConfig = {
   host: "db",
@@ -542,6 +544,11 @@ app.get("/tableBook", async(req, res) => {
 
 
 // LEAVE THIS SHIT...please UwU
+
+app.get("/logout", (req, res) => {
+  req.session.destroy();
+  res.render("pages/logout");
+});
 
 
 module.exports = app.listen(3000);

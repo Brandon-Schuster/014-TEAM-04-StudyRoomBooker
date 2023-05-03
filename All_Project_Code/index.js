@@ -215,7 +215,26 @@ app.get("/profile", (req, res) => {
     email: req.session.user.email,
     
   });
+  let Query = `SELECT * FROM bookings WHERE username = ${StudentID};`;
+  db.any(Query)
+  .then(data =>{
+    
+  })
+  .catch((error) =>{
+
+  });
 })
+
+// app.post("/profile", (req, res) => {
+//   let Query = `SELECT * FROM bookings WHERE username = ${StudentID};`;
+//   db.any(Query)
+//   .then(data =>{
+
+//   })
+//   .catch((error) =>{
+
+//   });
+// })
 
 app.get("/home", (req, res) => {
   const taken = req.query.taken;

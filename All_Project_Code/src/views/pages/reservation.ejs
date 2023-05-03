@@ -1,0 +1,29 @@
+<%- include ('../partials/header') %>
+    <%- include ('../partials/menu') %>
+<main>
+    <body>
+        <section>
+            <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Room</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% for (let i = 0; i < data.length; i++) { %>
+                    <tr>
+                      <td><%= data[i].chosenDate %></td>
+                      <td><%= data[i].chosenRoom %></td>
+                      <td><%= data[i].chosenTime %></td>
+                    </tr>
+                  <% } %>
+                </tbody>
+              </table>
+        </section>
+    </body>
+</main>
+
+
+    <%- include ('../partials/footer') %>

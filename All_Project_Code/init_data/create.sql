@@ -20,9 +20,9 @@ DROP TABLE IF EXISTS bookings CASCADE;
 CREATE TABLE bookings (
     id SERIAL PRIMARY KEY NOT NULL,
     timeStamp TIMESTAMP,
-    chosenDate date NOT NULL,
-    chosenRoom smallint NOT NULL,
-    chosenTime smallint NOT NULL, 
-    username INT NOT NULL,
+    chosenDate date,
+    chosenRoom smallint,
+    chosenTime smallint, 
+    username INT,
     notes VARCHAR(200)
 );

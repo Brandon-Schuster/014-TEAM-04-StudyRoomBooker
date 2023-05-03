@@ -14,21 +14,13 @@ const credentials = require("./credentials.json");
 const { error } = require("console");
 
 // db config
-const dbConfig = pgp({
+const dbConfig = {
   host: "db",
   port: 5432,
   database: process.env.POSTGRES_DB,
   user: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
-});
-
-const connection = pgp({
-  host: "db",
-  port: 5432,
-  user: process.env.POSTGRES_USER,
-  password: process.env.POSTGRES_PASSWORD,
-  database: process.env.POSTGRES_DB,
-});
+};
 
 
 
@@ -433,25 +425,26 @@ app.get("/tableBook", async(req, res) => {
         rows.shift();
         for (const row of rows) {
           const timeStamp = row[0];
-          const chosenDate = row[1];
-          const chosenRoom = row[2];
+          const chosenDate = row[5];
+          const chosenRoom = row[4];
           const chosenTime = row[3];
-          const username = row[4]; 
-          const notes = row[5]; 
-        
-          responses.push({ timeStamp, chosenDate, chosenRoom, chosenTime, username, notes});
-        
+          const username = row[1];
+          const notes = row[2];
+
+          
+          responses.push({timeStamp, chosenDate, chosenRoom, chosenTime, username, notes});
+          console.log(timeStamp,chosenDate,chosenRoom,chosenTime,username,notes);
           // Insert the data into the database.
           const insertQuery = `
             INSERT INTO bookings (timeStamp, chosenDate, chosenRoom, chosenTime, username, notes)
-            VALUES ($1, $6, $5, $4, $2, $3);
+            VALUES ($1, $2, $3, $4, $5, $6);
           `;
-        
+         
           // Use an array to hold the values corresponding to the placeholders in the query.
-          const values = [timeStamp, chosenDate, chosenRoom, chosenTime, username,notes];
+          const values = [timeStamp, chosenDate, chosenRoom, chosenTime,username, notes];
         
           // Execute the query and pass the values array.
-          await connection.none(insertQuery, values);
+          await db.none(insertQuery, values);
         }
         
       } else {

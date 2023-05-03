@@ -34,17 +34,19 @@
                 <input type="text" name="newpassword"/>
                 <label for="newpassword">New Password</label>
               </div>
-              <div class="reservations">
-                <form action="/reservation" method="GET">
-                  <div class="col-auto">
-                    <button type="submit">View Reservations</button>
-                  </div>
-                </form>
-              </div>
-              <br>
+              
 
                   <button type ="submit">Update my password</button>
             </form>
+            <br>
+
+            <div class="reservations">
+              <form action="/reservation" method="GET">
+                <div class="col-auto">
+                  <button type="submit">View Reservations</button>
+                </div>
+              </form>
+            </div>
 
             <div class="delete">
               <form action = "/delete_user" method="POST">

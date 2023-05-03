@@ -416,7 +416,7 @@ app.get("/tableBook", async(req, res) => {
       const response = await service.spreadsheets.values.get({
         auth: authClient,
         spreadsheetId: "1TwXIVkJpL0ezrFLh40nzxzB4KlyRVMEwiVzqUHYZ-K4",
-        range: "A:E",
+        range: "A:F",
       });
   
       const responses = [];

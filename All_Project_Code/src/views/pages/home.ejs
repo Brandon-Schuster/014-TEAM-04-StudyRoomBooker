@@ -14,7 +14,7 @@
                     <div class="form-box4" id="tablebook">
                         <div class="scrollable-container">
                             <br>
-                            <% let index = 0; %> 
+                            <% let index = 1; %> 
                             <% for (let hour = 8; hour <= 17; hour++) { %>
                                 <% let displayHour = hour % 12 || 12; %>
                                 <% let displayNextHour = (hour + 1) % 12 || 12; %>
@@ -30,14 +30,36 @@
                                                 <div class="reserve-info"><br>Room <%= buttonIndex %></div>
                                                 <!-- Form for rooms B-E -->
                                                 <form action="/tableBook" method="GET">
-                                                    <button type="submit">Reserve</button>
+                                                    <!-- <button type="submit">Reserve</button> -->
+                                                    <input type= "hidden" name ="tableid" value="<%= index%>"/>
+                                                   
+                                                    <input type= "hidden" name ="isbooked" value= "<%- bookedinfo[index-1].bookedstatus%>"/>
+                                                    
+                                                    <% if(!bookedinfo[index-1].bookedstatus){ %>
+                                                        <button type="submit">Reserve</button>
+                                                    <% } else{ %>
+                                                        <button type="submit">Cancel</button>
+                                                    <% } %>
+                                                    <% index++ %> 
                                                 </form>
                                             </td>
                                             <td>
                                                 <div class="reserve-info"><br>Room <%= buttonIndex + 4 %></div>
                                                 <!-- Form for rooms F-J -->
                                                 <form action="/tableBook" method="GET">
-                                                    <button type="submit">Reserve</button>
+                                                    <input type= "hidden" name ="tableid" value="<%= index%>"/>
+                                                   
+                                                    <input type= "hidden" name ="isbooked" value= "<%- bookedinfo[index-1].bookedstatus%>"/>
+                                                  
+                                                    <% if(!bookedinfo[index-1].bookedstatus){ %>
+
+                                                        <button type="submit">Reserve</button>
+                                                    <% } else{ %>
+                                                        <button type="submit">Cancel</button>
+                                                    <% } %>
+                                                    <% index++ %> 
+                                                   
+
                                                 </form>
                                             </td>
                                         </tr>

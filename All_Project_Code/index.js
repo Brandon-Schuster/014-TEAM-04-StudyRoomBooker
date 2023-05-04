@@ -102,7 +102,7 @@ app.post('/login', async (req, res) => {
         req.session.save();
         // const query = `select * from bookings, rooms`;
         
-        const query1 = `select * from tableid_to_booked;`;
+        const query1 = `select * from tableid_to_booked ORDER BY tableid ASC;`;
         db.any(query1)
          .then(function (results){
            console.log('!!!!! RESERVE:', results)
@@ -217,7 +217,7 @@ app.use(auth);
 
 app.get("/", (req, res) => {
   
-  const query1 = `select * from tableid_to_booked;`;
+  const query1 = `select * from tableid_to_booked ORDER BY tableid ASC;`;
   db.any(query1)
    .then(function (results){
      console.log('!!!!! RESERVE:', results)
@@ -266,7 +266,7 @@ app.get("/reservation", (req, res) =>{
 
 app.get("/home", (req, res) => {
   //const query = `select * from rooms;`
-  const query1 = `select * from tableid_to_booked;`;
+  const query1 = `select * from tableid_to_booked ORDER BY tableid ASC;`;
  db.any(query1)
   .then(function (results){
     console.log('!!!!! RESERVE:', results)
@@ -316,8 +316,10 @@ app.post("/delete_user", (req,res) => {
    console.log(error);
  })
  });
+ var tableidl;
  app.post("/updatepassword", (req, res) => {
    const student_id = req.session.user.studentid;
+   tableidl = req.query.tableid;
   
    const query1 = `select * from students where StudentID = ${student_id}; `; 
    db.one(query1)
@@ -367,10 +369,13 @@ app.post("/delete_user", (req,res) => {
      console.log(error);
    })
  })
-
+var tableidl = 1;
 app.get("/tableBook", async(req, res) => {
   console.log('gettablebookingcalled')
-// const tableid = req.query.tableid;
+ console.log(req.query.tableid);
+ tableidl = req.query.tableid;
+
+
 // const RoomName = req.query.roomname;
 //const logme = req.
 
@@ -499,7 +504,39 @@ app.get("/tableBook", async(req, res) => {
   }
 
   app.post("/tableBook", async (req, res) => {
-    res.redirect("/home");
+
+    
+    console.log('in post request' ,tableidl);
+    const query1 = `update tableid_to_booked set bookedstatus = true where tableid = ${tableidl} returning * ;`;
+  
+    db.one(query1)
+    .then(function (results){
+      const query1 = `select * from tableid_to_booked ORDER BY tableid ASC;`;
+      db.any(query1)
+       .then(function (result){
+         console.log('!!!!! RESERVE:', result)
+         res.render("pages/home", {
+           StudentID: req.session.user.studentid,
+           first_name: req.session.user.first_name,
+           last_name: req.session.user.last_name,
+           email: req.session.user.email,
+           bookedinfo: result
+          // formid: req.body.formid,
+         
+         });
+       })
+    }).catch(error => {
+    // Handle errors
+    console.log(error);
+    res.render("pages/tableBook", {
+      results: [],
+      error: true,
+      message: error.message,
+    });
+  });
+
+  
+
     const authClient = new google.auth.JWT(
       credentials.client_email,
       null,
@@ -532,7 +569,7 @@ app.get("/tableBook", async(req, res) => {
           responses.push({timeStamp, chosenDate, chosenRoom, chosenTime, username, notes});
       
           if (chosenRoom && chosenRoom.length >= 4) {
-            console.log(chosenRoom[3]);
+         //   console.log(chosenRoom[3]);
       
             if (chosenRoom[3] == 'B') {
               chosenRoom = 1;
@@ -555,7 +592,7 @@ app.get("/tableBook", async(req, res) => {
       
           chosenTime = timeToNumber(chosenTime);
 
-          console.log(timeStamp, chosenDate, chosenRoom, chosenTime, username, notes);
+         // console.log(timeStamp, chosenDate, chosenRoom, chosenTime, username, notes);
           // Insert the data into the database.
           const insertQuery = `
             INSERT INTO bookings (timeStamp, chosenDate, chosenRoom, chosenTime, username, notes)

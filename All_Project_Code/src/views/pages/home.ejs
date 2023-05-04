@@ -13,13 +13,12 @@
                     </div>
                     <div class="form-box4" id="tablebook">
                         <div class="scrollable-container">
+                            <br>
                             <% let index = 0; %> 
-                            <% if (bookedinfo) {
-                                bookedinfo.forEach(function(ta) { %>
-                            <% for (let hour = 8; hour <= 18; hour++) { %>
+                            <% for (let hour = 8; hour <= 17; hour++) { %>
+                                <% index++ %>
                                 <% let displayHour = hour % 12 || 12; %>
                                 <% let displayNextHour = (hour + 1) % 12 || 12; %>
-                                <!-- Add this line to define the index variable -->
                                 <h3 class="time-heading"><%= displayHour %><%= hour < 12 ? 'AM' : 'PM' %> - <%= displayNextHour %><%= (hour + 1) < 12 ? 'AM' : 'PM' %></h3>
                                 <table class="center-table">
                                     <tr class="tablehead">
@@ -30,36 +29,31 @@
                                         <tr>
                                             <td>
                                                 <div class="reserve-info"><br>Room <%= buttonIndex %></div>
-
+                                                <!-- Form for rooms B-E -->
                                                 <form action="/tableBook" method="GET">
-                                                    <input type="hidden" name="bookingid" value="booking<%= index %>" />
-                                                    <input type="hidden" id="tableid" name="tableid" value="<%= index %>" />
-                                                    <input type="hidden" name="roomname" value="Room <%= buttonIndex %>" />
-                                                    <input type = "hidden" name = "TableID" class = "nav-link" value="<%- ta.TableID %>"/>
-                                                    <% if(ta.bookingstatus){ %>
-                                                        <button type="submit">Cancel</button>
-                                                    <% } else{ %>
+                                                    <!-- <button type="submit">Reserve</button> -->
+                                                    <input type= "hidden" name ="tableid" value="<%= index%>"/>
+                                                    <% if(!bookedinfo[index].bookedstatus){ %>
                                                         <button type="submit">Reserve</button>
+                                                    <% } else{ %>
+                                                        <button type="submit">Cancel</button>
                                                     <% } %>
-                                                   
-                                                    <% index++ %>
                                                 </form>
                                             </td>
                                             <td>
                                                 <div class="reserve-info"><br>Room <%= buttonIndex + 4 %></div>
                                                 <!-- Form for rooms F-J -->
                                                 <form action="/tableBook" method="GET">
-                                                    <input type="hidden" name="bookingid" value="booking<%= index %>" />
-                                                    <input type="hidden" id="tableid" name="tableid" value="<%= index %>" />
-                                                    <input type = "hidden" name = "TableID" class = "nav-link" value="<%- ta.TableID %>"/>
-                                                    <input type="hidden" name="roomname" value="Room <%= buttonIndex + 4 %>" />
-                                                    <% index++ %>
-                                                    <% if(ta.bookingstatus){ %>
-                                                        <button type="submit">Cancel</button>
-                                                    <% } else{ %>
-                                                        <button type="submit">Reserve</button>
-                                                    <% } %>
+                                                    
+                                                    <%index++ %>
+                                                    <input type= "hidden" name ="tableid" value="<%= index%>"/> 
+                                                    <input type= "hidden" name ="isbooked" value= "<%- bookedinfo[index].bookedstatus%>"/>
 
+                                                    <% if(!bookedinfo[index].bookedstatus){ %>
+                                                        <button type="submit">Reserve</button>
+                                                    <% } else{ %>
+                                                        <button type="submit">Cancel</button>
+                                                    <% } %>
                                                 </form>
                                             </td>
                                         </tr>
@@ -67,10 +61,7 @@
                                 </table>
                                 <br>
                                 <br>
-                                <%  }); %> 
                             <% } %> <!-- End of hour loop -->
-                            <%  }); %> 
-                            <% } %> <!--end of (reservetableid_to_booked) { -->            
                         </div>
                     </div>
                 </div>

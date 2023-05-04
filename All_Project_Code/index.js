@@ -106,12 +106,14 @@ app.post('/login', async (req, res) => {
         db.any(query1)
          .then(function (results){
            console.log('!!!!! RESERVE:', results)
+           console.log(results[1].bookedstatus);
            res.render("pages/home", {
              StudentID: req.session.user.studentid,
              first_name: req.session.user.first_name,
              last_name: req.session.user.last_name,
              email: req.session.user.email,
              bookedinfo: results
+            
             // formid: req.body.formid,
            
            });
@@ -460,14 +462,14 @@ app.get("/tableBook", async(req, res) => {
   
 
   app.post("/tableBook", async (req, res) => {
-    console.log('in post request' ,tableidl);
-    const query = `update tableid_to_booked set bookedstatus = true where tableid = ${tableidl};`;
-    db.one(query)
-    .then(function(data){
+    // console.log('in post request' ,tableidl);
+    // const query = `update tableid_to_booked set bookedstatus = true where tableid = ${tableidl} ;`;
+    // db.one(query)
+    // .then(() => {
       
-    }).catch(function(error){
-      console.log(error);
-    });
+    //   }).catch((error) =>{
+    //     console.log(error)
+    //   })
     const authClient = new google.auth.JWT(
       credentials.client_email,
       null,

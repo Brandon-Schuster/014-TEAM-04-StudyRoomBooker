@@ -1,30 +1,33 @@
 <%- include ('../partials/header') %>
-    <%- include ('../partials/menu') %>
+<%- include ('../partials/menu') %>
 <main>
     <body>
-        <section>
-            <h1>Current Reservations</h1>
-            <table>
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Time</th>
-                    <th>Room</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    <% data.forEach((row) => { %>
-                        <tr>
-                          <td><%= row.username %></td>
-                          <td><%= row.chosentime %></td>
-                          <td><%= row.chosenroom %></td>
-                        </tr>
-                      <% }); %>
-                </tbody>
-              </table>
+        <section class="reservations-section">
+            <h1 class="reservations-title">Current Reservations</h1>
+            <div class="form-box5">
+                <div class="scrollable-container">
+                    <table class="reservations-table">
+                        <thead>
+                          <tr>
+                            <th>ID</th>
+                            <th>Time</th>
+                            <th>Room</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <% data.forEach((row) => { %>
+                                <tr>
+                                  <td><%= row.username %></td>
+                                  <td><%= row.chosentime %></td>
+                                  <td><%= row.chosenroom %></td>
+                                  <div class="cancel-overlay">Cancel</div>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </section>
     </body>
 </main>
-
-
-    <%- include ('../partials/footer') %>
+<%- include ('../partials/footer') %>

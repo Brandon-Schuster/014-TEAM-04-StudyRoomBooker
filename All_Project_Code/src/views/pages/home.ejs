@@ -30,15 +30,12 @@
                                                 <div class="reserve-info"><br>Room <%= buttonIndex %></div>
                                                 <!-- Form for rooms B-E -->
                                                 <form action="/tableBook" method="GET">
-                                                    <!-- <button type="submit">Reserve</button> -->
                                                     <input type= "hidden" name ="tableid" value="<%= index%>"/>
-                                                   
                                                     <input type= "hidden" name ="isbooked" value= "<%- bookedinfo[index-1].bookedstatus%>"/>
-                                                    
                                                     <% if(!bookedinfo[index-1].bookedstatus){ %>
                                                         <button type="submit">Reserve</button>
                                                     <% } else{ %>
-                                                        <button type="submit">Cancel</button>
+                                                        <button type="button" class="reserve-btn" onclick="window.location.href='/reservation'">Cancel</button>
                                                     <% } %>
                                                     <% index++ %> 
                                                 </form>
@@ -48,24 +45,18 @@
                                                 <!-- Form for rooms F-J -->
                                                 <form action="/tableBook" method="GET">
                                                     <input type= "hidden" name ="tableid" value="<%= index%>"/>
-                                                   
                                                     <input type= "hidden" name ="isbooked" value= "<%- bookedinfo[index-1].bookedstatus%>"/>
-                                                  
                                                     <% if(!bookedinfo[index-1].bookedstatus){ %>
-
                                                         <button type="submit">Reserve</button>
                                                     <% } else{ %>
-                                                        <button type="submit">Cancel</button>
+                                                        <button type="button" class="reserve-btn" onclick="window.location.href='/reservation'">Cancel</button>
                                                     <% } %>
-                                                    <% index++ %> 
-                                                   
-
+                                                    <% index++ %>  
                                                 </form>
-                                            </td>
+                                            </td> 
                                         </tr>
                                     <% } %> <!-- End of buttonIndex loop -->
-                                </table>
-                                <br>
+                                </table>                                <br>
                                 <br>
                             <% } %> <!-- End of hour loop -->
                         </div>
@@ -101,4 +92,12 @@
         });
     });
 </script>
+<style>
+.reserve-btn {
+    background-color: green;
+}
 
+.reserve-btn:hover {
+    background-color: red;
+}
+</style>

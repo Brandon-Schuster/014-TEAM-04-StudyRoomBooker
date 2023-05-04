@@ -250,6 +250,12 @@ app.get("/reservation", (req, res) =>{
  let Query = `SELECT * FROM bookings WHERE username = ${nStudentID};`;
  db.any(Query)
  .then((results) => {
+  console.log(results[Object.keys(results)[Object.keys(results).length - 1]].chosentime);
+  for(let i = 0; i < Object.keys(results).length; i++){
+    results[Object.keys(results)[i]].chosentime = numbertoTime(results[Object.keys(results)[i]].chosentime);
+    results[Object.keys(results)[i]].chosenroom = numbertoRoom(results[Object.keys(results)[i]].chosenroom);
+  }
+  
   res.render('pages/reservation', { data: results });
 })
  .catch((error) =>{
@@ -421,16 +427,22 @@ app.get("/tableBook", async(req, res) => {
         return 1;
       case "9AM-10AM":
         return 2;
-      case "11AM-12PM":
+      case "10AM-11AM":
         return 3;
-      case "12PM-1PM":
+      case "11AM-12PM":
         return 4;
-      case "1PM-2PM":
+      case "12PM-1PM":
         return 5;
-      case "3PM-4PM":
+      case "1PM-2PM":
         return 6;
-      case "5PM-6PM":
+      case "2PM-3PM":
         return 7;
+      case "3PM-4PM":
+        return 8;
+      case "4PM-5PM":
+        return 9;
+      case "5PM-6PM":
+        return 10;
       default:
         return null;
     }
@@ -443,20 +455,48 @@ app.get("/tableBook", async(req, res) => {
       case 2:
         return "9AM-10AM";
       case 3:
-        return "11AM-12PM";
+        return "10AM-11AM";
       case 4:
-        return "12PM-1PM";
+        return "11AM-12PM";
       case 5:
-        return "1PM-2PM";
+        return "12PM-1PM";
       case 6:
-        return "3PM-4PM";
+        return "1PM-2PM";
       case 7:
+        return "2PM-3PM";
+      case 8:
+        return "3PM-4PM";
+      case 9:
+        return "4PM-5PM";
+      case 10:
         return "5PM-6PM";
       default:
         return null;
     }
   }
   
+  function numbertoRoom(chosenRoom) {
+    switch (chosenRoom) {
+      case 1:
+        return "114B";
+      case 2:
+        return "114C";
+      case 3:
+        return "114D";
+      case 4:
+        return "114E";
+      case 5:
+        return "114F";
+      case 6:
+        return "114G";
+      case 7:
+        return "114H";
+      case 8:
+        return "114J";
+      default:
+        return null;
+    }
+  }
 
   app.post("/tableBook", async (req, res) => {
     res.redirect("/home");

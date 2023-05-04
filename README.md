@@ -1,4 +1,5 @@
 
+
 # 3308-Group-Project Team-04
 
 Class: **3308 Software Dev Spring 2023**
@@ -25,18 +26,45 @@ Group Members:
 - **Jeremy Tang** - [jeta5277](https://github.com/jeta5277)
 
 Technology Stack: 
+1.  **Docker**: A platform for building, deploying, and running applications in containers, ensuring consistency across environments.
+    
+2.  **PostgreSQL**: An open-source, object-relational database system used for storing and managing application data.
+    
+3.  **Node.js**: A JavaScript runtime for building scalable network applications and web servers.
+    
+4.  **UI Tools - EJS, HTML, CSS, JavaScript**: Technologies used for creating dynamic, interactive, and responsive user interfaces.
+    
+5.  **External Google API**: Integration with Google APIs, such as Google Maps or Google Calendar, to provide additional functionality.
+    
+6.  **Mocha & Chai**: JavaScript test framework (Mocha) and assertion library (Chai) for writing and running tests.
+    
+7.  **GitHub**: A web-based platform for version control and collaboration built on Git.
+    
+8.  **Visual Studio Code**: A versatile code editor with features like syntax highlighting, code completion, debugging, and an integrated terminal.
+    
+9.  **Microsoft Azure & Ubuntu Server**: Public deployment of the application using Microsoft Azure cloud platform with an Ubuntu server.
 
-Prerequisites: **Docker**
+Prerequisites: **Docker, Node.JS, PostgreSQL, Google Forms API**
 
 Instructions:
 - 
 1. Clone Repo
-2. From Terminal, run "Docker-Compose up" (You are required to already have Docker installed on your machine)
-3. Navigate to a web browser and locate the service on "http://localhost:3000/"
+
+    `git clone git@github.com:Brandon-Schuster/014-TEAM-04-StudyRoomBooker.git`
+
+2. From Terminal, navigate your terminal to the directory /All_Project_Code/ & run *Docker-Compose up* to start the applicaiton (You are required to already have Docker installed on your machine)
+
+	 `cd .\014-TEAM-04-StudyRoomBooker\All_Project_Code\ && docker-compose up`
+ 
+3. Navigate to a web browser and locate the service on port 3000
+
+	`http://localhost:3000/`
 
 Tests
 -
-1.Run cmd "" in terminal
+4. In the docker-compose.yaml file, change the "command: " line from *npm start* to *npm run testandrun*. 
+
+	`command: 'npm run testandrun'`
 
 <!-- Brief Application description
 

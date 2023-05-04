@@ -17,7 +17,7 @@ Create TABLE rooms (
 
 DROP Table If EXISTS tableid_to_booked CASCADE;
 Create Table tableid_to_booked(
-    tableid SERIAL PRIMARY Key not NULL,
+    TableID SERIAL PRIMARY Key not NULL,
     bookedstatus boolean not NULL
     );
 

@@ -368,6 +368,7 @@ app.get("/tableBook", async(req, res) => {
   tableidl = req.query.tableid;
   console.log('gettablebookingcalled')
 // const tableid = req.query.tableid;
+
 // const RoomName = req.query.roomname;
 //const logme = req.
 
@@ -462,14 +463,16 @@ app.get("/tableBook", async(req, res) => {
   
 
   app.post("/tableBook", async (req, res) => {
-    // console.log('in post request' ,tableidl);
-    // const query = `update tableid_to_booked set bookedstatus = true where tableid = ${tableidl} ;`;
-    // db.one(query)
-    // .then(() => {
+    
+    console.log('in post request' ,tableidl);
+    const query = `update tableid_to_booked set bookedstatus = true where tableid = ${tableidl} ;`;
+    res.redirect("/home");
+    db.one(query)
+    .then(() => {
       
-    //   }).catch((error) =>{
-    //     console.log(error)
-    //   })
+      }).catch((error) =>{
+        console.log(error)
+      })
     const authClient = new google.auth.JWT(
       credentials.client_email,
       null,

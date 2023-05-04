@@ -33,6 +33,7 @@
                                                 <form action="/tableBook" method="GET">
                                                     <!-- <button type="submit">Reserve</button> -->
                                                     <input type= "hidden" name ="tableid" value="<%= index%>"/>
+                                                    <input type= "hidden" name ="isbooked" value= "<%- bookedinfo[index].bookedstatus%>"/>
                                                     <% if(!bookedinfo[index].bookedstatus){ %>
                                                         <button type="submit">Reserve</button>
                                                     <% } else{ %>

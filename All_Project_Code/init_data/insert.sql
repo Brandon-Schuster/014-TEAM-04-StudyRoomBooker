@@ -89,12 +89,5 @@ INSERT INTO tableid_to_booked(bookedstatus) VALUES('FALSE');
 INSERT INTO tableid_to_booked(bookedstatus) VALUES('FALSE');
 INSERT INTO tableid_to_booked(bookedstatus) VALUES('FALSE');
 INSERT INTO tableid_to_booked(bookedstatus) VALUES('FALSE');
-INSERT INTO tableid_to_booked(bookedstatus) VALUES('FALSE');
-INSERT INTO tableid_to_booked(bookedstatus) VALUES('FALSE');
-INSERT INTO tableid_to_booked(bookedstatus) VALUES('FALSE');
-INSERT INTO tableid_to_booked(bookedstatus) VALUES('FALSE');
-INSERT INTO tableid_to_booked(bookedstatus) VALUES('FALSE');
-INSERT INTO tableid_to_booked(bookedstatus) VALUES('FALSE');
-INSERT INTO tableid_to_booked(bookedstatus) VALUES('FALSE');
-INSERT INTO tableid_to_booked(bookedstatus) VALUES('FALSE');
+
 

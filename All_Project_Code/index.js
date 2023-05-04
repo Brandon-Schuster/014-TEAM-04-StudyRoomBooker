@@ -13,6 +13,8 @@ const service = google.sheets("v4");
 const credentials = require("./credentials.json");
 const { error } = require("console");
 
+app.use(express.static('resources'))
+
 // db config
 const dbConfig = {
   host: "db",
@@ -238,8 +240,22 @@ app.get("/profile", (req, res) => {
     first_name: req.session.user.first_name,
     last_name: req.session.user.last_name,
     email: req.session.user.email,
-    
+   
   });
+ })
+ 
+
+app.get("/reservation", (req, res) =>{
+  let nStudentID = req.session.user.studentid;
+ let Query = `SELECT * FROM bookings WHERE username = ${nStudentID};`;
+ db.any(Query)
+ .then((results) => {
+  res.render('pages/reservation', { data: results });
+})
+ .catch((error) =>{
+   console.log("error")
+ });
+
 })
 
 app.get("/home", (req, res) => {
@@ -420,6 +436,27 @@ app.get("/tableBook", async(req, res) => {
         return null;
     }
   }
+
+  function numbertoTime(chosenTime) {
+    switch (chosenTime) {
+      case 1:
+        return "8AM-9AM";
+      case 2:
+        return "9AM-10AM";
+      case 3:
+        return "11AM-12PM";
+      case 4:
+        return "12PM-1PM";
+      case 5:
+        return "1PM-2PM";
+      case 6:
+        return "3PM-4PM";
+      case 7:
+        return "5PM-6PM";
+      default:
+        return null;
+    }
+  }
   
 
   app.post("/tableBook", async (req, res) => {
@@ -515,6 +552,11 @@ app.get("/tableBook", async(req, res) => {
 
 
 // LEAVE THIS SHIT...please UwU
+
+app.get("/logout", (req, res) => {
+  req.session.destroy();
+  res.render("pages/logout");
+});
 
 
 module.exports = app.listen(3000);

@@ -11,17 +11,14 @@
                         <span class="current-date"><%= new Date().toLocaleDateString() %></span>
                         <button class="arrow-btn" id="next-day">&rarr;</button>
                     </div>
-                    <div class="form-box" id="tablebook">
+                    <div class="form-box4" id="tablebook">
                         <div class="scrollable-container">
-                           
-                           
-                          
+                            <% let index = 0; %> 
+                            <% if (bookedinfo) {
+                                bookedinfo.forEach(function(ta) { %>
                             <% for (let hour = 8; hour <= 18; hour++) { %>
                                 <% let displayHour = hour % 12 || 12; %>
                                 <% let displayNextHour = (hour + 1) % 12 || 12; %>
-                                <% if (bookedinfo) {
-                                    bookedinfo.forEach(function(ta) { %>
-                               
                                 <!-- Add this line to define the index variable -->
                                 <h3 class="time-heading"><%= displayHour %><%= hour < 12 ? 'AM' : 'PM' %> - <%= displayNextHour %><%= (hour + 1) < 12 ? 'AM' : 'PM' %></h3>
                                 <table class="center-table">
@@ -33,28 +30,30 @@
                                         <tr>
                                             <td>
                                                 <div class="reserve-info"><br>Room <%= buttonIndex %></div>
-                                                
 
                                                 <form action="/tableBook" method="GET">
+                                                    <input type="hidden" name="bookingid" value="booking<%= index %>" />
+                                                    <input type="hidden" id="tableid" name="tableid" value="<%= index %>" />
                                                     <input type="hidden" name="roomname" value="Room <%= buttonIndex %>" />
-                                                    <input type = "hidden" name = "tableid" class = "nav-link" value="<%- ta.tableid %>"/>
+                                                    <input type = "hidden" name = "TableID" class = "nav-link" value="<%- ta.TableID %>"/>
                                                     <% if(ta.bookingstatus){ %>
                                                         <button type="submit">Cancel</button>
                                                     <% } else{ %>
                                                         <button type="submit">Reserve</button>
                                                     <% } %>
                                                    
-                                                
+                                                    <% index++ %>
                                                 </form>
                                             </td>
                                             <td>
                                                 <div class="reserve-info"><br>Room <%= buttonIndex + 4 %></div>
-
+                                                <!-- Form for rooms F-J -->
                                                 <form action="/tableBook" method="GET">
-                                            
-                                                    <input type = "hidden" name = "tableid" class = "nav-link" value="<%- ta.tableid %>"/>
+                                                    <input type="hidden" name="bookingid" value="booking<%= index %>" />
+                                                    <input type="hidden" id="tableid" name="tableid" value="<%= index %>" />
+                                                    <input type = "hidden" name = "TableID" class = "nav-link" value="<%- ta.TableID %>"/>
                                                     <input type="hidden" name="roomname" value="Room <%= buttonIndex + 4 %>" />
-                                                  
+                                                    <% index++ %>
                                                     <% if(ta.bookingstatus){ %>
                                                         <button type="submit">Cancel</button>
                                                     <% } else{ %>
@@ -70,7 +69,7 @@
                                 <br>
                                 <%  }); %> 
                             <% } %> <!-- End of hour loop -->
-                            
+                            <%  }); %> 
                             <% } %> <!--end of (reservetableid_to_booked) { -->            
                         </div>
                     </div>
@@ -81,34 +80,28 @@
 </section>
 <%- include ('../partials/footer') %>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const currentDate = new Date();
-            let displayedDate = new Date(currentDate);
-    
-            const prevDayButton = document.getElementById("prev-day");
-            const nextDayButton = document.getElementById("next-day");
-            const currentDateElement = document.querySelector(".current-date");
-    
-            function updateDisplayedDate() {
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const currentDate = new Date();
+        let displayedDate = new Date(currentDate);
+
+        const prevDayButton = document.getElementById("prev-day");
+        const nextDayButton = document.getElementById("next-day");
+        const currentDateElement = document.querySelector(".current-date");
+
+        function updateDisplayedDate() {
             currentDateElement.textContent = displayedDate.toLocaleDateString();
-            }
-    
-            prevDayButton.addEventListener("click", function () {
+        }
+
+        prevDayButton.addEventListener("click", function () {
             displayedDate.setDate(displayedDate.getDate() - 1);
             updateDisplayedDate();
-            });
-    
-            nextDayButton.addEventListener("click", function () {
+        });
+
+        nextDayButton.addEventListener("click", function () {
             displayedDate.setDate(displayedDate.getDate() + 1);
             updateDisplayedDate();
-            });
         });
-        </script>
-        
-    <style>
-        .time-heading {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-    </style>
+    });
+</script>
+
